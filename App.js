@@ -4,6 +4,8 @@ import auth from '@react-native-firebase/auth';
 import {useState, useEffect} from 'react';
 
 import AppNavigator from './navigation/AppNavigator';
+import LanguageKey from './components/LanguageKey';
+import './utils/locale'
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -22,7 +24,12 @@ const App = () => {
 
   if (initializing) return null;
 
-  return <AppNavigator />;
+  return (
+  <>
+      <AppNavigator />
+      <LanguageKey />
+  </>
+    );
 };
 
 const styles = StyleSheet.create({});

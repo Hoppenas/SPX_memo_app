@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
-import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import { useTranslation } from 'react-i18next';
 
 const RegistrationScreen = props => {
-  const [email, setEmail] = useState('');
+  const [ email, setEmail ] = useState('');
   const [password, setPassword] = useState('');
+  
+  const {t} = useTranslation();
 
   const createUser = () => {
     auth()
@@ -18,11 +21,11 @@ const RegistrationScreen = props => {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
+          console.log({t('registration:erorEmailAlreadyInUse')});
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          console.log({t('registration:erorEmailInvalid')});
         }
 
         console.error(error);
@@ -32,25 +35,25 @@ const RegistrationScreen = props => {
   return (
     <View style={styles.screen}>
       <TextInput
-        placeholder="Email"
+        placeholder={t('registration:placeholderEmail')}
         onChangeText={setEmail}
         value={email}
         style={styles.textInput}
       />
       <TextInput
-        placeholder="password"
+        placeholder={t('registration:placeholderPassword')}
         onChangeText={setPassword}
         value={password}
         style={styles.textInput}
         secureTextEntry={true}
       />
-      <Button title="Create user" onPress={createUser} />
+      <Button title={t('registration:placeholderPassword')} onPress={createUser} />
       <Text
         style={styles.text}
         onPress={() => {
           props.navigation.navigate({routeName: 'Login'});
         }}>
-        Log in
+        {t('registration:buttonLogin')}
       </Text>
     </View>
   );

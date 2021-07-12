@@ -1,14 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import theme from '../styles/theme.style';
 
 const LandingScreen = props => {
+    
+    const { t } = useTranslation();
+    
     return (
         <View style={styles.screen}>
             <Text>Landing Screen</Text>
-            <Button title='Log in' onPress={() => {props.navigation.navigate({routeName: 'Login'})}} />
-            <Button title='Register' onPress={() => {props.navigation.navigate({routeName: 'Registration'})}} />
+            <Button title={t('landing:buttonLogin')} onPress={() => {props.navigation.navigate({routeName: 'Login'})}} />
+            <Button title={t('landing:buttonRegister')} onPress={() => {props.navigation.navigate({routeName: 'Registration'})}} />
         </View>
     );
 }

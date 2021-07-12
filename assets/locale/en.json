@@ -1,5 +1,33 @@
 {
     "login": {
         "title": "Log in",
-    }
+        "useSignedIn": "User signed in!",
+        "erorEmailAlreadyInUse": "That email address is already in use!",
+        "erorEmailInvalid": "That email address is invalid!",
+        "placeholderEmail": "Email",
+        "placeholderPassword": "password",
+        "forgotPassword": "Forgot password",
+    },
+    "registration": {
+        "erorEmailAlreadyInUse": "That email address is already in use!",
+        "erorEmailInvalid": "That email address is invalid!",
+        "placeholderEmail": "Email",
+        "placeholderPassword": "password",
+        "buttonCreateUser": "Create user",
+        "forgotPassword": "Forgot password",
+        "buttonLogin": "Log in",
+    },
+    "landing": {
+        "buttonLogin": "Log in",
+        "buttonRegister": "Register",
+    },
+    "homeScreen": {
+        "userSignedOut": "User signed out!",
+        "title": "Home Screen",
+        "buttonLogout": "Log out",
+    },
+    "forgotPassword": {
+        "title": "Forgot password",
+        "button": "Reset Password",
+    },
 }
