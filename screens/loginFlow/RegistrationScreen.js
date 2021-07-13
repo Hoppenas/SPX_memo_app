@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setEmail } from '../../store/actions/userInfo';
 
 const RegistrationScreen = props => {
   const [ email, setEmail ] = useState('');
@@ -15,6 +18,9 @@ const RegistrationScreen = props => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
+      })
+      .then(() => {
+        changeEmail()
       })
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
@@ -31,6 +37,12 @@ const RegistrationScreen = props => {
         console.error(error);
       });
   };
+
+  const dispatch = useDispatch();
+
+  const changeEmail = () => {
+    dispatch(setEmail(email))
+  }
 
   return (
     <View style={styles.screen}>

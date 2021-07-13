@@ -2,10 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
-
+import { useSelector } from 'react-redux';
 const HomeScreen = props => {
       
   const { t } = useTranslation();
+  const email = useSelector(state => state.email)
 
   const logOut = () => {
     auth()
@@ -18,6 +19,7 @@ const HomeScreen = props => {
   return (
     <View style={styles.screen}>
       <Text>{t('homeScreen:title')}</Text>
+      <Text>{email}</Text>
       <Button title={t('homeScreen:buttonLogout')} onPress={logOut} />
     </View>
   );
