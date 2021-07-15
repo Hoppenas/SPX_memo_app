@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import theme from '../styles/theme.style';
+import theme from '../../styles/theme';
 
 const LandingScreen = props => {
     

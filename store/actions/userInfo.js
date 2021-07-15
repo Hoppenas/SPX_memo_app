@@ -1,5 +1,5 @@
 export const SET_EMAIL = 'SET_EMAIL';
 
-export const setEmail = (email) => {
-    return { type: SET_EMAIL, userEmail: email }
+export const setEmail = (payload) => {
+    return { type: SET_EMAIL, payload }
 }

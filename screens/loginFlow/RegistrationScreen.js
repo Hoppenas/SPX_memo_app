@@ -27,11 +27,11 @@ const RegistrationScreen = props => {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log({t('registration:erorEmailAlreadyInUse')});
+          console.log(t('registration:erorEmailAlreadyInUse'));
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log({t('registration:erorEmailInvalid')});
+          console.log(t('registration:erorEmailInvalid'));
         }
 
         console.error(error);
@@ -40,9 +40,9 @@ const RegistrationScreen = props => {
 
   const dispatch = useDispatch();
 
-  const changeEmail = () => {
-    dispatch(setEmail(email))
-  }
+  // const changeEmail = () => {
+  //   dispatch(setEmail(email))
+  // }
 
   return (
     <View style={styles.screen}>

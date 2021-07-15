@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux';
 const HomeScreen = props => {
       
   const { t } = useTranslation();
-  const email = useSelector(state => state.email)
+  // const email = useSelector(state => state.email)
 
   const logOut = () => {
     auth()
       .signOut()
-      .then(() => console.log({t('homeScreen:userSignedOut')}))
+      .then(() => console.log(t('homeScreen:userSignedOut')))
       .then(() => {
         props.navigation.navigate({routeName: 'Landing'});
       });

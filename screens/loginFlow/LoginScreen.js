@@ -14,18 +14,18 @@ const LoginScreen = props => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        console.log({t('login:useSignedIn')});
+        console.log(t('login:useSignedIn'));
       })
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log({t('login:erorEmailAlreadyInUse')});
+          console.log(t('login:erorEmailAlreadyInUse'));
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log({t('login:erorEmailInvalid')});
+          console.log(t('login:erorEmailInvalid'));
         }
 
         console.error(error);
