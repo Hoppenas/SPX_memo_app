@@ -1,21 +1,23 @@
 import React from 'react';
-import { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import {useState} from 'react';
+import {View, Text, StyleSheet, Button, TextInput} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import {useDispatch} from 'react-redux';
+import {actions} from '../../state/actions';
 
 const LoginScreen = props => {
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const {t} = useTranslation();
+  const dispatch = useDispatch();
 
   const signIn = () => {
+    dispatch(actions.ui.setLoading(true));
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log(t('login:useSignedIn'));
-      })
+      .then(() => dispatch(actions.ui.setLoading(false)))
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
       })
@@ -32,31 +34,35 @@ const LoginScreen = props => {
       });
   };
 
-    return (
-      <View style={styles.container}>
-        <TextInput
-          placeholder={t('login:placeholderEmail')}
-          onChangeText={setEmail}
-          value={email}
-          style={styles.textInput}
-        />
-        <TextInput
-          placeholder={t('login:placeholderPassword')}
-          onChangeText={setPassword}
-          value={password}
-          style={styles.textInput}
-          secureTextEntry={true}
-        />
-        <Button style={styles.button} title={t('login:title')} onPress={() => signIn()} />
-        <Text
-          style={styles.text}
-          onPress={() => {
-            props.navigation.navigate({routeName: 'ForgotPassword'});
-          }}>
-          {t('login:forgotPassword')}
-        </Text>
-      </View>
-    );
+  return (
+    <View style={styles.container}>
+      <TextInput
+        placeholder={t('login:placeholderEmail')}
+        onChangeText={setEmail}
+        value={email}
+        style={styles.textInput}
+      />
+      <TextInput
+        placeholder={t('login:placeholderPassword')}
+        onChangeText={setPassword}
+        value={password}
+        style={styles.textInput}
+        secureTextEntry={true}
+      />
+      <Button
+        style={styles.button}
+        title={t('login:title')}
+        onPress={() => signIn()}
+      />
+      <Text
+        style={styles.text}
+        onPress={() => {
+          props.navigation.navigate({routeName: 'ForgotPassword'});
+        }}>
+        {t('login:forgotPassword')}
+      </Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

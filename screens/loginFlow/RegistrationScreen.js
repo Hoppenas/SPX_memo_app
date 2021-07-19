@@ -1,31 +1,34 @@
 import React from 'react';
-import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import {useState} from 'react';
+import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import {useTranslation} from 'react-i18next';
+import {useDispatch} from 'react-redux';
+import {actions} from '../../state/actions';
 
-import { setEmail } from '../../store/actions/userInfo';
+import {setEmail} from '../../store/actions/userInfo';
 
 const RegistrationScreen = props => {
-  const [ email, setEmail ] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const {t} = useTranslation();
+  const dispatch = useDispatch();
 
   const createUser = () => {
+    dispatch(actions.ui.setLoading(true));
     auth()
       .createUserWithEmailAndPassword(email, password)
+      .then(() => dispatch({type: 'ui/SET_LOADING', payload: false}))
       .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .then(() => {
-        changeEmail()
+        changeEmail();
       })
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
       })
       .catch(error => {
+        dispatch(actions.ui.setLoading(false));
+
         if (error.code === 'auth/email-already-in-use') {
           console.log(t('registration:erorEmailAlreadyInUse'));
         }
@@ -37,12 +40,6 @@ const RegistrationScreen = props => {
         console.error(error);
       });
   };
-
-  const dispatch = useDispatch();
-
-  // const changeEmail = () => {
-  //   dispatch(setEmail(email))
-  // }
 
   return (
     <View style={styles.screen}>
@@ -59,7 +56,10 @@ const RegistrationScreen = props => {
         style={styles.textInput}
         secureTextEntry={true}
       />
-      <Button title={t('registration:placeholderPassword')} onPress={createUser} />
+      <Button
+        title={t('registration:placeholderPassword')}
+        onPress={createUser}
+      />
       <Text
         style={styles.text}
         onPress={() => {

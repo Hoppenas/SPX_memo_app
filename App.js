@@ -1,20 +1,13 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { useState, useEffect } from 'react';
-import { createStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
+import {useState, useEffect} from 'react';
+import {Provider, useSelector, useDispatch} from 'react-redux';
 
 import AppNavigator from './navigation/AppNavigator';
 import LanguageKey from './components/LanguageKey';
 import './utils/locale';
-import authReducer from './store/reducers/authReducer';
-
-const rootReducer = combineReducers({
-  userEmail: authReducer
-})
-
-const store = createStore(rootReducer);
+import {store} from './state/store';
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -34,11 +27,11 @@ const App = () => {
   if (initializing) return null;
 
   return (
-  <Provider store={store}>
+    <Provider store={store}>
       <AppNavigator />
       <LanguageKey />
-  </Provider>
-    );
+    </Provider>
+  );
 };
 
 const styles = StyleSheet.create({});
