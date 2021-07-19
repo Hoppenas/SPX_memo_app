@@ -1,12 +1,17 @@
 import React from 'react';
 import {useState} from 'react';
-import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {actions} from '../../state/actions';
-
-import {setEmail} from '../../store/actions/userInfo';
 
 const RegistrationScreen = props => {
   const [email, setEmail] = useState('');
@@ -14,6 +19,8 @@ const RegistrationScreen = props => {
 
   const {t} = useTranslation();
   const dispatch = useDispatch();
+
+  const {isLoading} = useSelector(state => state.ui);
 
   const createUser = () => {
     dispatch(actions.ui.setLoading(true));
@@ -26,6 +33,8 @@ const RegistrationScreen = props => {
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
       })
+      .then(setEmail(''))
+      .then(setPassword(''))
       .catch(error => {
         dispatch(actions.ui.setLoading(false));
 
@@ -43,30 +52,36 @@ const RegistrationScreen = props => {
 
   return (
     <View style={styles.screen}>
-      <TextInput
-        placeholder={t('registration:placeholderEmail')}
-        onChangeText={setEmail}
-        value={email}
-        style={styles.textInput}
-      />
-      <TextInput
-        placeholder={t('registration:placeholderPassword')}
-        onChangeText={setPassword}
-        value={password}
-        style={styles.textInput}
-        secureTextEntry={true}
-      />
-      <Button
-        title={t('registration:placeholderPassword')}
-        onPress={createUser}
-      />
-      <Text
-        style={styles.text}
-        onPress={() => {
-          props.navigation.navigate({routeName: 'Login'});
-        }}>
-        {t('registration:buttonLogin')}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <>
+          <TextInput
+            placeholder={t('registration:placeholderEmail')}
+            onChangeText={setEmail}
+            value={email}
+            style={styles.textInput}
+          />
+          <TextInput
+            placeholder={t('registration:placeholderPassword')}
+            onChangeText={setPassword}
+            value={password}
+            style={styles.textInput}
+            secureTextEntry={true}
+          />
+          <Button
+            title={t('registration:placeholderPassword')}
+            onPress={createUser}
+          />
+          <Text
+            style={styles.text}
+            onPress={() => {
+              props.navigation.navigate({routeName: 'Login'});
+            }}>
+            {t('registration:buttonLogin')}
+          </Text>
+        </>
+      )}
     </View>
   );
 };

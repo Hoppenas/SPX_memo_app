@@ -1,13 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {ActivityIndicator, View, Text, StyleSheet, Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 
 const HomeScreen = props => {
   const {t} = useTranslation();
-
-  const {user} = useSelector(state => state.user);
+  const {isLoading} = useSelector(state => state.ui);
 
   const logOut = () => {
     auth()
@@ -18,17 +17,16 @@ const HomeScreen = props => {
       });
   };
 
-  const checkUser = () => {
-    console.log('user.email');
-    console.log(user);
-  };
-
   return (
     <View style={styles.screen}>
-      {/* {info && <Text>loged in as {user.email}</Text>} */}
-      <Text>{t('homeScreen:title')}</Text>
-      <Button title={t('homeScreen:buttonLogout')} onPress={logOut} />
-      <Button title="check user" onPress={checkUser} />
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <>
+          <Text>{t('homeScreen:title')}</Text>
+          <Button title={t('homeScreen:buttonLogout')} onPress={logOut} />
+        </>
+      )}
     </View>
   );
 };
