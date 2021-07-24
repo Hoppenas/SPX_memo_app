@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
-import {useTranslation} from 'react-i18next';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import theme from '../../styles/theme';
 
 const ForgotPasswordScreen = props => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.screen}>
@@ -13,7 +13,7 @@ const ForgotPasswordScreen = props => {
       <Button
         title={t('homeScreen:button')}
         onPress={() => {
-          props.navigation.navigate({routeName: 'Login'});
+          props.navigation.navigate({ routeName: 'Login' });
         }}
       />
     </View>

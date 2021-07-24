@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -9,29 +9,29 @@ import {
   Button,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useTranslation} from 'react-i18next';
-import {useSelector, useDispatch} from 'react-redux';
-import {actions} from '../../state/actions';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../../state/actions';
 
 const RegistrationScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const {isLoading} = useSelector(state => state.ui);
+  const { isLoading } = useSelector(state => state.ui);
 
   const createUser = () => {
     dispatch(actions.ui.setLoading(true));
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => dispatch({type: 'ui/SET_LOADING', payload: false}))
+      .then(() => dispatch({ type: 'ui/SET_LOADING', payload: false }))
       .then(() => {
         changeEmail();
       })
       .then(() => {
-        props.navigation.navigate({routeName: 'Home'});
+        props.navigation.navigate({ routeName: 'Home' });
       })
       .then(setEmail(''))
       .then(setPassword(''))
@@ -76,7 +76,7 @@ const RegistrationScreen = props => {
           <Text
             style={styles.text}
             onPress={() => {
-              props.navigation.navigate({routeName: 'Login'});
+              props.navigation.navigate({ routeName: 'Login' });
             }}>
             {t('registration:buttonLogin')}
           </Text>

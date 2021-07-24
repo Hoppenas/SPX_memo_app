@@ -1,33 +1,33 @@
 {
-    "login": {
-        "title": "Prisijungti",
-        "useSignedIn": "Vartotojas prisijunge!",
-        "erorEmailAlreadyInUse": "Elektroninis pastas jau naudojamas!",
-        "erorEmailInvalid": "Neteisingas elektroninis pastas!",
-        "placeholderEmail": "Email",
-        "placeholderPassword": "slaptazodis",
-        "forgotPassword": "Pamirsai slaptazodi",
-    },
-    "registration": {
-        "erorEmailAlreadyInUse": "Elektroninis pastas jau naudojamas!",
-        "erorEmailInvalid": "Neteisingas elektroninis pastas!",
-        "placeholderEmail": "Email",
-        "placeholderPassword": "slaptazodis",
-        "buttonCreateUser": "Sukurti vartotoja",
-        "forgotPassword": "Pamirsai slaptazodi",
-        "buttonLogin": "Prisijungti",
-    },
-    "landing": {
-        "buttonLogin": "Prisijungti",
-        "buttonRegister": "Registruotis",
-    },
-    "homeScreen": {
-        "userSignedOut": "Vartotojas atsijunge!",
-        "title": "Home Screen",
-        "buttonLogout": "Atsijungti",
-    },
-    "forgotPassword": {
-        "title": "Pamirsai slaptazodi",
-        "button": "Atstatyti slaptazodi",
-    },
+  "login": {
+    "title": "Prisijungti",
+    "useSignedIn": "Vartotojas prisijunge!",
+    "erorEmailAlreadyInUse": "Elektroninis pastas jau naudojamas!",
+    "erorEmailInvalid": "Neteisingas elektroninis pastas!",
+    "placeholderEmail": "Email",
+    "placeholderPassword": "slaptazodis",
+    "forgotPassword": "Pamirsai slaptazodi"
+  },
+  "registration": {
+    "erorEmailAlreadyInUse": "Elektroninis pastas jau naudojamas!",
+    "erorEmailInvalid": "Neteisingas elektroninis pastas!",
+    "placeholderEmail": "Email",
+    "placeholderPassword": "slaptazodis",
+    "buttonCreateUser": "Sukurti vartotoja",
+    "forgotPassword": "Pamirsai slaptazodi",
+    "buttonLogin": "Prisijungti"
+  },
+  "landing": {
+    "buttonLogin": "Prisijungti",
+    "buttonRegister": "Registruotis"
+  },
+  "homeScreen": {
+    "userSignedOut": "Vartotojas atsijunge!",
+    "title": "Home Screen",
+    "buttonLogout": "Atsijungti"
+  },
+  "forgotPassword": {
+    "title": "Pamirsai slaptazodi",
+    "button": "Atstatyti slaptazodi"
+  }
 }

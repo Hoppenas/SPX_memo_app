@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -9,28 +9,31 @@ import {
   TextInput,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useTranslation} from 'react-i18next';
-import {useSelector, useDispatch} from 'react-redux';
-import {actions} from '../../state/actions';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../../state/actions';
 
 const LoginScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const {isLoading} = useSelector(state => state.ui);
+  const { isLoading } = useSelector(state => state.ui);
+  const { user } = useSelector(state => state.user);
 
   const signIn = () => {
     dispatch(actions.ui.setLoading(true));
-    dispatch(actions.user.setUser(email));
+    dispatch(actions.user.setEmail(email));
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => dispatch(actions.ui.setLoading(false)))
+      .then(() => dispatch(actions.user.setEmail(email)))
       .then(() => {
-        props.navigation.navigate({routeName: 'Home'});
+        props.navigation.navigate({ routeName: 'Home' });
       })
+      .then(console.log(user))
       .then(setEmail(''))
       .then(setPassword(''))
       .catch(error => {
@@ -73,7 +76,7 @@ const LoginScreen = props => {
           <Text
             style={styles.text}
             onPress={() => {
-              props.navigation.navigate({routeName: 'ForgotPassword'});
+              props.navigation.navigate({ routeName: 'ForgotPassword' });
             }}>
             {t('login:forgotPassword')}
           </Text>
