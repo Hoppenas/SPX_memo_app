@@ -1,19 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import {
-  ActivityIndicator,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Button,
-} from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../state/actions';
 
-const RegistrationScreen = props => {
+import DefaultInput from '../../components/DefaultInput';
+import DefaultButton from '../../components/DefaultButton';
+
+const LoginScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,29 +17,28 @@ const RegistrationScreen = props => {
   const dispatch = useDispatch();
 
   const { isLoading } = useSelector(state => state.ui);
+  const { user } = useSelector(state => state.user);
 
-  const createUser = () => {
+  const signIn = () => {
     dispatch(actions.ui.setLoading(true));
+    dispatch(actions.user.setEmail(email));
     auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => dispatch({ type: 'ui/SET_LOADING', payload: false }))
-      .then(() => {
-        changeEmail();
-      })
+      .signInWithEmailAndPassword(email, password)
+      .then(() => dispatch(actions.ui.setLoading(false)))
+      .then(() => dispatch(actions.user.setEmail(email)))
       .then(() => {
         props.navigation.navigate({ routeName: 'Home' });
       })
+      .then(console.log(user))
       .then(setEmail(''))
       .then(setPassword(''))
       .catch(error => {
-        dispatch(actions.ui.setLoading(false));
-
         if (error.code === 'auth/email-already-in-use') {
-          console.log(t('registration:erorEmailAlreadyInUse'));
+          console.log(t('login:erorEmailAlreadyInUse'));
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log(t('registration:erorEmailInvalid'));
+          console.log(t('login:erorEmailInvalid'));
         }
 
         console.error(error);
@@ -51,34 +46,30 @@ const RegistrationScreen = props => {
   };
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <>
-          <TextInput
-            placeholder={t('registration:placeholderEmail')}
+          <DefaultInput
+            placeholder={t('login:placeholderEmail')}
             onChangeText={setEmail}
             value={email}
-            style={styles.textInput}
           />
-          <TextInput
-            placeholder={t('registration:placeholderPassword')}
+          <DefaultInput
+            placeholder={t('login:placeholderPassword')}
             onChangeText={setPassword}
             value={password}
-            style={styles.textInput}
             secureTextEntry={true}
           />
-          <Button
-            title={t('registration:placeholderPassword')}
-            onPress={createUser}
-          />
+          <DefaultButton title={t('login:title')} onPress={signIn} />
+          <DefaultButton title={t('login:title')} onPress={signIn} />
           <Text
             style={styles.text}
             onPress={() => {
-              props.navigation.navigate({ routeName: 'Login' });
+              props.navigation.navigate({ routeName: 'ForgotPassword' });
             }}>
-            {t('registration:buttonLogin')}
+            {t('login:forgotPassword')}
           </Text>
         </>
       )}
@@ -87,17 +78,11 @@ const RegistrationScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 20,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: 'grey',
+    backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 20,
-    borderRadius: 5,
   },
   text: {
     color: 'blue',
@@ -105,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistrationScreen;
+export default LoginScreen;

@@ -9,8 +9,9 @@ import {
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-
 import database from '@react-native-firebase/database';
+
+import DefaultButton from '../../components/DefaultButton';
 
 const HomeScreen = props => {
   const { t } = useTranslation();
@@ -48,8 +49,11 @@ const HomeScreen = props => {
         <>
           <Text>{t('homeScreen:title')}</Text>
           <Text>Logged in as {email}</Text>
-          <Button title={t('homeScreen:buttonLogout')} onPress={logOut} />
-          <Button title="print" onPress={printOut} />
+          <DefaultButton
+            title={t('homeScreen:buttonLogout')}
+            onPress={logOut}
+          />
+          <DefaultButton title="print" onPress={printOut} />
         </>
       )}
     </View>
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 15,
   },
 });
 

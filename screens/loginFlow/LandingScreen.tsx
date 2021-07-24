@@ -3,17 +3,23 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import theme from '../../styles/theme';
+import DefaultButton from '../../components/DefaultButton';
 
-const ForgotPasswordScreen = props => {
+const LandingScreen = props => {
   const { t } = useTranslation();
 
   return (
     <View style={styles.screen}>
-      <Text>{t('homeScreen:title')}</Text>
-      <Button
-        title={t('homeScreen:button')}
+      <DefaultButton
+        title={t('landing:buttonLogin')}
         onPress={() => {
           props.navigation.navigate({ routeName: 'Login' });
+        }}
+      />
+      <DefaultButton
+        title={t('landing:buttonRegister')}
+        onPress={() => {
+          props.navigation.navigate({ routeName: 'Registration' });
         }}
       />
     </View>
@@ -24,8 +30,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    padding: 10,
   },
 });
 
-export default ForgotPasswordScreen;
+export default LandingScreen;
