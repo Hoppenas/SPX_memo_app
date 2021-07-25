@@ -63,7 +63,6 @@ const LoginScreen = props => {
             secureTextEntry={true}
           />
           <DefaultButton title={t('login:title')} onPress={signIn} />
-          <DefaultButton title={t('login:title')} onPress={signIn} />
           <Text
             style={styles.text}
             onPress={() => {

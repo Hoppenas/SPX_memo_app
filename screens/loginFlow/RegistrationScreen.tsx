@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
+    flexDirection: 'row',
     marginHorizontal: 20,
   },
   text: {
