@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
 import theme from '../../styles/theme';
@@ -7,6 +8,7 @@ import DefaultButton from '../../components/DefaultButton';
 
 const ForgotPasswordScreen = props => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
   return (
     <View style={styles.screen}>
@@ -14,7 +16,7 @@ const ForgotPasswordScreen = props => {
       <DefaultButton
         title={t('forgotPassword:button')}
         onPress={() => {
-          props.navigation.navigate({ routeName: 'Login' });
+          navigation.navigate('login');
         }}
       />
     </View>

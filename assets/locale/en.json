@@ -24,7 +24,11 @@
   "homeScreen": {
     "userSignedOut": "User signed out!",
     "title": "Home Screen",
-    "buttonLogout": "Log out"
+    "buttonLogout": "Log out",
+    "enterNewMovieName": "Pls enter new movie name",
+    "buttonCreateNewMovie": "Create movie",
+    "enterStartDate": "Pls enter start date",
+    "enterDirector": "Pls enter director"
   },
   "forgotPassword": {
     "title": "Forgot password",

@@ -18,9 +18,6 @@ const styles = StyleSheet.create({
   button: {
     borderWidth: 1,
     borderColor: 'grey',
-    flex: 1,
-    padding: 10,
-    flexDirection: 'row',
   },
 });
 

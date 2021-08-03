@@ -1,16 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import {
-  ActivityIndicator,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Button,
-} from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { actions } from '../../state/actions';
 import DefaultButton from '../../components/DefaultButton';
@@ -22,6 +16,7 @@ const RegistrationScreen = props => {
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const { isLoading } = useSelector(state => state.ui);
 
@@ -34,7 +29,7 @@ const RegistrationScreen = props => {
         changeEmail();
       })
       .then(() => {
-        props.navigation.navigate({ routeName: 'Home' });
+        navigation.navigate('home');
       })
       .then(setEmail(''))
       .then(setPassword(''))
@@ -77,7 +72,7 @@ const RegistrationScreen = props => {
           <Text
             style={styles.text}
             onPress={() => {
-              props.navigation.navigate({ routeName: 'Login' });
+              navigation.navigate('login');
             }}>
             {t('registration:buttonLogin')}
           </Text>

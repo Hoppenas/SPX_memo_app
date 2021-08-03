@@ -24,7 +24,11 @@
   "homeScreen": {
     "userSignedOut": "Vartotojas atsijunge!",
     "title": "Home Screen",
-    "buttonLogout": "Atsijungti"
+    "buttonLogout": "Atsijungti",
+    "enterNewMovieName": "Įvest naujo filmo pavadinima",
+    "buttonCreateNewMovie": "sukurti filmą",
+    "enterStartDate": "Įvesk pradžios datą",
+    "enterDirector": "Įvesk režisierių"
   },
   "forgotPassword": {
     "title": "Pamirsai slaptazodi",

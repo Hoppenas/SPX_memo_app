@@ -1,39 +1,19 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import { useState, useEffect } from 'react';
-import { Provider, useSelector, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 
-import AppNavigator from './navigation/AppNavigator';
+import MainNavigator from './navigation/MainNavigator';
 import LanguageKey from './components/LanguageKey';
 import './utils/locale';
 import { store } from './state/store';
 
 const App = () => {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
-  // Handle user state changes
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
-
-  if (initializing) return null;
-
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <MainNavigator />
       <LanguageKey />
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;

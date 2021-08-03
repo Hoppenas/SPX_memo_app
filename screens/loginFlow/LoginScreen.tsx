@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../state/actions';
+import { useNavigation } from '@react-navigation/native';
 
 import DefaultInput from '../../components/DefaultInput';
 import DefaultButton from '../../components/DefaultButton';
@@ -15,6 +16,7 @@ const LoginScreen = props => {
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const { isLoading } = useSelector(state => state.ui);
   const { user } = useSelector(state => state.user);
@@ -27,7 +29,7 @@ const LoginScreen = props => {
       .then(() => dispatch(actions.ui.setLoading(false)))
       .then(() => dispatch(actions.user.setEmail(email)))
       .then(() => {
-        props.navigation.navigate({ routeName: 'Home' });
+        navigation.navigate('home');
       })
       .then(console.log(user))
       .then(setEmail(''))
@@ -66,7 +68,7 @@ const LoginScreen = props => {
           <Text
             style={styles.text}
             onPress={() => {
-              props.navigation.navigate({ routeName: 'ForgotPassword' });
+              navigation.navigate('forgot-password');
             }}>
             {t('login:forgotPassword')}
           </Text>
