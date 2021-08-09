@@ -1,18 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MovieGridTile = props => {
+  const { title, movieData } = props;
+  const navigation = useNavigation();
   return (
-    // <View style={styles.gridItem}>
-    //   <Text style={styles.title} numberOfLines={2}>
-    //     {props.title}
-    //   </Text>
-    //   {/* <View style={{ ...styles.container, ...{ backgroundColor: 'pink' } }}>
-    //   </View> */}
-    //   {/* <TouchableCmp style={{ flex: 1 }} onPress={props.onSelect}>
-    //   </TouchableCmp> */}
-    // </View>
-    <View style={styles.gridItem}>
+    <Pressable
+      style={styles.gridItem}
+      onPress={() => {
+        navigation.navigate('movie', { title: title });
+      }}>
       <View style={{ flex: 2 }}>
         <Image
           style={styles.gridImage}
@@ -22,9 +21,9 @@ const MovieGridTile = props => {
         />
       </View>
       <View style={styles.gridText}>
-        <Text>Saw1</Text>
+        <Text>{title}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

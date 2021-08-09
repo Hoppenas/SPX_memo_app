@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   info: null,
   onSync: true,
   email: 'deafault1',
+  movies: {},
 };
 
 export const userReducer = createReducer(INITIAL_STATE, {
@@ -17,5 +18,8 @@ export const userReducer = createReducer(INITIAL_STATE, {
   },
   [constants.user.SET_EMAIL]: (state, action) => {
     return { ...state, email: action.payload };
+  },
+  [constants.user.SET_Movies]: (state, action) => {
+    return { ...state, movies: action.payload };
   },
 });

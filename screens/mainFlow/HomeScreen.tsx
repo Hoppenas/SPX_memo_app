@@ -14,34 +14,27 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import database from '@react-native-firebase/database';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import DefaultButton from '../../components/DefaultButton';
 import DefaultInput from '../../components/DefaultInput';
 import MovieGridTile from '../../components/MovieGridTile';
 import ActorsGridTile from '../../components/ActorsGridTile';
 import MovieGrid from '../../components/MovieGrid';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const { height, width } = Dimensions.get('window');
 
-const HomeScreen = props => {
+const HomeScreen = () => {
   const { t } = useTranslation();
   const { isLoading } = useSelector(state => state.ui);
   const { email } = useSelector(state => state.user);
+  const { movies } = useSelector(state => state.user);
   const [movieName, setMovieName] = useState('');
-  const [movies, setMovies] = useState({});
   const [startDate, setStartDate] = useState('');
   const [director, setDirector] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
-
-  // Read movies database
-  database()
-    .ref('Movies')
-    .once('value', snapshot => {
-      setMovies(snapshot.val());
-    });
 
   const logOut = () => {
     auth()
@@ -52,29 +45,27 @@ const HomeScreen = props => {
       });
   };
 
-  const printOut = () => {
-    console.log('Movies:');
-    console.log(Object.keys(movies));
-  };
-
   const createMovie = () => {
-    const newReference = database().ref('/Movies').push();
+    if (movies[movieName]) {
+      console.log('movie exists');
+    } else {
+      const newReference = database().ref('/Movies').push();
+      database()
+        .ref(`Movies/${movieName}`)
+        .set({
+          id: newReference.key,
+          title: movieName,
+          'start date': startDate,
+          director: director,
+          administrators: [email],
+          scenes: [],
+        });
 
-    database()
-      .ref(`Movies/${movieName}`)
-      .set({
-        id: newReference.key,
-        title: movieName,
-        'start date': startDate,
-        director: director,
-        administrators: [email],
-        scenes: [{ title: 'start' }],
-      });
-
-    setMovieName('');
-    setModalVisible(false);
-    setStartDate('');
-    setDirector('');
+      setMovieName('');
+      setModalVisible(false);
+      setStartDate('');
+      setDirector('');
+    }
   };
 
   return (
@@ -84,7 +75,6 @@ const HomeScreen = props => {
       ) : (
         <>
           <Modal
-            // style={styles.modal}
             animationType="slide"
             transparent={true}
             visible={modalVisible}
@@ -118,7 +108,6 @@ const HomeScreen = props => {
               </View>
             </View>
           </Modal>
-          <Text>{t('homeScreen:title')}</Text>
           <DefaultButton
             title={t('homeScreen:buttonCreateNewMovie')}
             onPress={() => setModalVisible(true)}
@@ -127,17 +116,6 @@ const HomeScreen = props => {
             title={t('homeScreen:buttonLogout')}
             onPress={logOut}
           />
-          {/* {Object.keys(movies).map((movie, index) => (
-            // <Text key={index}>{movie}</Text>
-            // <MovieGridTile
-            //   key={index}
-            //   title={movie}
-            //   onSelect={() => {
-            //     console.log(`Movie ${movie}`);
-            //   }}
-            // />
-          ))} */}
-          {/* <MovieGrid DATA={movies} /> */}
           <ScrollView scrollEventThrottle={16}>
             <View
               style={{
@@ -157,9 +135,17 @@ const HomeScreen = props => {
                 <ScrollView
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}>
-                  <MovieGridTile />
-                  <MovieGridTile />
-                  <MovieGridTile />
+                  {Object.keys(movies).map((movie, index) =>
+                    movies[movie].administrators.includes(email) ? (
+                      <MovieGridTile
+                        key={index}
+                        movieData={movies[movie]}
+                        title={movie}
+                      />
+                    ) : (
+                      <></>
+                    ),
+                  )}
                 </ScrollView>
               </View>
               <View style={{ marginTop: 40 }}>
@@ -197,14 +183,12 @@ const HomeScreen = props => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // justifyContent: 'center',
     marginHorizontal: 15,
   },
   modal: {
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 15,
-    // alignContent: 'center',
   },
   centeredView: {
     flex: 1,

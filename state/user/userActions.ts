@@ -15,8 +15,14 @@ const setEmail = payload => ({
   payload,
 });
 
+const setMovies = payload => ({
+  type: constants.user.SET_Movies,
+  payload,
+});
+
 export const userActions = {
   setUser,
   setOnSync,
   setEmail,
+  setMovies,
 };
