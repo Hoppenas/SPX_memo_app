@@ -3,7 +3,11 @@ import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const SceneTile = props => {
+interface SceneTileProps {
+  title: string;
+}
+
+const SceneTile: React.FC<SceneTileProps> = props => {
   const { title } = props;
   const navigation = useNavigation();
   return (

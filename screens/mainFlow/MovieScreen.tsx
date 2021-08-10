@@ -30,10 +30,7 @@ const MovieScreen = ({ route }) => {
       `Movies/${movieName}/scenes/${newSceneName}`,
     );
 
-    newReference
-      .set({ title: newSceneName })
-      .then(setNewSceneName(''))
-      .then(() => console.log('Scene added.'));
+    newReference.set({ title: newSceneName }).then(setNewSceneName(''));
   };
 
   return (
@@ -45,21 +42,20 @@ const MovieScreen = ({ route }) => {
           <Text style={styles.movieTitle}>{movie.title}</Text>
           <Text style={styles.movieDirector}>{movie.director}</Text>
           <Text style={styles.movieDirector}>{movie.administrators}</Text>
-          <Text style={styles.movieScenes}>Scenes:</Text>
+          <Text style={styles.movieScenes}>{t('movieScreen:sceneTitle')}:</Text>
           {movie.scenes &&
             Object.keys(movie.scenes).map((scene, index) => (
               <SceneTile key={index} title={movie.scenes[scene].title} />
             ))}
           <DefaultInput
-            placeholder={'Scene name'}
+            placeholder={t('movieScreen:placeHolderScneName')}
             onChangeText={setNewSceneName}
             value={newSceneName}
           />
           <DefaultButton
-            title={'add scene'}
+            title={t('movieScreen:buttonAddScene')}
             onPress={() => addNewScene(title)}
           />
-          {/* <ion-icon name="videocam-outline"></ion-icon> */}
         </View>
       )}
     </SafeAreaView>

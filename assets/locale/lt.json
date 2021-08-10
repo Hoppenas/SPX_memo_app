@@ -28,10 +28,18 @@
     "enterNewMovieName": "Įvest naujo filmo pavadinima",
     "buttonCreateNewMovie": "sukurti filmą",
     "enterStartDate": "Įvesk pradžios datą",
-    "enterDirector": "Įvesk režisierių"
+    "enterDirector": "Įvesk režisierių",
+    "buttonCancelMovie": "Uždaryti",
+    "moviesTitle": "Filmai",
+    "actorsTitle": "Aktoriai"
   },
   "forgotPassword": {
     "title": "Pamirsai slaptazodi",
     "button": "Atstatyti slaptazodi"
+  },
+  "movieScreen": {
+    "sceneTitle": "Scenos",
+    "placeHolderScneName": "Scenos pavadinimas",
+    "buttonAddScene": "Pridėti sceną"
   }
 }

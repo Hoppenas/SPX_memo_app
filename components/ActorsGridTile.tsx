@@ -11,7 +11,7 @@ const ActorsGridTile = props => {
         borderWidth: 0.5,
         borderColor: '#dddddd',
       }}>
-      <View style={{ flex: 2 }}>
+      <View style={styles.imageContainer}>
         <Image
           style={styles.gridImage}
           source={{
@@ -28,12 +28,7 @@ const ActorsGridTile = props => {
 };
 
 const styles = StyleSheet.create({
-  gridItem: {
-    // height: width / 2 - 30,
-    // width: width / 2 - 30,
-    // borderWidth: 0.5,
-    // borderColor: '#dddddd',
-  },
+  imageContainer: { flex: 2 },
   gridImage: {
     flex: 1,
     width: null,

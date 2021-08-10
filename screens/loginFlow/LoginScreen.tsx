@@ -22,8 +22,6 @@ const LoginScreen = props => {
   const { user } = useSelector(state => state.user);
 
   const signIn = () => {
-    // dispatch(actions.ui.setLoading(true));
-    // dispatch(actions.user.setEmail(email));
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => dispatch(actions.ui.setLoading(false)))

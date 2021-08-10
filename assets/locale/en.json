@@ -28,10 +28,18 @@
     "enterNewMovieName": "Pls enter new movie name",
     "buttonCreateNewMovie": "Create movie",
     "enterStartDate": "Pls enter start date",
-    "enterDirector": "Pls enter director"
+    "enterDirector": "Pls enter director",
+    "buttonCancelMovie": "Cancel",
+    "moviesTitle": "Movies",
+    "actorsTitle": "Actors"
   },
   "forgotPassword": {
     "title": "Forgot password",
     "button": "Reset Password"
+  },
+  "movieScreen": {
+    "sceneTitle": "Scenes",
+    "placeHolderScneName": "Scene name",
+    "buttonAddScene": "add scene"
   }
 }
