@@ -8,82 +8,85 @@ import {
   Dimensions,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import DefaultButton from '../../components/DefaultButton';
 import MovieGridTile from '../../components/MovieGridTile';
 import ActorsGridTile from '../../components/ActorsGridTile';
 import CreateMovieModal from '../../components/CreateMovieModal';
-import { logOut } from '../../utils/FirebaseUtils';
+import { actions } from '../../state/actions';
 
 const { height, width } = Dimensions.get('window');
 
 const HomeScreen = () => {
   const { t } = useTranslation();
-  const { isLoading } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
   const { email } = useSelector(state => state.user);
   const { movies } = useSelector(state => state.user);
+  const { user } = useSelector(state => state.user);
+
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleLogout = () => {
+    dispatch(actions.user.logout());
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <>
-          <CreateMovieModal
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            movies={movies}
-            email={email}
-          />
-          <DefaultButton
-            title={t('homeScreen:buttonCreateNewMovie')}
-            onPress={() => setModalVisible(true)}
-          />
-          <DefaultButton
-            title={t('homeScreen:buttonLogout')}
-            onPress={logOut}
-          />
-          <ScrollView scrollEventThrottle={16}>
-            <View style={styles.moviesSection}>
-              <Text style={styles.moviesTitle}>
-                {t('homeScreen:moviesTitle')}
+      <>
+        <CreateMovieModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          movies={movies}
+          email={email}
+        />
+        <DefaultButton
+          title={t('homeScreen:buttonCreateNewMovie')}
+          onPress={() => setModalVisible(true)}
+        />
+        <DefaultButton
+          title={t('homeScreen:buttonLogout')}
+          onPress={handleLogout}
+        />
+        <DefaultButton title={'print data'} onPress={() => console.log(user)} />
+        <ScrollView scrollEventThrottle={16}>
+          <View style={styles.moviesSection}>
+            <Text style={styles.moviesTitle}>
+              {t('homeScreen:moviesTitle')}
+            </Text>
+            <View style={styles.moviesList}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}>
+                {Object.keys(movies).map((movie, index) =>
+                  movies[movie].administrators.includes(email) ? (
+                    <MovieGridTile
+                      key={index}
+                      movieData={movies[movie]}
+                      title={movie}
+                    />
+                  ) : (
+                    <></>
+                  ),
+                )}
+              </ScrollView>
+            </View>
+            <View style={styles.actorsSection}>
+              <Text style={styles.actorsTitle}>
+                {t('homeScreen:actorsTitle')}
               </Text>
-              <View style={styles.moviesList}>
-                <ScrollView
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}>
-                  {Object.keys(movies).map((movie, index) =>
-                    movies[movie].administrators.includes(email) ? (
-                      <MovieGridTile
-                        key={index}
-                        movieData={movies[movie]}
-                        title={movie}
-                      />
-                    ) : (
-                      <></>
-                    ),
-                  )}
-                </ScrollView>
-              </View>
-              <View style={styles.actorsSection}>
-                <Text style={styles.actorsTitle}>
-                  {t('homeScreen:actorsTitle')}
-                </Text>
-                <View style={styles.actorsList}>
-                  <ActorsGridTile width={width} />
-                  <ActorsGridTile width={width} />
-                  <ActorsGridTile width={width} />
-                  <ActorsGridTile width={width} />
-                  <ActorsGridTile width={width} />
-                </View>
+              <View style={styles.actorsList}>
+                <ActorsGridTile width={width} />
+                <ActorsGridTile width={width} />
+                <ActorsGridTile width={width} />
+                <ActorsGridTile width={width} />
+                <ActorsGridTile width={width} />
               </View>
             </View>
-          </ScrollView>
-        </>
-      )}
+          </View>
+        </ScrollView>
+      </>
     </SafeAreaView>
   );
 };

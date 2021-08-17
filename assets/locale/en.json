@@ -13,6 +13,7 @@
     "erorEmailInvalid": "That email address is invalid!",
     "placeholderEmail": "Email",
     "placeholderPassword": "password",
+    "placeholderRepeatPassword": "repeat password",
     "buttonCreateUser": "Create user",
     "forgotPassword": "Forgot password",
     "buttonLogin": "Log in"
@@ -41,5 +42,13 @@
     "sceneTitle": "Scenes",
     "placeHolderScneName": "Scene name",
     "buttonAddScene": "add scene"
+  },
+  "errors": {
+    "emailRequired": "Pls enter email",
+    "emailValid": "Pls enter correct email",
+    "passwordRequired": "Pls enter password",
+    "passwordValid": "Password must be 6-10 symbols",
+    "passwordTooLong": "Password must be 6-10 symbols",
+    "mustMatch": "Passwords must match"
   }
 }

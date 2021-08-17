@@ -20,7 +20,7 @@ const MovieScreen = ({ route }) => {
   const { movies } = useSelector(state => state.user);
   const movie = movies[title];
   const { t } = useTranslation();
-  const { isLoading } = useSelector(state => state.ui);
+  const { setLoading } = useSelector(state => state.ui);
   const [newSceneName, setNewSceneName] = useState('');
 
   const navigation = useNavigation();
@@ -35,7 +35,7 @@ const MovieScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      {isLoading ? (
+      {setLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <View style={styles.movieContainer}>

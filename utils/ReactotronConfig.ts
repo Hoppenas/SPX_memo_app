@@ -1,7 +1,7 @@
 import sagaPlugin from 'reactotron-redux-saga';
-import {NativeModules} from 'react-native';
-import Reactotron, {networking} from 'reactotron-react-native';
-import {reactotronRedux} from 'reactotron-redux';
+import { NativeModules } from 'react-native';
+import Reactotron, { networking } from 'reactotron-react-native';
+import { reactotronRedux } from 'reactotron-redux';
 import ReactotronFlipper from 'reactotron-react-native/dist/flipper';
 
 export const initReactotron = () => {

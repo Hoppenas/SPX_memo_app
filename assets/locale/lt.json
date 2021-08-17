@@ -41,5 +41,13 @@
     "sceneTitle": "Scenos",
     "placeHolderScneName": "Scenos pavadinimas",
     "buttonAddScene": "Pridėti sceną"
+  },
+  "errors": {
+    "emailRequired": "Įveskite elektroninį paštą",
+    "emailValid": "Įveskite teisingą elektroninį paštą",
+    "passwordRequired": "Įveskit slaptažodį",
+    "passwordValid": "Slaptažodį privalo sudaryti 6-10 simbolių",
+    "passwordTooLong": "Slaptažodį privalo sudaryti 6-10 simbolių",
+    "mustMatch": "Nesutampa slaptažodžiai"
   }
 }

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../state/actions';
 import database from '@react-native-firebase/database';
+import { ActivityIndicator } from 'react-native';
 
 import ForgotPasswordScreen from '../screens/loginFlow/ForgotPasswordScreen';
 import HomeScreen from '../screens/mainFlow/HomeScreen';
@@ -18,28 +19,29 @@ import ActorScreen from '../screens/mainFlow/ActorScreen';
 const Stack = createStackNavigator();
 
 const MainNavigator = () => {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
   const dispatch = useDispatch();
+
+  const { setLoading } = useSelector(state => state.ui);
+  const { user } = useSelector(state => state.user);
 
   // Handle user state changes
   function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
+    dispatch(actions.user.setUser(user));
+    if (setLoading) dispatch(actions.ui.setLoading(false));
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
-  if (initializing) return null;
+  if (setLoading) return <ActivityIndicator size="large" color="#0000ff" />;
 
-  database()
-    .ref('Movies')
-    .on('value', snapshot => {
-      dispatch(actions.user.setMovies(snapshot.val()));
-    });
+  // database()
+  //   .ref('Movies')
+  //   .on('value', snapshot => {
+  //     dispatch(actions.user.setMovies(snapshot.val()));
+  //   });
 
   return (
     <NavigationContainer>

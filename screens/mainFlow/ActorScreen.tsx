@@ -13,13 +13,13 @@ import { useNavigation } from '@react-navigation/native';
 const ActorScreen = ({ route }) => {
   const { title } = route.params;
   const { t } = useTranslation();
-  const { isLoading } = useSelector(state => state.ui);
+  const { setLoading } = useSelector(state => state.ui);
 
   const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.screen}>
-      {isLoading ? (
+      {setLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <View>

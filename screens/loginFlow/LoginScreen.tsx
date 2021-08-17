@@ -1,77 +1,70 @@
 import React from 'react';
-import { useState } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet } from 'react-native';
+import { useCallback } from 'react';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { actions } from '../../state/actions';
 import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
 
+import { actions } from '../../state/actions';
 import DefaultInput from '../../components/DefaultInput';
 import DefaultButton from '../../components/DefaultButton';
+import { loginValidationSchema } from '../../utils/validations';
 
-const LoginScreen = props => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+const LoginScreen: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  interface ILoginValues {
+    email: string;
+    password: string;
+  }
 
-  const { isLoading } = useSelector(state => state.ui);
-  const { user } = useSelector(state => state.user);
-
-  const signIn = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => dispatch(actions.ui.setLoading(false)))
-      .then(() => dispatch(actions.user.setEmail(email)))
-      .then(() => {
-        navigation.navigate('home');
-      })
-      .then(console.log(user))
-      .then(setEmail(''))
-      .then(setPassword(''))
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log(t('login:erorEmailAlreadyInUse'));
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log(t('login:erorEmailInvalid'));
-        }
-
-        console.error(error);
-      });
-  };
+  const handleLogin = useCallback((values: ILoginValues) => {
+    dispatch(actions.user.login(values));
+  }, []);
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <>
-          <DefaultInput
-            placeholder={t('login:placeholderEmail')}
-            onChangeText={setEmail}
-            value={email}
-          />
-          <DefaultInput
-            placeholder={t('login:placeholderPassword')}
-            onChangeText={setPassword}
-            value={password}
-            secureTextEntry={true}
-          />
-          <DefaultButton title={t('login:title')} onPress={signIn} />
-          <Text
-            style={styles.text}
-            onPress={() => {
-              navigation.navigate('forgot-password');
-            }}>
-            {t('login:forgotPassword')}
-          </Text>
-        </>
-      )}
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={values => handleLogin(values)}
+        validationSchema={loginValidationSchema}>
+        {({
+          values,
+          handleChange,
+          errors,
+          setFieldTouched,
+          touched,
+          handleSubmit,
+        }) => (
+          <>
+            <TextInput
+              onChangeText={handleChange('email')}
+              value={values.email}
+              placeholder={t('login:placeholderEmail')}
+              onBlur={() => setFieldTouched('email')}
+              autoCapitalize="none"
+              keyboardType="email-address"
+            />
+            {touched.email && errors.email && <Text>{errors.email}</Text>}
+
+            <TextInput
+              onChangeText={handleChange('password')}
+              value={values.password}
+              placeholder={t('login:placeholderPassword')}
+              onBlur={() => setFieldTouched('password')}
+              secureTextEntry
+            />
+            {touched.password && errors.password && (
+              <Text>{errors.password}</Text>
+            )}
+
+            <DefaultButton title={t('login:title')} onPress={handleSubmit} />
+          </>
+        )}
+      </Formik>
     </View>
   );
 };
