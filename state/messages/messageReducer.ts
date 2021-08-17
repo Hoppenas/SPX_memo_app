@@ -6,15 +6,20 @@ export interface IMessageReducer {
   display: boolean;
   text: string;
   type: string;
+  newMsg: string;
 }
 
 export const INITIAL_STATE: IMessageReducer = {
   display: false,
   text: '',
   type: '',
+  newMsg: '',
 };
 
 export const messageReducer = createReducer(INITIAL_STATE, {
+  [constants.message.SET_NEW]: (state, action) => {
+    state.newMsg = action.payload;
+  },
   [constants.message.SET_DISPLAY]: (state, action) => {
     state.display = action.payload;
   },

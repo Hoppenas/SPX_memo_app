@@ -18,6 +18,11 @@ interface ISetUserProps {
   age?: string;
   location?: string;
 }
+interface ISetUserData {
+  name?: string;
+  age?: string;
+  userID: string;
+}
 
 const login = (values: ILoginProps) => ({
   type: constants.user.LOGIN,
@@ -53,6 +58,11 @@ const setMovies = payload => ({
   payload,
 });
 
+const setData = (data: ISetUserData) => ({
+  type: constants.user.SET_DATA,
+  payload: data,
+});
+
 export const userActions = {
   login,
   logout,
@@ -60,4 +70,5 @@ export const userActions = {
   setOnSync,
   setEmail,
   setMovies,
+  setData,
 };

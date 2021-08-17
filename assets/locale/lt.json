@@ -48,6 +48,7 @@
     "passwordRequired": "Įveskit slaptažodį",
     "passwordValid": "Slaptažodį privalo sudaryti 6-10 simbolių",
     "passwordTooLong": "Slaptažodį privalo sudaryti 6-10 simbolių",
-    "mustMatch": "Nesutampa slaptažodžiai"
+    "mustMatch": "Nesutampa slaptažodžiai",
+    "emailInUse": "Elektroninis paštas jau naudojamas"
   }
 }

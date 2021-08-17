@@ -27,5 +27,8 @@ export const userReducer = createReducer(INITIAL_STATE, {
   [constants.user.SET_Movies]: (state, action) => {
     return { ...state, movies: action.payload };
   },
+  [constants.user.SET_DATA]: (state, action) => {
+    return { ...state, userData: action.payload };
+  },
   [constants.user.LOGOUT]: clearUserState,
 });

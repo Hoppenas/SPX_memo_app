@@ -2,11 +2,15 @@ import { call, fork, put, take, takeEvery } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import auth from '@react-native-firebase/auth';
 import { firebase } from '@react-native-firebase/database';
+import database from '@react-native-firebase/database';
+import { useTranslation } from 'react-i18next';
 
 import { api } from '../../api/api';
 import { actions } from '../actions';
 import { constants } from '../constants';
 import { IFirebaseAuth } from '../../types/userAuthTypes';
+
+const { t } = useTranslation();
 
 interface IAction {
   type: string;
@@ -55,24 +59,14 @@ function* handleRegistration(action: {
       action.payload.email,
       action.payload.password,
     );
-    yield call(
-      api.createUser,
-      response.user.uid,
-      action.payload.name,
-      action.payload.age,
-      action.payload.location,
-      currentDate(),
-    );
     yield put(
-      actions.ui.setGlobalMessage('success', i18n.t('success:registration')),
+      actions.message.setNew('success', t('messages:successfullRegistration')),
     );
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
-      yield put(
-        actions.ui.setGlobalMessage('error', i18n.t('errors:fbTakenEmail')),
-      );
+      yield put(actions.message.setNew('error', t('errors:emailInUse')));
     } else {
-      yield put(actions.ui.setGlobalMessage('error', error.message));
+      yield put(actions.message.setNew('error', error.message));
     }
   } finally {
     yield put(actions.ui.setLoading(false));
@@ -80,7 +74,33 @@ function* handleRegistration(action: {
   }
 }
 
+async function usersChannel(uid: string) {
+  const db = database().ref(`/users/${uid}`);
+  return eventChannel(emitter => {
+    db.on('value', snapshot => {
+      emitter({ data: snapshot.val() });
+    });
+    return () => db.off();
+  });
+}
+
+function* watchUser() {
+  const uid = auth().currentUser && auth().currentUser.uid;
+  if (uid) {
+    const channel: unknown = yield call(usersChannel, uid);
+    try {
+      while (true) {
+        const { data } = yield take(channel as any);
+        yield put(actions.user.setData(data));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(constants.user.LOGIN, login);
   yield takeEvery(constants.user.LOGOUT, logout);
+  yield takeEvery(constants.user.REGISTER, handleRegistration);
 }
