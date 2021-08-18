@@ -50,5 +50,8 @@
     "passwordTooLong": "Slaptažodį privalo sudaryti 6-10 simbolių",
     "mustMatch": "Nesutampa slaptažodžiai",
     "emailInUse": "Elektroninis paštas jau naudojamas"
+  },
+  "messages": {
+    "successfullRegistration": "Registracija sėkminga"
   }
 }

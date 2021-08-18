@@ -51,5 +51,8 @@
     "passwordTooLong": "Password must be 6-10 symbols",
     "mustMatch": "Passwords must match",
     "emailInUse": "Email already in use"
+  },
+  "messages": {
+    "successfullRegistration": "Registration successfull"
   }
 }

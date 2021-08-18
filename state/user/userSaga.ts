@@ -9,9 +9,6 @@ import { api } from '../../api/api';
 import { actions } from '../actions';
 import { constants } from '../constants';
 import { IFirebaseAuth } from '../../types/userAuthTypes';
-
-const { t } = useTranslation();
-
 interface IAction {
   type: string;
   email?: string;
@@ -52,6 +49,7 @@ function* handleRegistration(action: {
   };
   type: string;
 }) {
+  const { t } = useTranslation();
   try {
     yield put(actions.ui.setLoading(true));
     const response: IFirebaseAuth = yield call(
@@ -59,14 +57,12 @@ function* handleRegistration(action: {
       action.payload.email,
       action.payload.password,
     );
-    yield put(
-      actions.message.setNew('success', t('messages:successfullRegistration')),
-    );
+    yield put(actions.message.setNew(t('messages:successfullRegistration')));
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
-      yield put(actions.message.setNew('error', t('errors:emailInUse')));
+      yield put(actions.message.setNew(t('errors:emailInUse')));
     } else {
-      yield put(actions.message.setNew('error', error.message));
+      yield put(actions.message.setNew(error.message));
     }
   } finally {
     yield put(actions.ui.setLoading(false));
