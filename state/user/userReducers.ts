@@ -24,7 +24,7 @@ export const userReducer = createReducer(INITIAL_STATE, {
   [constants.user.SET_EMAIL]: (state, action) => {
     return { ...state, email: action.payload };
   },
-  [constants.user.SET_Movies]: (state, action) => {
+  [constants.user.SET_MOVIES]: (state, action) => {
     return { ...state, movies: action.payload };
   },
   [constants.user.SET_DATA]: (state, action) => {

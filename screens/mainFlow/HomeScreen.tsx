@@ -60,7 +60,7 @@ const HomeScreen = () => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
                 {Object.keys(movies).map((movie, index) =>
-                  movies[movie].administrators.includes(email) ? (
+                  movies[movie].administrators.includes(user.email) ? (
                     <MovieGridTile
                       key={index}
                       movieData={movies[movie]}

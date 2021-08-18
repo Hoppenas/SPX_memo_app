@@ -35,13 +35,17 @@ const MainNavigator = () => {
     return subscriber;
   }, []);
 
-  if (setLoading) return <ActivityIndicator size="large" color="#0000ff" />;
+  useEffect(() => {
+    if (user) {
+      database()
+        .ref('Movies')
+        .on('value', snapshot => {
+          dispatch(actions.user.setMovies(snapshot.val()));
+        });
+    }
+  }, [user]);
 
-  // database()
-  //   .ref('Movies')
-  //   .on('value', snapshot => {
-  //     dispatch(actions.user.setMovies(snapshot.val()));
-  //   });
+  if (setLoading) return <ActivityIndicator size="large" color="#0000ff" />;
 
   return (
     <NavigationContainer>

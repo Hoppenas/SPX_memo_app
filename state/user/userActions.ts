@@ -54,7 +54,7 @@ const setEmail = payload => ({
 });
 
 const setMovies = payload => ({
-  type: constants.user.SET_Movies,
+  type: constants.user.SET_MOVIES,
   payload,
 });
 
