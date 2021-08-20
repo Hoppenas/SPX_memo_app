@@ -30,7 +30,7 @@ const SceneScreen = ({ route }) => {
       {setLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <View style={styles.container}>
+        <View style={styles.screen}>
           <Text style={styles.sceneTitle}>{title}</Text>
         </View>
       )}
@@ -45,21 +45,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: 'white',
   },
-  movieContainer: {},
-  movieTitle: {
+  sceneTitle: {
     fontSize: 24,
     fontWeight: '700',
     paddingHorizontal: 20,
-  },
-  movieScenes: {
-    fontSize: 24,
-    fontWeight: '700',
-    paddingHorizontal: 20,
-    backgroundColor: 'grey',
-  },
-  movieDirector: {
-    fontSize: 12,
-    color: '#b63838',
   },
 });
 

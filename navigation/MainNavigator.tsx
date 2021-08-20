@@ -15,6 +15,7 @@ import RegistrationScreen from '../screens/loginFlow/RegistrationScreen';
 import MovieScreen from '../screens/mainFlow/MovieScreen';
 import SceneScreen from '../screens/mainFlow/SceneScreen';
 import ActorScreen from '../screens/mainFlow/ActorScreen';
+import { constants } from '../state/constants';
 
 const Stack = createStackNavigator();
 
@@ -35,15 +36,15 @@ const MainNavigator = () => {
     return subscriber;
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      database()
-        .ref('Movies')
-        .on('value', snapshot => {
-          dispatch(actions.user.setMovies(snapshot.val()));
-        });
-    }
-  }, [user]);
+  if (user) {
+    dispatch(actions.app.getMovies());
+    // database()
+    //   .ref('Movies')
+    //   .once('value', snapshot => {
+    //     dispatch(actions.user.setMovies(snapshot.val()));
+    //   });
+  }
+  useEffect(() => {}, []);
 
   if (setLoading) return <ActivityIndicator size="large" color="#0000ff" />;
 

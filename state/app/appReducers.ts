@@ -3,7 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { constants } from '../constants';
 
 const initialState = {
-  movieData: [],
+  movieData: {},
 };
 
 export const appReducer = createReducer(initialState, {

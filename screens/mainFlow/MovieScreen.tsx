@@ -17,8 +17,10 @@ import SceneTile from '../../components/SceneTile';
 
 const MovieScreen = ({ route }) => {
   const { title } = route.params;
-  const { movies } = useSelector(state => state.user);
-  const movie = movies[title];
+  // const { movies } = useSelector(state => state.user);
+  const { movieData } = useSelector(state => state.app);
+  // const movies = movieData._snapshot.value;
+  const movie = movieData[title];
   const { t } = useTranslation();
   const { setLoading } = useSelector(state => state.ui);
   const [newSceneName, setNewSceneName] = useState('');

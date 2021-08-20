@@ -22,10 +22,12 @@ const { height, width } = Dimensions.get('window');
 const HomeScreen = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { email } = useSelector(state => state.user);
   const { movies } = useSelector(state => state.user);
   const { user } = useSelector(state => state.user);
-
+  const email = user.email;
+  const { movieData } = useSelector(state => state.app);
+  // const movies = movieData._snapshot.value;
+  // const movies = {};
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleLogout = () => {
@@ -49,7 +51,10 @@ const HomeScreen = () => {
           title={t('homeScreen:buttonLogout')}
           onPress={handleLogout}
         />
-        <DefaultButton title={'print data'} onPress={() => console.log(user)} />
+        <DefaultButton
+          title={'print data'}
+          onPress={() => console.log(Object.keys(movieData))}
+        />
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.moviesSection}>
             <Text style={styles.moviesTitle}>
@@ -59,17 +64,18 @@ const HomeScreen = () => {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {Object.keys(movies).map((movie, index) =>
-                  movies[movie].administrators.includes(user.email) ? (
-                    <MovieGridTile
-                      key={index}
-                      movieData={movies[movie]}
-                      title={movie}
-                    />
-                  ) : (
-                    <></>
-                  ),
-                )}
+                {movieData &&
+                  Object.keys(movieData).map((movie, index) =>
+                    movieData[movie].administrators.includes(user.email) ? (
+                      <MovieGridTile
+                        key={index}
+                        movieData={movieData[movie]}
+                        title={movieData[movie].title}
+                      />
+                    ) : (
+                      <></>
+                    ),
+                  )}
               </ScrollView>
             </View>
             <View style={styles.actorsSection}>

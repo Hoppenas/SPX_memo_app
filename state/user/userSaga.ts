@@ -99,4 +99,5 @@ export default function* userSaga() {
   yield takeEvery(constants.user.LOGIN, login);
   yield takeEvery(constants.user.LOGOUT, logout);
   yield takeEvery(constants.user.REGISTER, handleRegistration);
+  yield fork(watchUser);
 }
