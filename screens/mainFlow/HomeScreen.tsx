@@ -68,7 +68,7 @@ const HomeScreen = () => {
                   Object.keys(movieData).map((movie, index) =>
                     movieData[movie].administrators.includes(user.email) ? (
                       <MovieGridTile
-                        key={index}
+                        index={index}
                         movieData={movieData[movie]}
                         title={movieData[movie].title}
                       />
