@@ -13,7 +13,13 @@ const setMovie = (data: ISelectionData[]) => ({
   payload: data,
 });
 
+const uploadImage = (imageUri: string) => ({
+  type: constants.app.UPLOAD_IMAGE,
+  payload: { imageUri },
+});
+
 export const appActions = {
   getMovies,
   setMovie,
+  uploadImage,
 };

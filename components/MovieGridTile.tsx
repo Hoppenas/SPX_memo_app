@@ -4,10 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const MovieGridTile = props => {
-  const { title, movieData } = props;
+  const { title, movieData, key } = props;
   const navigation = useNavigation();
   return (
     <Pressable
+      key={key}
       style={styles.gridItem}
       onPress={() => {
         navigation.navigate('movie', { title: title });

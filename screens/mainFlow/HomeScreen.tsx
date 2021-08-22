@@ -53,7 +53,7 @@ const HomeScreen = () => {
         />
         <DefaultButton
           title={'print data'}
-          onPress={() => console.log(Object.keys(movieData))}
+          onPress={() => console.log(user.uid)}
         />
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.moviesSection}>
