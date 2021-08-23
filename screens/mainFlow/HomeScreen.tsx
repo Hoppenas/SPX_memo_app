@@ -24,6 +24,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const { movies } = useSelector(state => state.user);
   const { user } = useSelector(state => state.user);
+  const { uid } = useSelector(state => state.user.user);
   const email = user.email;
   const { movieData } = useSelector(state => state.app);
   // const movies = movieData._snapshot.value;
@@ -51,10 +52,7 @@ const HomeScreen = () => {
           title={t('homeScreen:buttonLogout')}
           onPress={handleLogout}
         />
-        <DefaultButton
-          title={'print data'}
-          onPress={() => console.log(user.uid)}
-        />
+        <DefaultButton title={'print data'} onPress={() => console.log(uid)} />
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.moviesSection}>
             <Text style={styles.moviesTitle}>
@@ -68,7 +66,7 @@ const HomeScreen = () => {
                   Object.keys(movieData).map((movie, index) =>
                     movieData[movie].administrators.includes(user.email) ? (
                       <MovieGridTile
-                        index={index}
+                        key={index}
                         movieData={movieData[movie]}
                         title={movieData[movie].title}
                       />

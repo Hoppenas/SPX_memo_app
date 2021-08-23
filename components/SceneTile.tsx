@@ -4,20 +4,24 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 interface SceneTileProps {
-  title: string;
+  sceneTitle: string;
+  movieTitle: string;
 }
 
 const SceneTile: React.FC<SceneTileProps> = props => {
-  const { title } = props;
+  const { sceneTitle, movieTitle } = props;
   const navigation = useNavigation();
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate('scene', { title: title });
+        navigation.navigate('scene', {
+          sceneTitle: sceneTitle,
+          movieTitle: movieTitle,
+        });
       }}>
       <View style={styles.container}>
         <Icon name="videocam-outline" size={30} color="#4F8EF7" />
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{sceneTitle}</Text>
         <Icon name="chevron-forward-outline" size={30} color="#4F8EF7" />
       </View>
     </Pressable>

@@ -47,7 +47,11 @@ const MovieScreen = ({ route }) => {
           <Text style={styles.movieScenes}>{t('movieScreen:sceneTitle')}:</Text>
           {movie.scenes &&
             Object.keys(movie.scenes).map((scene, index) => (
-              <SceneTile key={index} title={movie.scenes[scene].title} />
+              <SceneTile
+                key={index}
+                sceneTitle={movie.scenes[scene].title}
+                movieTitle={movie.title}
+              />
             ))}
           <DefaultInput
             placeholder={t('movieScreen:placeHolderScneName')}

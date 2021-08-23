@@ -38,7 +38,7 @@ const uploadImageToStorage = async (uri: string): Promise<unknown> => {
   const resizedImagePath: string = resizedImage.uri;
   const resizedImageFileName: string = resizedImage.name;
   // Create storage reference to not yet existing image
-  const reference = storage().ref(`2/${resizedImageFileName}`);
+  const reference = storage().ref(resizedImageFileName);
   // Uploads file to firebase storage
   const task = await reference.putFile(resizedImagePath);
   // Get download URL
@@ -49,12 +49,20 @@ const uploadImageToStorage = async (uri: string): Promise<unknown> => {
 const createGalleryItemInDatabase = async (
   imageUrl: string,
   timeCreated: string,
-  userId: string,
+  uid: string,
+  movieTitle: string,
+  sceneTitle: string,
 ) => {
-  const gallery = database().ref('gallery');
-  const galleryItemId = userId + timeCreated;
+  const galleryItemId = uid + timeCreated;
+  const gallery = database().ref(
+    `Movies/${movieTitle}/scenes/${sceneTitle}/actor/gallery/${galleryItemId}`,
+  );
+  // 'Movies/Rupintojelis/scenes/tenth/gallery',
+  console.log('creating item in db');
   // Create gallery item
-  await gallery.child(galleryItemId).set({ imageUrl, timeCreated, userId });
+  await gallery
+    // .child(`actor / gallery / ${galleryItemId}`)
+    .set({ imageUrl: imageUrl, timeCreated: timeCreated, uid: galleryItemId });
 };
 
 export const api = {

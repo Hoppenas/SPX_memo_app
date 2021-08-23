@@ -23,21 +23,22 @@ import DefaultInput from '../../components/DefaultInput';
 import SceneTile from '../../components/SceneTile';
 
 const SceneScreen = ({ route }) => {
-  const { title } = route.params;
-  const { movies } = useSelector(state => state.user);
-  const movie = movies[title];
+  const { sceneTitle, movieTitle } = route.params;
+  const { movies } = useSelector(state => state.app);
+  const { gallery } = useSelector(state => state.gallery);
+  // const movie = movies[title];
   const { t } = useTranslation();
   const { setLoading } = useSelector(state => state.ui);
-  const [newSceneName, setNewSceneName] = useState('');
   const [imagePath, setImagePath] = useState({});
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
-  const handleSubmitUpload = useCallback(imageUri => {
-    // dispatch(actions.gallery.uploadImage(imageUri));
-    dispatch(actions.gallery.uploadImage(imageUri.uri));
-    console.log(imageUri);
+  const handleSubmitUpload = useCallback((imageUri, movieTitle, sceneTitle) => {
+    dispatch(actions.gallery.uploadImage(imageUri, movieTitle, sceneTitle));
+    // console.log(imageUri);
+    // console.log(movieTitle);
+    // console.log(sceneTitle);
   }, []);
 
   const handleLaunchCamera = () => {
@@ -73,18 +74,27 @@ const SceneScreen = ({ route }) => {
     });
   };
 
+  // scene name: sceneTitle
+  // movie name: movieTitle
+
   return (
     <SafeAreaView style={styles.screen}>
       {setLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <View style={styles.screen}>
-          <Text style={styles.sceneTitle}>{title}</Text>
+          <Text style={styles.sceneTitle}>{sceneTitle}</Text>
           <Button title={'camera'} onPress={handleLaunchCamera} />
           <Button title={'library'} onPress={handleSelectImageFromLibrary} />
           <Button
-            title={'image path'}
-            onPress={() => handleSubmitUpload(imagePath)}
+            title={'handle upload'}
+            onPress={() =>
+              handleSubmitUpload(imagePath.uri, movieTitle, sceneTitle)
+            }
+          />
+          <Button
+            title={'console info'}
+            onPress={() => console.log(typeof imagePath.uri)}
           />
         </View>
       )}
