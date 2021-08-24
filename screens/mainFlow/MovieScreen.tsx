@@ -16,23 +16,26 @@ import DefaultInput from '../../components/DefaultInput';
 import SceneTile from '../../components/SceneTile';
 
 const MovieScreen = ({ route }) => {
-  const { title } = route.params;
-  // const { movies } = useSelector(state => state.user);
+  const { movieId } = route.params;
+  const { movies } = useSelector(state => state.user);
   const { movieData } = useSelector(state => state.app);
-  // const movies = movieData._snapshot.value;
-  const movie = movieData[title];
+  const movie = movieData[movieId];
   const { t } = useTranslation();
   const { setLoading } = useSelector(state => state.ui);
   const [newSceneName, setNewSceneName] = useState('');
 
   const navigation = useNavigation();
 
-  const addNewScene = movieName => {
-    const newReference = database().ref(
-      `Movies/${movieName}/scenes/${newSceneName}`,
-    );
+  const addNewScene = () => {
+    if (newSceneName) {
+      const newReference = database().ref(
+        `Movies/${movieId}/scenes/${newSceneName}`,
+      );
 
-    newReference.set({ title: newSceneName }).then(setNewSceneName(''));
+      newReference.set({ title: newSceneName }).then(setNewSceneName(''));
+    } else {
+      console.log('empty');
+    }
   };
 
   return (
@@ -41,16 +44,21 @@ const MovieScreen = ({ route }) => {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <View style={styles.movieContainer}>
-          <Text style={styles.movieTitle}>{movie.title}</Text>
-          <Text style={styles.movieDirector}>{movie.director}</Text>
-          <Text style={styles.movieDirector}>{movie.administrators}</Text>
+          <Text style={styles.movieTitle}>{movieData[movieId].title}</Text>
+          <Text style={styles.movieDirector}>
+            {movieData[movieId].director}
+          </Text>
+          <Text style={styles.movieDirector}>
+            {movieData[movieId].administrators}
+          </Text>
           <Text style={styles.movieScenes}>{t('movieScreen:sceneTitle')}:</Text>
           {movie.scenes &&
             Object.keys(movie.scenes).map((scene, index) => (
+              // <Text>{scene}</Text>
               <SceneTile
                 key={index}
                 sceneTitle={movie.scenes[scene].title}
-                movieTitle={movie.title}
+                movieTitle={movieId}
               />
             ))}
           <DefaultInput
@@ -60,7 +68,11 @@ const MovieScreen = ({ route }) => {
           />
           <DefaultButton
             title={t('movieScreen:buttonAddScene')}
-            onPress={() => addNewScene(title)}
+            onPress={addNewScene}
+          />
+          <DefaultButton
+            title={'print'}
+            onPress={() => console.log(movieData[movieId].title)}
           />
         </View>
       )}

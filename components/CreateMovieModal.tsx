@@ -43,8 +43,8 @@ const CreateMovieModal: React.FC<CreateMovieModalProps> = ({
       console.log('movie exists');
     } else {
       const newReference = database().ref('/Movies').push();
-      database()
-        .ref(`Movies/${movieName}`)
+      newReference
+        // .ref(`Movies/${movieName}`)
         .set({
           id: newReference.key,
           title: movieName,

@@ -24,7 +24,7 @@ import SceneTile from '../../components/SceneTile';
 
 const SceneScreen = ({ route }) => {
   const { sceneTitle, movieTitle } = route.params;
-  const { movies } = useSelector(state => state.app);
+  const { movieData } = useSelector(state => state.app);
   const { gallery } = useSelector(state => state.gallery);
   // const movie = movies[title];
   const { t } = useTranslation();
@@ -36,9 +36,6 @@ const SceneScreen = ({ route }) => {
 
   const handleSubmitUpload = useCallback((imageUri, movieTitle, sceneTitle) => {
     dispatch(actions.gallery.uploadImage(imageUri, movieTitle, sceneTitle));
-    // console.log(imageUri);
-    // console.log(movieTitle);
-    // console.log(sceneTitle);
   }, []);
 
   const handleLaunchCamera = () => {
@@ -74,9 +71,6 @@ const SceneScreen = ({ route }) => {
     });
   };
 
-  // scene name: sceneTitle
-  // movie name: movieTitle
-
   return (
     <SafeAreaView style={styles.screen}>
       {setLoading ? (
@@ -94,7 +88,13 @@ const SceneScreen = ({ route }) => {
           />
           <Button
             title={'console info'}
-            onPress={() => console.log(typeof imagePath.uri)}
+            onPress={() => console.log(movieData)}
+          />
+          <Button
+            onPress={() => {
+              navigation.navigate('actorScene', { actorId: '123' });
+            }}
+            title={'Actor 1'}
           />
         </View>
       )}

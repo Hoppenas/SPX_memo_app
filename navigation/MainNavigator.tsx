@@ -15,6 +15,7 @@ import RegistrationScreen from '../screens/loginFlow/RegistrationScreen';
 import MovieScreen from '../screens/mainFlow/MovieScreen';
 import SceneScreen from '../screens/mainFlow/SceneScreen';
 import ActorScreen from '../screens/mainFlow/ActorScreen';
+import ActorSceneScreen from '../screens/mainFlow/ActorSceneScreen';
 import { constants } from '../state/constants';
 
 const Stack = createStackNavigator();
@@ -68,6 +69,7 @@ const MainNavigator = () => {
           <Stack.Screen name="movie" component={MovieScreen} />
           <Stack.Screen name="scene" component={SceneScreen} />
           <Stack.Screen name="actor" component={ActorScreen} />
+          <Stack.Screen name="actorScene" component={ActorSceneScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

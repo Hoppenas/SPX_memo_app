@@ -15,7 +15,9 @@ import DefaultButton from '../../components/DefaultButton';
 import MovieGridTile from '../../components/MovieGridTile';
 import ActorsGridTile from '../../components/ActorsGridTile';
 import CreateMovieModal from '../../components/CreateMovieModal';
+import AddActorTile from '../../components/AddActorTile';
 import { actions } from '../../state/actions';
+import FloatingButton from '../../components/FloatingButton';
 
 const { height, width } = Dimensions.get('window');
 
@@ -52,7 +54,10 @@ const HomeScreen = () => {
           title={t('homeScreen:buttonLogout')}
           onPress={handleLogout}
         />
-        <DefaultButton title={'print data'} onPress={() => console.log(uid)} />
+        <DefaultButton
+          title={'print data'}
+          onPress={() => console.log(Object.keys(movieData))}
+        />
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.moviesSection}>
             <Text style={styles.moviesTitle}>
@@ -62,18 +67,15 @@ const HomeScreen = () => {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {movieData &&
-                  Object.keys(movieData).map((movie, index) =>
-                    movieData[movie].administrators.includes(user.email) ? (
-                      <MovieGridTile
-                        key={index}
-                        movieData={movieData[movie]}
-                        title={movieData[movie].title}
-                      />
-                    ) : (
-                      <></>
-                    ),
-                  )}
+                {Object.keys(movieData).map((movie, index) => (
+                  <MovieGridTile
+                    key={index}
+                    moviedata={movieData[movie]}
+                    movieName={movieData[movie].title}
+                    movieId={movie}
+                  />
+                  // <Text key={index}>{movieData[movie].title}</Text>
+                ))}
               </ScrollView>
             </View>
             <View style={styles.actorsSection}>
@@ -81,6 +83,7 @@ const HomeScreen = () => {
                 {t('homeScreen:actorsTitle')}
               </Text>
               <View style={styles.actorsList}>
+                <AddActorTile width={width} />
                 <ActorsGridTile width={width} />
                 <ActorsGridTile width={width} />
                 <ActorsGridTile width={width} />
@@ -91,6 +94,7 @@ const HomeScreen = () => {
           </View>
         </ScrollView>
       </>
+      <FloatingButton style={{ bottom: 0 }} />
     </SafeAreaView>
   );
 };
