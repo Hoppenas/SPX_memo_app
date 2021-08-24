@@ -9,12 +9,6 @@ import DefaultButton from './DefaultButton';
 interface CreateMovieModalProps {
   modalVisible: boolean;
   setModalVisible: (event: unknown) => void;
-  setMovieName: (event: unknown) => void;
-  movieName: string;
-  setStartDate: (event: unknown) => void;
-  startDate: string;
-  setDirector: (event: unknown) => void;
-  director: string;
   email: string;
   movies: any;
 }
@@ -43,75 +37,65 @@ const CreateMovieModal: React.FC<CreateMovieModalProps> = ({
       console.log('movie exists');
     } else {
       const newReference = database().ref('/Movies').push();
-      newReference
-        // .ref(`Movies/${movieName}`)
-        .set({
-          id: newReference.key,
-          title: movieName,
-          'start date': startDate,
-          director: director,
-          administrators: [email],
-          scenes: [],
-        });
+      newReference.set({
+        id: newReference.key,
+        title: movieName,
+        'start date': startDate,
+        director: director,
+        administrators: [email],
+        scenes: [],
+      });
 
       closeModal();
     }
   };
 
   return (
-    <View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <DefaultInput
-              placeholder={t('homeScreen:enterNewMovieName')}
-              onChangeText={setMovieName}
-              value={movieName}
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(!modalVisible);
+      }}>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <DefaultInput
+            placeholder={t('homeScreen:enterNewMovieName')}
+            onChangeText={setMovieName}
+            value={movieName}
+          />
+          <DefaultInput
+            placeholder={t('homeScreen:enterStartDate')}
+            onChangeText={setStartDate}
+            value={startDate}
+          />
+          <DefaultInput
+            placeholder={t('homeScreen:enterDirector')}
+            onChangeText={setDirector}
+            value={director}
+          />
+          <View style={styles.buttonContainer}>
+            <DefaultButton
+              title={t('homeScreen:buttonCreateNewMovie')}
+              onPress={createMovie}
             />
-            <DefaultInput
-              placeholder={t('homeScreen:enterStartDate')}
-              onChangeText={setStartDate}
-              value={startDate}
+            <DefaultButton
+              title={t('homeScreen:buttonCancelMovie')}
+              onPress={closeModal}
             />
-            <DefaultInput
-              placeholder={t('homeScreen:enterDirector')}
-              onChangeText={setDirector}
-              value={director}
-            />
-            <View style={styles.buttonContainer}>
-              <DefaultButton
-                title={t('homeScreen:buttonCreateNewMovie')}
-                onPress={createMovie}
-              />
-              <DefaultButton
-                title={t('homeScreen:buttonCancelMovie')}
-                onPress={closeModal}
-              />
-            </View>
           </View>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  modal: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 15,
-  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -127,31 +111,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    width: '75%',
   },
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
   buttonContainer: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
   },
 });
 

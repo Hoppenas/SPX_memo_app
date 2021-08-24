@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 interface DefaultButtonProps {
   title: string;
@@ -8,16 +8,28 @@ interface DefaultButtonProps {
 
 const DefaultButton: React.FC<DefaultButtonProps> = ({ title, onPress }) => {
   return (
-    <View>
-      <Button style={styles.button} title={title} onPress={onPress} />
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.buttonContainer}>
+        <Text style={styles.button}>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    backgroundColor: '#2196F3',
+  },
   button: {
-    borderWidth: 1,
-    borderColor: 'grey',
+    color: '#FFF',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontSize: 16,
+    textAlign: 'center',
+    minWidth: '40%',
   },
 });
 
