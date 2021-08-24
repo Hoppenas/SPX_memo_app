@@ -50,9 +50,19 @@
     "passwordValid": "Password must be 6-10 symbols",
     "passwordTooLong": "Password must be 6-10 symbols",
     "mustMatch": "Passwords must match",
-    "emailInUse": "Email already in use"
+    "emailInUse": "Email already in use",
+    "nameRequired": "Pls enter name and surname",
+    "phoneRequired": "Pls enter phone",
+    "phoneValid": "Pls enter correct phone number"
   },
   "messages": {
     "successfullRegistration": "Registration successfull"
+  },
+  "actors": {
+    "emailPlacehodler": "email",
+    "namePlacehodler": "name",
+    "phonePlacehodler": "phone",
+    "buttonLogin": "Log in",
+    "buttonClose": "Close"
   }
 }

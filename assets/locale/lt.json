@@ -49,9 +49,19 @@
     "passwordValid": "Slaptažodį privalo sudaryti 6-10 simbolių",
     "passwordTooLong": "Slaptažodį privalo sudaryti 6-10 simbolių",
     "mustMatch": "Nesutampa slaptažodžiai",
-    "emailInUse": "Elektroninis paštas jau naudojamas"
+    "emailInUse": "Elektroninis paštas jau naudojamas",
+    "nameRequired": "Įveskite vardą ir pavardę",
+    "phoneRequired": "Įveskite telefono nr",
+    "phoneValid": "Įvedėt neteisingą numerį"
   },
   "messages": {
     "successfullRegistration": "Registracija sėkminga"
+  },
+  "actors": {
+    "emailPlacehodler": "Elektroninis paštas",
+    "namePlacehodler": "vardas",
+    "phonePlacehodler": "tel nr",
+    "buttonLogin": "Prisijungti",
+    "buttonClose": "Uždaryti"
   }
 }

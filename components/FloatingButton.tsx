@@ -66,23 +66,16 @@ const FloatingButton: React.FC<TFloatingButtonProps> = props => {
     outputRange: [0, 0, 1],
   });
 
-  // useEffect(() => {
-  //   Animated.timing(fadeAnim, {
-  //     toValue: 1,
-  //     duration: 10000,
-  //   }).start();
-  // }, [fadeAnim]);
-
   return (
     <View style={[styles.container, props.style]}>
-      <TouchableWithoutFeedback onPress={() => console.log('movie')}>
+      <TouchableWithoutFeedback onPress={props.openCreateMovieModal}>
         <Animated.View
           style={[styles.button, styles.secondary, pinStyle, opacity]}>
           <Ionicons name="md-film-outline" size={25} color="blue" />
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={() => console.log('actor')}>
+      <TouchableWithoutFeedback onPress={props.openCreateActorModal}>
         <Animated.View
           style={[styles.button, styles.secondary, thumbStyle, opacity]}>
           <Materiallcons name="portrait" size={25} color="blue" />

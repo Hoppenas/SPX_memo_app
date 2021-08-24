@@ -15,6 +15,7 @@ import DefaultButton from '../../components/DefaultButton';
 import MovieGridTile from '../../components/MovieGridTile';
 import ActorsGridTile from '../../components/ActorsGridTile';
 import CreateMovieModal from '../../components/CreateMovieModal';
+import CreateActorModal from '../../components/CreateActorModal';
 import AddActorTile from '../../components/AddActorTile';
 import { actions } from '../../state/actions';
 import FloatingButton from '../../components/FloatingButton';
@@ -31,7 +32,8 @@ const HomeScreen = () => {
   const { movieData } = useSelector(state => state.app);
   // const movies = movieData._snapshot.value;
   // const movies = {};
-  const [modalVisible, setModalVisible] = useState(false);
+  const [movieModalVisible, setMovieModalVisible] = useState(false);
+  const [actorModalVisible, setActorModalVisible] = useState(false);
 
   const handleLogout = () => {
     dispatch(actions.user.logout());
@@ -40,16 +42,20 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <>
+        <CreateActorModal
+          modalVisible={actorModalVisible}
+          setModalVisible={setActorModalVisible}
+        />
         <CreateMovieModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
+          modalVisible={movieModalVisible}
+          setModalVisible={setMovieModalVisible}
           movies={movies}
           email={email}
         />
-        <DefaultButton
+        {/* <DefaultButton
           title={t('homeScreen:buttonCreateNewMovie')}
           onPress={() => setModalVisible(true)}
-        />
+        /> */}
         <DefaultButton
           title={t('homeScreen:buttonLogout')}
           onPress={handleLogout}
@@ -74,7 +80,6 @@ const HomeScreen = () => {
                     movieName={movieData[movie].title}
                     movieId={movie}
                   />
-                  // <Text key={index}>{movieData[movie].title}</Text>
                 ))}
               </ScrollView>
             </View>
@@ -83,7 +88,6 @@ const HomeScreen = () => {
                 {t('homeScreen:actorsTitle')}
               </Text>
               <View style={styles.actorsList}>
-                <AddActorTile width={width} />
                 <ActorsGridTile width={width} />
                 <ActorsGridTile width={width} />
                 <ActorsGridTile width={width} />
@@ -94,7 +98,11 @@ const HomeScreen = () => {
           </View>
         </ScrollView>
       </>
-      <FloatingButton style={{ bottom: 0 }} />
+      <FloatingButton
+        style={{ bottom: 0 }}
+        openCreateMovieModal={() => setMovieModalVisible(true)}
+        openCreateActorModal={() => setActorModalVisible(true)}
+      />
     </SafeAreaView>
   );
 };

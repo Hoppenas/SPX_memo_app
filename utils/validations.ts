@@ -3,6 +3,18 @@ import { useTranslation } from 'react-i18next';
 
 const { t } = useTranslation();
 
+export const createActorValidationSchema = yup.object({
+  name: yup.string().required(() => t('errors:nameRequired')),
+  email: yup
+    .string()
+    .required(() => t('errors:emailRequired'))
+    .email(() => t('errors:emailValid')),
+  phone: yup
+    .string()
+    .required(() => t('errors:phoneRequired'))
+    .min(9, () => t('errors:phoneValid')),
+});
+
 export const loginValidationSchema = yup.object({
   email: yup
     .string()
