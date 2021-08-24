@@ -16,8 +16,6 @@ import MovieGridTile from '../../components/MovieGridTile';
 import ActorsGridTile from '../../components/ActorsGridTile';
 import CreateMovieModal from '../../components/CreateMovieModal';
 import CreateActorModal from '../../components/CreateActorModal';
-import AddActorTile from '../../components/AddActorTile';
-import { actions } from '../../state/actions';
 import FloatingButton from '../../components/FloatingButton';
 
 const { height, width } = Dimensions.get('window');
@@ -35,10 +33,6 @@ const HomeScreen = () => {
   const [movieModalVisible, setMovieModalVisible] = useState(false);
   const [actorModalVisible, setActorModalVisible] = useState(false);
 
-  const handleLogout = () => {
-    dispatch(actions.user.logout());
-  };
-
   return (
     <SafeAreaView style={styles.screen}>
       <>
@@ -51,14 +45,6 @@ const HomeScreen = () => {
           setModalVisible={setMovieModalVisible}
           movies={movies}
           email={email}
-        />
-        {/* <DefaultButton
-          title={t('homeScreen:buttonCreateNewMovie')}
-          onPress={() => setModalVisible(true)}
-        /> */}
-        <DefaultButton
-          title={t('homeScreen:buttonLogout')}
-          onPress={handleLogout}
         />
         <DefaultButton
           title={'print data'}

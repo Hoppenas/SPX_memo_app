@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../state/actions';
 import database from '@react-native-firebase/database';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Button } from 'react-native';
 
 import ForgotPasswordScreen from '../screens/loginFlow/ForgotPasswordScreen';
 import HomeScreen from '../screens/mainFlow/HomeScreen';
@@ -16,6 +16,7 @@ import MovieScreen from '../screens/mainFlow/MovieScreen';
 import SceneScreen from '../screens/mainFlow/SceneScreen';
 import ActorScreen from '../screens/mainFlow/ActorScreen';
 import ActorSceneScreen from '../screens/mainFlow/ActorSceneScreen';
+import LogoutButton from '../components/LogoutButton';
 import { constants } from '../state/constants';
 
 const Stack = createStackNavigator();
@@ -65,7 +66,13 @@ const MainNavigator = () => {
         <Stack.Navigator
           screenOptions={{ headerShown: true }}
           initialRouteName="home">
-          <Stack.Screen name="home" component={HomeScreen} />
+          <Stack.Screen
+            name="home"
+            component={HomeScreen}
+            options={{
+              headerRight: () => <LogoutButton />,
+            }}
+          />
           <Stack.Screen name="movie" component={MovieScreen} />
           <Stack.Screen name="scene" component={SceneScreen} />
           <Stack.Screen name="actor" component={ActorScreen} />
