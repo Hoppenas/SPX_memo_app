@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   moviesList: { height: 130, marginTop: 20 },
-  actorsSection: { marginTop: 40 },
+  actorsSection: { marginTop: 20 },
   actorsTitle: {
     fontSize: 24,
     fontWeight: '700',
