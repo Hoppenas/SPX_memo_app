@@ -66,12 +66,12 @@ const createGalleryItemInDatabase = async (
   const gallery = database().ref(
     `Movies/${movieTitle}/scenes/${sceneTitle}/actor/gallery/${galleryItemId}`,
   );
-  // 'Movies/Rupintojelis/scenes/tenth/gallery',
-  console.log('creating item in db');
   // Create gallery item
-  await gallery
-    // .child(`actor / gallery / ${galleryItemId}`)
-    .set({ imageUrl: imageUrl, timeCreated: timeCreated, uid: galleryItemId });
+  await gallery.set({
+    imageUrl: imageUrl,
+    timeCreated: timeCreated,
+    uid: galleryItemId,
+  });
 };
 
 export const api = {

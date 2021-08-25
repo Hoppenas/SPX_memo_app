@@ -59,7 +59,6 @@ function* watchGallery() {
       const { galleryImages } = yield take(channel as any);
       const galleryImagesArray = Object.values(galleryImages);
       yield put(actions.gallery.setGallery(galleryImagesArray));
-      yield console.log(galleryImagesArray);
     }
   } catch (err) {
     console.log(err);

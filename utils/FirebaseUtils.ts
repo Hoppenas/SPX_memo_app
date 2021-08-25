@@ -6,7 +6,6 @@ const navigation = useNavigation();
 export const logOut = () => {
   auth()
     .signOut()
-    .then(() => console.log(t('homeScreen:userSignedOut')))
     .then(() => {
       navigation.navigate('landing');
     });
