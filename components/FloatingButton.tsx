@@ -9,9 +9,13 @@ import Materiallcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-interface TFloatingButtonProps {}
+interface TFloatingButtonProps {
+  openCreateMovieModal: (event: unknown) => void;
+  openCreateActorModal: (event: unknown) => void;
+}
 
 const FloatingButton: React.FC<TFloatingButtonProps> = props => {
+  const { openCreateMovieModal, openCreateActorModal } = props;
   const [open, setOpen] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -66,16 +70,26 @@ const FloatingButton: React.FC<TFloatingButtonProps> = props => {
     outputRange: [0, 0, 1],
   });
 
+  const handleCreateMovieModal = () => {
+    openCreateMovieModal();
+    toggleMenu();
+  };
+
+  const handleCreateActorModal = () => {
+    openCreateActorModal();
+    toggleMenu();
+  };
+
   return (
     <View style={[styles.container, props.style]}>
-      <TouchableWithoutFeedback onPress={props.openCreateMovieModal}>
+      <TouchableWithoutFeedback onPress={handleCreateMovieModal}>
         <Animated.View
           style={[styles.button, styles.secondary, pinStyle, opacity]}>
           <Ionicons name="md-film-outline" size={25} color="blue" />
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={props.openCreateActorModal}>
+      <TouchableWithoutFeedback onPress={handleCreateActorModal}>
         <Animated.View
           style={[styles.button, styles.secondary, thumbStyle, opacity]}>
           <Materiallcons name="portrait" size={25} color="blue" />

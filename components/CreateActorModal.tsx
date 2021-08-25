@@ -11,12 +11,13 @@ import DefaultInput from '../components/DefaultInput';
 interface CreateActorModalProps {
   modalVisible: boolean;
   setModalVisible: (event: unknown) => void;
+  email: string;
+  phone: string;
+  name: string;
 }
 
-const CreateActorModal: React.FC<CreateActorModalProps> = ({
-  modalVisible,
-  setModalVisible,
-}) => {
+const CreateActorModal: React.FC<CreateActorModalProps> = props => {
+  const { modalVisible, setModalVisible } = props;
   const { t } = useTranslation();
 
   const closeModal = () => {
@@ -25,6 +26,7 @@ const CreateActorModal: React.FC<CreateActorModalProps> = ({
 
   const createActor = () => {
     console.log('new actor added');
+    closeModal();
   };
 
   //   const createMovie = () => {
