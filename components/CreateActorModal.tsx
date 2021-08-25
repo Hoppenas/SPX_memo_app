@@ -24,7 +24,13 @@ const CreateActorModal: React.FC<CreateActorModalProps> = props => {
     setModalVisible(false);
   };
 
-  const createActor = values => {
+  interface IcreateActor {
+    email: string;
+    name: string;
+    phone: string;
+  }
+
+  const createActor = (values: IcreateActor) => {
     const newReference = database().ref('/actors').push();
     newReference.set({
       id: newReference.key,

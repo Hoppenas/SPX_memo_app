@@ -14,6 +14,7 @@ import database from '@react-native-firebase/database';
 import DefaultButton from '../../components/DefaultButton';
 import DefaultInput from '../../components/DefaultInput';
 import SceneTile from '../../components/SceneTile';
+import FloatingSingleButton from '../../components/floatingSingleButton';
 
 const MovieScreen = ({ route }) => {
   const { movieId } = route.params;
@@ -36,6 +37,10 @@ const MovieScreen = ({ route }) => {
     } else {
       console.log('empty');
     }
+  };
+
+  const openCreateNewSceneModal = () => {
+    alert('new scene');
   };
 
   return (
@@ -76,6 +81,7 @@ const MovieScreen = ({ route }) => {
           />
         </View>
       )}
+      <FloatingSingleButton openCreateNewSceneModal={openCreateNewSceneModal} />
     </SafeAreaView>
   );
 };

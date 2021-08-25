@@ -29,7 +29,7 @@ const getActors = async () => {
   database()
     .ref('actors')
     .on('value', snapshot => {
-      dispatch(actions.app.setActors(snapshot.val()));
+      dispatch(actions.actors.setActors(snapshot.val()));
     });
 };
 

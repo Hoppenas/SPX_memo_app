@@ -40,6 +40,7 @@ const MainNavigator = () => {
 
   if (user) {
     dispatch(actions.app.getMovies());
+    dispatch(actions.actors.getActors());
     // database()
     //   .ref('Movies')
     //   .once('value', snapshot => {

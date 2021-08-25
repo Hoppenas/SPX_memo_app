@@ -28,7 +28,7 @@ const HomeScreen = () => {
   const { uid } = useSelector(state => state.user.user);
   const email = user.email;
   const { movieData } = useSelector(state => state.app);
-  const { actorsData } = useSelector(state => state.app);
+  const { actorsData } = useSelector(state => state.actors);
   const [movieModalVisible, setMovieModalVisible] = useState(false);
   const [actorModalVisible, setActorModalVisible] = useState(false);
 

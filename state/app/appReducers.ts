@@ -4,14 +4,11 @@ import { constants } from '../constants';
 
 const initialState = {
   movieData: {},
-  actorsData: {},
+  // actorsData: {},
 };
 
 export const appReducer = createReducer(initialState, {
   [constants.app.SET_MOVIE]: (state, action) => {
     state.movieData = action.payload;
-  },
-  [constants.app.SET_ACTORS]: (state, action) => {
-    state.actorsData = action.payload;
   },
 });
