@@ -3,17 +3,16 @@ import { View, StyleSheet, Modal, Text, TextInput } from 'react-native';
 import database from '@react-native-firebase/database';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
-import { createActorValidationSchema } from '../utils/validations';
 
+import { createActorValidationSchema } from '../utils/validations';
 import DefaultButton from '../components/DefaultButton';
-import DefaultInput from '../components/DefaultInput';
 
 interface CreateActorModalProps {
   modalVisible: boolean;
   setModalVisible: (event: unknown) => void;
-  email: string;
-  phone: string;
   name: string;
+  phone: string;
+  email: string;
 }
 
 const CreateActorModal: React.FC<CreateActorModalProps> = props => {
@@ -25,23 +24,23 @@ const CreateActorModal: React.FC<CreateActorModalProps> = props => {
   };
 
   interface IcreateActor {
-    email: string;
     name: string;
     phone: string;
+    email: string;
   }
 
   const createActor = (values: IcreateActor) => {
     const newReference = database().ref('/actors').push();
     newReference.set({
-      id: newReference.key,
-      email: values.email,
       name: values.name,
       phone: values.phone,
+      email: values.email,
+      id: newReference.key,
       prifilePic:
         'https://media.timeout.com/images/103481015/630/472/image.jpg',
     });
 
-    closeModal();
+    closeModal(false);
   };
 
   return (

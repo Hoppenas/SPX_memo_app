@@ -3,14 +3,20 @@ import { View, StyleSheet, Modal, Text, TextInput } from 'react-native';
 import database from '@react-native-firebase/database';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
-import { createSceneValidationSchema } from '../utils/validations';
 
+import { createSceneValidationSchema } from '../utils/validations';
 import DefaultButton from '../components/DefaultButton';
-import DefaultInput from '../components/DefaultInput';
 
 interface CreateSceneModalProps {
   modalVisible: boolean;
   setModalVisible: (event: unknown) => void;
+  name: string;
+  location: string;
+  date: string;
+  movieId: string;
+}
+
+interface IcreateScene {
   name: string;
   location: string;
   date: string;
@@ -25,24 +31,7 @@ const CreateSceneModal: React.FC<CreateSceneModalProps> = props => {
     setModalVisible(false);
   };
 
-  interface IcreateScene {
-    name: string;
-    location: string;
-    date: string;
-    movieId: string;
-  }
-
   const createScene = (values: IcreateScene) => {
-    // const newReference = database().ref('/actors').push();
-    // newReference.set({
-    //   id: newReference.key,
-    //   email: values.email,
-    //   name: values.name,
-    //   phone: values.phone,
-    //   prifilePic:
-    //     'https://media.timeout.com/images/103481015/630/472/image.jpg',
-    // });
-
     const newReference = database().ref(
       `Movies/${movieId}/scenes/${values.name}`,
     );

@@ -18,33 +18,22 @@ import CreateMovieModal from '../../components/CreateMovieModal';
 import CreateActorModal from '../../components/CreateActorModal';
 import FloatingButton from '../../components/FloatingButton';
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const [movieModalVisible, setMovieModalVisible] = useState(false);
+  const [actorModalVisible, setActorModalVisible] = useState(false);
   const { movies } = useSelector(state => state.user);
   const { user } = useSelector(state => state.user);
-  const { uid } = useSelector(state => state.user.user);
   const email = user.email;
   const { movieData } = useSelector(state => state.app);
   const { actorsData } = useSelector(state => state.actors);
-  const [movieModalVisible, setMovieModalVisible] = useState(false);
-  const [actorModalVisible, setActorModalVisible] = useState(false);
+
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView style={styles.screen}>
       <>
-        <CreateActorModal
-          modalVisible={actorModalVisible}
-          setModalVisible={setActorModalVisible}
-        />
-        <CreateMovieModal
-          modalVisible={movieModalVisible}
-          setModalVisible={setMovieModalVisible}
-          movies={movies}
-          email={email}
-        />
         <DefaultButton
           title={'print data'}
           onPress={() => console.log(actorsData)}
@@ -90,6 +79,16 @@ const HomeScreen = () => {
         style={{ bottom: 0 }}
         openCreateMovieModal={() => setMovieModalVisible(true)}
         openCreateActorModal={() => setActorModalVisible(true)}
+      />
+      <CreateActorModal
+        modalVisible={actorModalVisible}
+        setModalVisible={setActorModalVisible}
+      />
+      <CreateMovieModal
+        modalVisible={movieModalVisible}
+        setModalVisible={setMovieModalVisible}
+        movies={movies}
+        email={email}
       />
     </SafeAreaView>
   );
