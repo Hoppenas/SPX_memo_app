@@ -15,6 +15,7 @@ import DefaultButton from '../../components/DefaultButton';
 import DefaultInput from '../../components/DefaultInput';
 import SceneTile from '../../components/SceneTile';
 import FloatingSingleButton from '../../components/floatingSingleButton';
+import CreateSceneModal from '../../components/CreateSceneModal';
 
 const MovieScreen = ({ route }) => {
   const { movieId } = route.params;
@@ -24,6 +25,7 @@ const MovieScreen = ({ route }) => {
   const { t } = useTranslation();
   const { setLoading } = useSelector(state => state.ui);
   const [newSceneName, setNewSceneName] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
@@ -40,7 +42,7 @@ const MovieScreen = ({ route }) => {
   };
 
   const openCreateNewSceneModal = () => {
-    alert('new scene');
+    setModalVisible(true);
   };
 
   return (
@@ -49,6 +51,11 @@ const MovieScreen = ({ route }) => {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <View style={styles.movieContainer}>
+          <CreateSceneModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            movieId={movieId}
+          />
           <Text style={styles.movieTitle}>{movieData[movieId].title}</Text>
           <Text style={styles.movieDirector}>
             {movieData[movieId].director}

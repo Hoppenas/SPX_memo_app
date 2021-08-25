@@ -52,7 +52,9 @@
     "emailInUse": "Elektroninis paštas jau naudojamas",
     "nameRequired": "Įveskite vardą ir pavardę",
     "phoneRequired": "Įveskite telefono nr",
-    "phoneValid": "Įvedėt neteisingą numerį"
+    "phoneValid": "Įvedėt neteisingą numerį",
+    "locationRequired": "įveskite filmavimo vietą",
+    "dateRequired": "Įveskite pradžios datą"
   },
   "messages": {
     "successfullRegistration": "Registracija sėkminga"
@@ -63,5 +65,12 @@
     "phonePlacehodler": "tel nr",
     "buttonLogin": "Pridėti aktorių",
     "buttonClose": "Uždaryti"
+  },
+  "scenes": {
+    "namePlacehodler": "cardas",
+    "locationPlacehodler": "vieta",
+    "datePlacehodler": "data",
+    "buttonCreateScene": "Add scene",
+    "buttonClose": "close"
   }
 }

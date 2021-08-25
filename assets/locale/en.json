@@ -51,9 +51,11 @@
     "passwordTooLong": "Password must be 6-10 symbols",
     "mustMatch": "Passwords must match",
     "emailInUse": "Email already in use",
-    "nameRequired": "Pls enter name and surname",
+    "nameRequired": "Pls enter name",
     "phoneRequired": "Pls enter phone",
-    "phoneValid": "Pls enter correct phone number"
+    "phoneValid": "Pls enter correct phone number",
+    "locationRequired": "Pls enter location",
+    "dateRequired": "Pls enter start date"
   },
   "messages": {
     "successfullRegistration": "Registration successfull"
@@ -64,5 +66,12 @@
     "phonePlacehodler": "phone",
     "buttonLogin": "Add actor",
     "buttonClose": "Close"
+  },
+  "scenes": {
+    "namePlacehodler": "name",
+    "locationPlacehodler": "location",
+    "datePlacehodler": "date",
+    "buttonCreateScene": "Add scene",
+    "buttonClose": "close"
   }
 }

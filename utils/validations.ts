@@ -15,6 +15,12 @@ export const createActorValidationSchema = yup.object({
     .min(9, () => t('errors:phoneValid')),
 });
 
+export const createSceneValidationSchema = yup.object({
+  name: yup.string().required(() => t('errors:nameRequired')),
+  location: yup.string().required(() => t('errors:locationRequired')),
+  date: yup.string().required(() => t('errors:dateRequired')),
+});
+
 export const loginValidationSchema = yup.object({
   email: yup
     .string()
