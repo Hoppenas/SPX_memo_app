@@ -116,11 +116,11 @@ const CreateSceneModal: React.FC<CreateSceneModalProps> = props => {
 
                 <View style={styles.buttonContainer}>
                   <DefaultButton
-                    title={t('actors:buttonLogin')}
+                    title={t('scenes:buttonCreateScene')}
                     onPress={handleSubmit}
                   />
                   <DefaultButton
-                    title={t('actors:buttonClose')}
+                    title={t('scenes:buttonClose')}
                     onPress={closeModal}
                   />
                 </View>
