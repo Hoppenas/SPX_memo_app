@@ -1,8 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-const ActorsGridTile = props => {
-  const { width } = props;
+interface ActorsGridTileProps {
+  width: number;
+  actordata: any;
+  actorId: string;
+}
+
+const ActorsGridTile: React.FC<ActorsGridTileProps> = props => {
+  const { width, actordata, actorId } = props;
   return (
     <View
       style={{
@@ -15,12 +21,12 @@ const ActorsGridTile = props => {
         <Image
           style={styles.gridImage}
           source={{
-            uri: 'https://media.timeout.com/images/103481015/630/472/image.jpg',
+            uri: actordata.prifilePic,
           }}
         />
       </View>
       <View style={styles.gridTextContainer}>
-        <Text style={styles.gridTextMain}>Angelina Jolie</Text>
+        <Text style={styles.gridTextMain}>{actordata.name}</Text>
         <Text style={styles.gridTextSecond}>Lara croft, Tomb rider</Text>
       </View>
     </View>

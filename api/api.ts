@@ -24,6 +24,15 @@ const getMovies = async () => {
     });
 };
 
+const getActors = async () => {
+  const dispatch = useDispatch();
+  database()
+    .ref('actors')
+    .on('value', snapshot => {
+      dispatch(actions.app.setActors(snapshot.val()));
+    });
+};
+
 const uploadImageToStorage = async (uri: string): Promise<unknown> => {
   // Resize and Compress image
   const resizedImage = await ImageResizer.createResizedImage(
@@ -72,4 +81,5 @@ export const api = {
   getMovies,
   uploadImageToStorage,
   createGalleryItemInDatabase,
+  getActors,
 };

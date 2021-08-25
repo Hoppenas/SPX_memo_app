@@ -28,8 +28,7 @@ const HomeScreen = () => {
   const { uid } = useSelector(state => state.user.user);
   const email = user.email;
   const { movieData } = useSelector(state => state.app);
-  // const movies = movieData._snapshot.value;
-  // const movies = {};
+  const { actorsData } = useSelector(state => state.app);
   const [movieModalVisible, setMovieModalVisible] = useState(false);
   const [actorModalVisible, setActorModalVisible] = useState(false);
 
@@ -48,7 +47,7 @@ const HomeScreen = () => {
         />
         <DefaultButton
           title={'print data'}
-          onPress={() => console.log(Object.keys(movieData))}
+          onPress={() => console.log(actorsData)}
         />
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.moviesSection}>
@@ -74,11 +73,14 @@ const HomeScreen = () => {
                 {t('homeScreen:actorsTitle')}
               </Text>
               <View style={styles.actorsList}>
-                <ActorsGridTile width={width} />
-                <ActorsGridTile width={width} />
-                <ActorsGridTile width={width} />
-                <ActorsGridTile width={width} />
-                <ActorsGridTile width={width} />
+                {Object.keys(actorsData).map((actor, index) => (
+                  <ActorsGridTile
+                    key={index}
+                    actordata={actorsData[actor]}
+                    actorId={actor}
+                    width={width}
+                  />
+                ))}
               </View>
             </View>
           </View>

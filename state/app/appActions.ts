@@ -18,8 +18,19 @@ const uploadImage = (imageUri: string) => ({
   payload: { imageUri },
 });
 
+const getActors = () => ({
+  type: constants.app.GET_ACTORS,
+});
+
+const setActors = payload => ({
+  type: constants.app.SET_ACTORS,
+  payload,
+});
+
 export const appActions = {
   getMovies,
   setMovie,
   uploadImage,
+  getActors,
+  setActors,
 };

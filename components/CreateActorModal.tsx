@@ -24,30 +24,19 @@ const CreateActorModal: React.FC<CreateActorModalProps> = props => {
     setModalVisible(false);
   };
 
-  const createActor = () => {
-    console.log('new actor added');
+  const createActor = values => {
+    const newReference = database().ref('/actors').push();
+    newReference.set({
+      id: newReference.key,
+      email: values.email,
+      name: values.name,
+      phone: values.phone,
+      prifilePic:
+        'https://media.timeout.com/images/103481015/630/472/image.jpg',
+    });
+
     closeModal();
   };
-
-  //   const createMovie = () => {
-  //     if (movies[movieName]) {
-  //       console.log('movie exists');
-  //     } else {
-  //       const newReference = database().ref('/Movies').push();
-  //       newReference
-  //         // .ref(`Movies/${movieName}`)
-  //         .set({
-  //           id: newReference.key,
-  //           title: movieName,
-  //           'start date': startDate,
-  //           director: director,
-  //           administrators: [email],
-  //           scenes: [],
-  //         });
-
-  //       closeModal();
-  //     }
-  //   };
 
   return (
     <Modal
