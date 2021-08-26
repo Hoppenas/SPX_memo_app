@@ -4,8 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../state/actions';
-import database from '@react-native-firebase/database';
-import { ActivityIndicator, Button } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
 import ForgotPasswordScreen from '../screens/loginFlow/ForgotPasswordScreen';
 import HomeScreen from '../screens/mainFlow/HomeScreen';
@@ -17,7 +16,7 @@ import SceneScreen from '../screens/mainFlow/SceneScreen';
 import ActorScreen from '../screens/mainFlow/ActorScreen';
 import ActorSceneScreen from '../screens/mainFlow/ActorSceneScreen';
 import LogoutButton from '../components/LogoutButton';
-import { constants } from '../state/constants';
+import Loader from '../components/Loader';
 
 const Stack = createStackNavigator();
 
@@ -41,15 +40,10 @@ const MainNavigator = () => {
   if (user) {
     dispatch(actions.app.getMovies());
     dispatch(actions.actors.getActors());
-    // database()
-    //   .ref('Movies')
-    //   .once('value', snapshot => {
-    //     dispatch(actions.user.setMovies(snapshot.val()));
-    //   });
   }
   useEffect(() => {}, []);
 
-  if (setLoading) return <ActivityIndicator size="large" color="#0000ff" />;
+  if (setLoading) return <Loader />;
 
   return (
     <NavigationContainer>
