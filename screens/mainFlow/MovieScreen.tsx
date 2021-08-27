@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ActivityIndicator,
   View,
   Text,
   StatusBar,
   StyleSheet,
-  SafeAreaView,
+  Pressable,
   Animated,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-import DefaultButton from '../../components/DefaultButton';
-import SceneTile from '../../components/SceneTile';
 import FloatingSingleButton from '../../components/floatingSingleButton';
 import CreateSceneModal from '../../components/CreateSceneModal';
 
@@ -27,9 +25,10 @@ const MovieScreen = ({ route }) => {
   const { movieId } = route.params;
   const { movieData } = useSelector(state => state.app);
   const movie = movieData[movieId];
-  const { t } = useTranslation();
-  const { setLoading } = useSelector(state => state.ui);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const openCreateNewSceneModal = () => {
     setModalVisible(true);
@@ -38,43 +37,6 @@ const MovieScreen = ({ route }) => {
   const DATA = Object.values(movie.scenes);
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
-
-  // return (
-  //   <SafeAreaView style={styles.screen}>
-  //     {setLoading ? (
-  //       <ActivityIndicator size="large" color="#0000ff" />
-  //     ) : (
-  //       <View style={styles.movieContainer}>
-  //         <CreateSceneModal
-  //           modalVisible={modalVisible}
-  //           setModalVisible={setModalVisible}
-  //           movieId={movieId}
-  //         />
-  //         <Text style={styles.movieTitle}>{movieData[movieId].title}</Text>
-  //         <Text style={styles.movieDirector}>
-  //           {movieData[movieId].director}
-  //         </Text>
-  //         <Text style={styles.movieDirector}>
-  //           {movieData[movieId].administrators}
-  //         </Text>
-  //         <Text style={styles.movieScenes}>{t('movieScreen:sceneTitle')}:</Text>
-  //         {movie.scenes &&
-  //           Object.keys(movie.scenes).map((scene, index) => (
-  //             <SceneTile
-  //               key={index}
-  //               sceneTitle={movie.scenes[scene].title}
-  //               movieTitle={movieId}
-  //             />
-  //           ))}
-  //         <DefaultButton
-  //           title={'print'}
-  //           onPress={() => console.log(Object.values(movie.scenes))}
-  //         />
-  //       </View>
-  //     )}
-  //     <FloatingSingleButton openCreateNewSceneModal={openCreateNewSceneModal} />
-  //   </SafeAreaView>
-  // );
 
   return (
     <View style={{ flex: 1, backgroundColor: '#FFF' }}>
@@ -115,38 +77,47 @@ const MovieScreen = ({ route }) => {
           });
 
           return (
-            <Animated.View
-              style={{
-                flexDirection: 'row',
-                padding: SPACING,
-                marginBottom: SPACING,
-                backgroundColor: 'rgba(255,255,255,1)',
-                borderRadius: 12,
-                elevation: 4,
-                opacity,
-                transform: [{ scale }],
+            <Pressable
+              onPress={() => {
+                navigation.navigate('scene', {
+                  sceneTitle: item.title,
+                  movieTitle: movieId,
+                });
               }}>
-              <Image
-                source={{ uri: uri }}
+              <Animated.View
                 style={{
-                  width: AVATAR_SIZE,
-                  height: AVATAR_SIZE,
-                  borderRadius: AVATAR_SIZE,
-                  marginRight: SPACING / 2,
-                }}
-              />
-              <View>
-                <Text style={{ fontSize: 22, fontWeight: '700' }}>
-                  {item.title}
-                </Text>
-                <Text style={{ fontSize: 18, opacity: 0.7 }}>
-                  {item.location}
-                </Text>
-                <Text style={{ fontSize: 14, opacity: 0.8, color: '#0099cc' }}>
-                  {item.date}
-                </Text>
-              </View>
-            </Animated.View>
+                  flexDirection: 'row',
+                  padding: SPACING,
+                  marginBottom: SPACING,
+                  backgroundColor: 'rgba(255,255,255,1)',
+                  borderRadius: 12,
+                  elevation: 4,
+                  opacity,
+                  transform: [{ scale }],
+                }}>
+                <Image
+                  source={{ uri: uri }}
+                  style={{
+                    width: AVATAR_SIZE,
+                    height: AVATAR_SIZE,
+                    borderRadius: AVATAR_SIZE,
+                    marginRight: SPACING / 2,
+                  }}
+                />
+                <View>
+                  <Text style={{ fontSize: 22, fontWeight: '700' }}>
+                    {item.title}
+                  </Text>
+                  <Text style={{ fontSize: 18, opacity: 0.7 }}>
+                    {item.location}
+                  </Text>
+                  <Text
+                    style={{ fontSize: 14, opacity: 0.8, color: '#0099cc' }}>
+                    {item.date}
+                  </Text>
+                </View>
+              </Animated.View>
+            </Pressable>
           );
         }}
       />
