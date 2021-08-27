@@ -16,12 +16,13 @@ interface IAction {
     id?: string;
     movieTitle: string;
     sceneTitle: string;
+    actorId: string;
   };
 }
 
 function* handleUploadImage(action: IAction) {
   try {
-    const { imageUri, movieTitle, sceneTitle } = action.payload;
+    const { imageUri, movieTitle, sceneTitle, actorId } = action.payload;
     const { task, url } = yield call(api.uploadImageToStorage, imageUri);
     const timeCreated: string = Date.parse(
       task.metadata.timeCreated,
@@ -34,6 +35,7 @@ function* handleUploadImage(action: IAction) {
       uid,
       movieTitle,
       sceneTitle,
+      actorId,
     );
   } catch (err) {
     console.log('error', err);

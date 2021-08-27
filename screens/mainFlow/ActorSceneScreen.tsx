@@ -20,13 +20,60 @@ import {
 import { actions } from '../../state/actions';
 
 const ActorSceneScreen = ({ route }) => {
-  const { actorId } = route.params;
+  const { sceneTitle, movieTitle, actorId } = route.params;
   const { movieData } = useSelector(state => state.app);
-  const { setLoading } = useSelector(state => state.ui);
-
+  const { gallery } = useSelector(state => state.gallery);
+  // const movie = movies[title];
   const { t } = useTranslation();
+  const { setLoading } = useSelector(state => state.ui);
+  const [imagePath, setImagePath] = useState({});
   const dispatch = useDispatch();
+
   const navigation = useNavigation();
+
+  const handleSubmitUpload = useCallback(
+    (imageUri, movieTitle, sceneTitle, actorId) => {
+      dispatch(
+        actions.gallery.uploadImage(imageUri, movieTitle, sceneTitle, actorId),
+      );
+    },
+    [],
+  );
+
+  const handleLaunchCamera = () => {
+    const options = {
+      mediaType: 'photo',
+      cameraType: 'front',
+    };
+    launchCamera(options, response => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else {
+        const selectedImage = response.assets[0];
+        const path = { uri: selectedImage.uri };
+        setImagePath(path);
+        handleSubmitUpload(imagePath.uri, movieTitle, sceneTitle, actorId);
+      }
+    });
+  };
+
+  const handleSelectImageFromLibrary = () => {
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo',
+    };
+    launchImageLibrary(options, response => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else {
+        const selectedImage = response.assets[0];
+        const path = { uri: selectedImage.uri };
+        setImagePath(path);
+        handleSubmitUpload(imagePath.uri, movieTitle, sceneTitle, actorId);
+      }
+    });
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -35,11 +82,11 @@ const ActorSceneScreen = ({ route }) => {
       ) : (
         <View style={styles.screen}>
           <Text style={styles.actorTitle}>actor name</Text>
+          <Text>actor movie: {movieTitle}</Text>
+          <Text>actor scene: {sceneTitle}</Text>
           <Text>actor id: {actorId}</Text>
-          <Button
-            title={'console info'}
-            onPress={() => console.log(movieData)}
-          />
+          <Button title={'camera'} onPress={handleLaunchCamera} />
+          <Button title={'library'} onPress={handleSelectImageFromLibrary} />
         </View>
       )}
     </SafeAreaView>

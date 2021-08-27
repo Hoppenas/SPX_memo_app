@@ -92,7 +92,11 @@ const SceneScreen = ({ route }) => {
           />
           <Button
             onPress={() => {
-              navigation.navigate('actorScene', { actorId: '123' });
+              navigation.navigate('actorScene', {
+                sceneTitle: sceneTitle,
+                movieTitle: movieTitle,
+                actorId: '123',
+              });
             }}
             title={'Actor 1'}
           />

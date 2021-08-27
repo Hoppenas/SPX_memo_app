@@ -4,9 +4,10 @@ const uploadImage = (
   imageUri: string,
   movieTitle: string,
   sceneTitle: string,
+  actorId: string,
 ) => ({
   type: constants.gallery.UPLOAD_IMAGE,
-  payload: { imageUri, movieTitle, sceneTitle },
+  payload: { imageUri, movieTitle, sceneTitle, actorId },
 });
 
 const setGallery = (payload: any[]) => ({

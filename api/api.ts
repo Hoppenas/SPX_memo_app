@@ -61,10 +61,11 @@ const createGalleryItemInDatabase = async (
   uid: string,
   movieTitle: string,
   sceneTitle: string,
+  actorId: string,
 ) => {
   const galleryItemId = uid + timeCreated;
   const gallery = database().ref(
-    `Movies/${movieTitle}/scenes/${sceneTitle}/actor/gallery/${galleryItemId}`,
+    `Movies/${movieTitle}/scenes/${sceneTitle}/actors/${actorId}/gallery/${galleryItemId}`,
   );
   // Create gallery item
   await gallery.set({
