@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -16,8 +16,12 @@ import { actions } from '../../state/actions';
 import DefaultButton from '../../components/DefaultButton';
 import DefaultInput from '../../components/DefaultInput';
 import SceneTile from '../../components/SceneTile';
+import FloatingButtonAddActor from '../../components/FloatingButtonsAddActor';
+import CreateActorModal from '../../components/CreateActorModal';
 
 const SceneScreen = ({ route }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [navigateToActorID, setNavigateToActorID] = useState('');
   const { sceneTitle, movieTitle } = route.params;
   const { movieData } = useSelector(state => state.app);
   const { gallery } = useSelector(state => state.gallery);
@@ -26,6 +30,14 @@ const SceneScreen = ({ route }) => {
   const { setLoading } = useSelector(state => state.ui);
 
   const navigation = useNavigation();
+
+  const handleCreateNewActor = () => {
+    setModalVisible(true);
+  };
+
+  useEffect(() => {
+    console.log(`navigate to actor id: ${navigateToActorID}`);
+  }, [navigateToActorID]);
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -43,6 +55,15 @@ const SceneScreen = ({ route }) => {
               });
             }}
             title={'Actor 1'}
+          />
+          <CreateActorModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            setNavigateToActorID={setNavigateToActorID}
+          />
+          <FloatingButtonAddActor
+            // buttonTwoHandle={() => setModalVisible(true)}
+            buttonTwoHandle={handleCreateNewActor}
           />
         </View>
       )}

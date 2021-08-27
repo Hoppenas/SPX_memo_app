@@ -39,7 +39,7 @@ const CreateActorModal: React.FC<CreateActorModalProps> = props => {
       prifilePic:
         'https://media.timeout.com/images/103481015/630/472/image.jpg',
     });
-
+    console.log(newReference.key);
     closeModal(false);
   };
 
