@@ -18,6 +18,8 @@ import {
 } from 'react-native-image-picker';
 
 import { actions } from '../../state/actions';
+import Loader from '../../components/Loader';
+import FloatingButtonCamera from '../../components/FloatingButtonCamera';
 
 const ActorSceneScreen = ({ route }) => {
   const { sceneTitle, movieTitle, actorId } = route.params;
@@ -78,15 +80,17 @@ const ActorSceneScreen = ({ route }) => {
   return (
     <SafeAreaView style={styles.screen}>
       {setLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <Loader />
       ) : (
         <View style={styles.screen}>
           <Text style={styles.actorTitle}>actor name</Text>
           <Text>actor movie: {movieTitle}</Text>
           <Text>actor scene: {sceneTitle}</Text>
           <Text>actor id: {actorId}</Text>
-          <Button title={'camera'} onPress={handleLaunchCamera} />
-          <Button title={'library'} onPress={handleSelectImageFromLibrary} />
+          <FloatingButtonCamera
+            handleLaunchCamera={handleLaunchCamera}
+            handleSelectImageFromLibrary={handleSelectImageFromLibrary}
+          />
         </View>
       )}
     </SafeAreaView>
