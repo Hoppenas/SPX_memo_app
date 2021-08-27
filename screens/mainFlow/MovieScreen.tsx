@@ -39,7 +39,7 @@ const MovieScreen = ({ route }) => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#FFF' }}>
+    <View style={styles.screen}>
       <Animated.FlatList
         data={DATA}
         onScroll={Animated.event(
@@ -85,36 +85,15 @@ const MovieScreen = ({ route }) => {
                 });
               }}>
               <Animated.View
-                style={{
-                  flexDirection: 'row',
-                  padding: SPACING,
-                  marginBottom: SPACING,
-                  backgroundColor: 'rgba(255,255,255,1)',
-                  borderRadius: 12,
-                  elevation: 4,
-                  opacity,
-                  transform: [{ scale }],
-                }}>
-                <Image
-                  source={{ uri: uri }}
-                  style={{
-                    width: AVATAR_SIZE,
-                    height: AVATAR_SIZE,
-                    borderRadius: AVATAR_SIZE,
-                    marginRight: SPACING / 2,
-                  }}
-                />
+                style={[
+                  styles.sceneContainer,
+                  { opacity, transform: [{ scale }] },
+                ]}>
+                <Image source={{ uri: uri }} style={styles.avatar} />
                 <View>
-                  <Text style={{ fontSize: 22, fontWeight: '700' }}>
-                    {item.title}
-                  </Text>
-                  <Text style={{ fontSize: 18, opacity: 0.7 }}>
-                    {item.location}
-                  </Text>
-                  <Text
-                    style={{ fontSize: 14, opacity: 0.8, color: '#0099cc' }}>
-                    {item.date}
-                  </Text>
+                  <Text style={styles.sceneTitle}>{item.title}</Text>
+                  <Text style={styles.sceneLocation}>{item.location}</Text>
+                  <Text style={styles.sceneDate}>{item.date}</Text>
                 </View>
               </Animated.View>
             </Pressable>
@@ -132,28 +111,29 @@ const MovieScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: 'white',
+  screen: { flex: 1, backgroundColor: '#FFF' },
+  avatar: {
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
+    borderRadius: AVATAR_SIZE,
+    marginRight: SPACING / 2,
   },
-  movieContainer: {},
   movieTitle: {
     fontSize: 24,
     fontWeight: '700',
     paddingHorizontal: 20,
   },
-  movieScenes: {
-    fontSize: 24,
-    fontWeight: '700',
-    paddingHorizontal: 20,
-    backgroundColor: 'grey',
+  sceneContainer: {
+    flexDirection: 'row',
+    padding: SPACING,
+    marginBottom: SPACING,
+    backgroundColor: 'rgba(255,255,255,1)',
+    borderRadius: 12,
+    elevation: 4,
   },
-  movieDirector: {
-    fontSize: 12,
-    color: '#b63838',
-  },
+  sceneTitle: { fontSize: 22, fontWeight: '700' },
+  sceneLocation: { fontSize: 18, opacity: 0.7 },
+  sceneDate: { fontSize: 14, opacity: 0.8, color: '#0099cc' },
 });
 
 export default MovieScreen;
