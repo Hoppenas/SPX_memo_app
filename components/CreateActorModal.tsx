@@ -10,13 +10,14 @@ import DefaultButton from '../components/DefaultButton';
 interface CreateActorModalProps {
   modalVisible: boolean;
   setModalVisible: (event: unknown) => void;
+  handleAddActor?: (event: unknown) => void;
   name: string;
   phone: string;
   email: string;
 }
 
 const CreateActorModal: React.FC<CreateActorModalProps> = props => {
-  const { modalVisible, setModalVisible } = props;
+  const { modalVisible, setModalVisible, handleAddActor } = props;
   const { t } = useTranslation();
 
   const closeModal = () => {
@@ -39,7 +40,9 @@ const CreateActorModal: React.FC<CreateActorModalProps> = props => {
       prifilePic:
         'https://media.timeout.com/images/103481015/630/472/image.jpg',
     });
-    console.log(newReference.key);
+    if (handleAddActor) {
+      handleAddActor(newReference.key);
+    }
     closeModal(false);
   };
 

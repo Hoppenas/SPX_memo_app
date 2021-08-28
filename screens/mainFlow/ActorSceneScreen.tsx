@@ -1,16 +1,6 @@
-import React, { useState, useCallback } from 'react';
-import {
-  ActivityIndicator,
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  Button,
-} from 'react-native';
-import { useTranslation } from 'react-i18next';
+import React, { useCallback } from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import database from '@react-native-firebase/database';
 import {
   launchCamera,
   launchImageLibrary,
@@ -23,15 +13,8 @@ import FloatingButtonCamera from '../../components/FloatingButtonCamera';
 
 const ActorSceneScreen = ({ route }) => {
   const { sceneTitle, movieTitle, actorId } = route.params;
-  const { movieData } = useSelector(state => state.app);
-  const { gallery } = useSelector(state => state.gallery);
-  // const movie = movies[title];
-  const { t } = useTranslation();
   const { setLoading } = useSelector(state => state.ui);
-  const [imagePath, setImagePath] = useState({});
   const dispatch = useDispatch();
-
-  const navigation = useNavigation();
 
   const handleSubmitUpload = useCallback(
     (imageUri, movieTitle, sceneTitle, actorId) => {
@@ -54,8 +37,7 @@ const ActorSceneScreen = ({ route }) => {
       } else {
         const selectedImage = response.assets[0];
         const path = { uri: selectedImage.uri };
-        setImagePath(path);
-        handleSubmitUpload(imagePath.uri, movieTitle, sceneTitle, actorId);
+        handleSubmitUpload(selectedImage.uri, movieTitle, sceneTitle, actorId);
       }
     });
   };
@@ -71,8 +53,7 @@ const ActorSceneScreen = ({ route }) => {
       } else {
         const selectedImage = response.assets[0];
         const path = { uri: selectedImage.uri };
-        setImagePath(path);
-        handleSubmitUpload(imagePath.uri, movieTitle, sceneTitle, actorId);
+        handleSubmitUpload(path.uri, movieTitle, sceneTitle, actorId);
       }
     });
   };

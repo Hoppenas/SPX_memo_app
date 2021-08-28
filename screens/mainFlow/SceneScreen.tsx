@@ -8,25 +8,18 @@ import {
   Button,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import database from '@react-native-firebase/database';
 
-import { actions } from '../../state/actions';
-import DefaultButton from '../../components/DefaultButton';
-import DefaultInput from '../../components/DefaultInput';
-import SceneTile from '../../components/SceneTile';
 import FloatingButtonAddActor from '../../components/FloatingButtonsAddActor';
 import CreateActorModal from '../../components/CreateActorModal';
+import ChooseActorFromListModal from '../../components/ChooseActorFromListModal';
 
 const SceneScreen = ({ route }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [navigateToActorID, setNavigateToActorID] = useState('');
+  const [galleryModalVisible, setGalleryModalVisible] = useState(false);
   const { sceneTitle, movieTitle } = route.params;
-  const { movieData } = useSelector(state => state.app);
-  const { gallery } = useSelector(state => state.gallery);
-  // const movie = movies[title];
-  const { t } = useTranslation();
   const { setLoading } = useSelector(state => state.ui);
 
   const navigation = useNavigation();
@@ -35,9 +28,21 @@ const SceneScreen = ({ route }) => {
     setModalVisible(true);
   };
 
-  useEffect(() => {
-    console.log(`navigate to actor id: ${navigateToActorID}`);
-  }, [navigateToActorID]);
+  const handleAddActor = navigateToActorID => {
+    const newReference = database().ref(
+      `/Movies/${movieTitle}/scenes/${sceneTitle}/actors/${navigateToActorID}`,
+    );
+    newReference.set({
+      id: navigateToActorID,
+      gallery: [],
+    });
+
+    navigation.navigate('actorScene', {
+      sceneTitle: sceneTitle,
+      movieTitle: movieTitle,
+      actorId: navigateToActorID,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -56,13 +61,18 @@ const SceneScreen = ({ route }) => {
             }}
             title={'Actor 1'}
           />
+          <ChooseActorFromListModal
+            modalVisible={galleryModalVisible}
+            setModalVisible={setGalleryModalVisible}
+            handleAddActor={handleAddActor}
+          />
           <CreateActorModal
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            setNavigateToActorID={setNavigateToActorID}
+            handleAddActor={handleAddActor}
           />
           <FloatingButtonAddActor
-            // buttonTwoHandle={() => setModalVisible(true)}
+            buttonOneHandle={() => setGalleryModalVisible(true)}
             buttonTwoHandle={handleCreateNewActor}
           />
         </View>
