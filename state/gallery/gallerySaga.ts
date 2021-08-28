@@ -23,10 +23,6 @@ interface IAction {
 function* handleUploadImage(action: IAction) {
   try {
     const { imageUri, movieTitle, sceneTitle, actorId } = action.payload;
-    // console.log(imageUri); //negauna
-    // console.log(movieTitle);
-    // console.log(sceneTitle);
-    // console.log(actorId);
     const { task, url } = yield call(api.uploadImageToStorage, imageUri);
     console.log(`saga url: ${url}`);
     const timeCreated: string = Date.parse(
