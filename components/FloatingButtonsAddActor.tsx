@@ -95,6 +95,7 @@ const FloatingButtonAddActor: React.FC<FloatingButtonAddActorProps> = props => {
         </Animated.View>
       </TouchableWithoutFeedback>
 
+      {/* <TouchableWithoutFeedback onPress={() => console.log('wtf')}> */}
       <TouchableWithoutFeedback onPress={toggleMenu}>
         <Animated.View style={[styles.button, styles.menu, rotation]}>
           <Entypo name="plus" size={40} color="blue" />
@@ -106,10 +107,12 @@ const FloatingButtonAddActor: React.FC<FloatingButtonAddActorProps> = props => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    // height: '100%',
     width: '100%',
     alignItems: 'center',
-    position: 'absolute',
+    // position: 'absolute',
+    // backgroundColor: 'green',
+    // bottom: 0,
   },
   button: {
     position: 'absolute',
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowOffset: { width: 10, height: 10 },
     bottom: 10,
-    left: '45%',
+    // left: '45%',
     elevation: 5,
     opacity: 0.8,
   },
