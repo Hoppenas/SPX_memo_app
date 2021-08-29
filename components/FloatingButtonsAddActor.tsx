@@ -106,12 +106,8 @@ const FloatingButtonAddActor: React.FC<FloatingButtonAddActorProps> = props => {
 
 const styles = StyleSheet.create({
   container: {
-    // height: '100%',
     width: '100%',
     alignItems: 'center',
-    // position: 'absolute',
-    // backgroundColor: 'green',
-    // bottom: 0,
   },
   button: {
     position: 'absolute',

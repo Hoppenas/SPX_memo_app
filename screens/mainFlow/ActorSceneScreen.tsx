@@ -30,6 +30,7 @@ const ActorSceneScreen = ({ route }) => {
   const { sceneTitle, movieTitle, actorId } = route.params;
   const { setLoading } = useSelector(state => state.ui);
   const { movieData } = useSelector(state => state.app);
+  const actor = movieData[movieTitle].scenes[sceneTitle].actors[actorId];
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const ActorSceneScreen = ({ route }) => {
     });
   };
 
-  if (!movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery) {
+  if (actor === undefined || !actor.gallery) {
     return (
       <View style={styles.screen}>
         <View style={styles.shadowContainer}>

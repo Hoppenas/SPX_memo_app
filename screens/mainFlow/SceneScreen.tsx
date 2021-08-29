@@ -43,6 +43,7 @@ const SceneScreen = ({ route }) => {
   };
 
   const handleAddActor = navigateToActorID => {
+    console.log(`navigate to actor id: ${navigateToActorID}`);
     const newReference = database().ref(
       `/Movies/${movieTitle}/scenes/${sceneTitle}/actors/${navigateToActorID}`,
     );

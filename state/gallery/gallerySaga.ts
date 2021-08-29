@@ -24,7 +24,6 @@ function* handleUploadImage(action: IAction) {
   try {
     const { imageUri, movieTitle, sceneTitle, actorId } = action.payload;
     const { task, url } = yield call(api.uploadImageToStorage, imageUri);
-    console.log(`saga url: ${url}`);
     const timeCreated: string = Date.parse(
       task.metadata.timeCreated,
     ).toString();
