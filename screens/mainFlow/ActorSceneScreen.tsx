@@ -16,6 +16,7 @@ import {
   launchImageLibrary,
   ImageLibraryOptions,
 } from 'react-native-image-picker';
+import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../state/actions';
 import Loader from '../../components/Loader';
@@ -29,13 +30,10 @@ const ActorSceneScreen = ({ route }) => {
   const { sceneTitle, movieTitle, actorId } = route.params;
   const { setLoading } = useSelector(state => state.ui);
   const { movieData } = useSelector(state => state.app);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const scrollX = React.useRef(new Animated.Value(0)).current;
-
-  const data = Object.values(
-    movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery,
-  );
 
   const handleSubmitUpload = useCallback(
     (imageUri, movieTitle, sceneTitle, actorId) => {
@@ -79,66 +77,94 @@ const ActorSceneScreen = ({ route }) => {
     });
   };
 
-  return (
-    <View style={styles.screen}>
-      <StatusBar hidden />
-      <Animated.FlatList
-        data={data}
-        keyExtractor={item => item.uid}
-        horizontal
-        showsHorizontalScrollIndicator
-        pagingEnabled
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true },
-        )}
-        renderItem={({ item, index }) => {
-          const inputRange = [
-            (index - 1) * width,
-            index * width,
-            (index + 1) * width,
-          ];
-          const translateX = scrollX.interpolate({
-            inputRange,
-            outputRange: [-width * 0.7, 0, width * 0.7],
-          });
-          return (
-            <View style={styles.container}>
-              <View style={styles.shadowContainer}>
-                <View
-                  style={{
-                    width: ITEM_WIDTH,
-                    height: ITEM_HEIGHT,
-                    overflow: 'hidden',
-                    alignItems: 'center',
-                    borderRadius: 14,
-                  }}>
-                  <Animated.Image
-                    source={{ uri: item.imageUrl }}
+  if (!movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery) {
+    return (
+      <View style={styles.screen}>
+        <View style={styles.container}>
+          <View style={styles.shadowContainer}>
+            <View
+              style={{
+                width: ITEM_WIDTH,
+                height: ITEM_HEIGHT,
+                overflow: 'hidden',
+                alignItems: 'center',
+                borderRadius: 14,
+              }}>
+              <Text>{t('actors:noImages')}</Text>
+            </View>
+          </View>
+        </View>
+        <FloatingButtonCamera
+          handleLaunchCamera={handleLaunchCamera}
+          handleSelectImageFromLibrary={handleSelectImageFromLibrary}
+        />
+      </View>
+    );
+  } else {
+    const data = Object.values(
+      movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery,
+    );
+    return (
+      <View style={styles.screen}>
+        <StatusBar hidden />
+        <Animated.FlatList
+          data={data}
+          keyExtractor={item => item.uid}
+          horizontal
+          showsHorizontalScrollIndicator
+          pagingEnabled
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: true },
+          )}
+          renderItem={({ item, index }) => {
+            const inputRange = [
+              (index - 1) * width,
+              index * width,
+              (index + 1) * width,
+            ];
+            const translateX = scrollX.interpolate({
+              inputRange,
+              outputRange: [-width * 0.7, 0, width * 0.7],
+            });
+            return (
+              <View style={styles.container}>
+                <View style={styles.shadowContainer}>
+                  <View
                     style={{
                       width: ITEM_WIDTH,
                       height: ITEM_HEIGHT,
-                      resizeMode: 'cover',
-                      transform: [
-                        {
-                          translateX,
-                        },
-                      ],
-                    }}
-                  />
+                      overflow: 'hidden',
+                      alignItems: 'center',
+                      borderRadius: 14,
+                    }}>
+                    <Animated.Image
+                      source={{ uri: item.imageUrl }}
+                      style={{
+                        width: ITEM_WIDTH,
+                        height: ITEM_HEIGHT,
+                        resizeMode: 'cover',
+                        transform: [
+                          {
+                            translateX,
+                          },
+                        ],
+                      }}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-          );
-        }}
-      />
+            );
+          }}
+        />
 
-      <FloatingButtonCamera
-        handleLaunchCamera={handleLaunchCamera}
-        handleSelectImageFromLibrary={handleSelectImageFromLibrary}
-      />
-    </View>
-  );
+        <FloatingButtonCamera
+          handleLaunchCamera={handleLaunchCamera}
+          handleSelectImageFromLibrary={handleSelectImageFromLibrary}
+        />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

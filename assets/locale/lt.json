@@ -64,7 +64,8 @@
     "namePlacehodler": "vardas",
     "phonePlacehodler": "tel nr",
     "buttonLogin": "Pridėti aktorių",
-    "buttonClose": "Uždaryti"
+    "buttonClose": "Uždaryti",
+    "noImages": "nėra nuotraukų"
   },
   "scenes": {
     "namePlacehodler": "cardas",

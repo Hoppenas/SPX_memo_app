@@ -65,7 +65,8 @@
     "namePlacehodler": "name",
     "phonePlacehodler": "phone",
     "buttonLogin": "Add actor",
-    "buttonClose": "Close"
+    "buttonClose": "Close",
+    "noImages": "no images"
   },
   "scenes": {
     "namePlacehodler": "name",
