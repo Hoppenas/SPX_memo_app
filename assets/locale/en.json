@@ -41,7 +41,8 @@
   "movieScreen": {
     "sceneTitle": "Scenes",
     "placeHolderScneName": "Scene name",
-    "buttonAddScene": "add scene"
+    "buttonAddScene": "add scene",
+    "noScenes": "no scene"
   },
   "errors": {
     "emailRequired": "Pls enter email",
@@ -73,6 +74,7 @@
     "locationPlacehodler": "location",
     "datePlacehodler": "date",
     "buttonCreateScene": "Add scene",
-    "buttonClose": "close"
+    "buttonClose": "close",
+    "noActors": "no actors in this scene"
   }
 }

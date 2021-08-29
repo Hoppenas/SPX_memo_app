@@ -34,80 +34,97 @@ const MovieScreen = ({ route }) => {
     setModalVisible(true);
   };
 
-  const DATA = Object.values(movie.scenes);
-
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  return (
-    <View style={styles.screen}>
-      <Animated.FlatList
-        data={DATA}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true },
-        )}
-        keyExtractor={item => item.title}
-        contentContainerStyle={{
-          padding: SPACING,
-          paddingTop: StatusBar.currentHeight || 42,
-        }}
-        renderItem={({ item, index }) => {
-          const inputRange = [
-            -1,
-            0,
-            ITEM_SIZE * index,
-            ITEM_SIZE * (index + 2),
-          ];
+  if (!movie.scenes) {
+    return (
+      <View style={styles.screen}>
+        <Text style={styles.sceneLocation}>{t('movieScreen:noScenes')}</Text>
+        <CreateSceneModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          movieId={movieId}
+        />
+        <FloatingSingleButton
+          openCreateNewSceneModal={openCreateNewSceneModal}
+        />
+      </View>
+    );
+  } else {
+    const DATA = Object.values(movie.scenes);
+    return (
+      <View style={styles.screen}>
+        <Animated.FlatList
+          data={DATA}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true },
+          )}
+          keyExtractor={item => item.title}
+          contentContainerStyle={{
+            padding: SPACING,
+            paddingTop: StatusBar.currentHeight || 42,
+          }}
+          renderItem={({ item, index }) => {
+            const inputRange = [
+              -1,
+              0,
+              ITEM_SIZE * index,
+              ITEM_SIZE * (index + 2),
+            ];
 
-          const opacityInputRange = [
-            -1,
-            0,
-            ITEM_SIZE * index,
-            ITEM_SIZE * (index + 1),
-          ];
+            const opacityInputRange = [
+              -1,
+              0,
+              ITEM_SIZE * index,
+              ITEM_SIZE * (index + 1),
+            ];
 
-          const scale = scrollY.interpolate({
-            inputRange,
-            outputRange: [1, 1, 1, 0],
-          });
+            const scale = scrollY.interpolate({
+              inputRange,
+              outputRange: [1, 1, 1, 0],
+            });
 
-          const opacity = scrollY.interpolate({
-            inputRange: opacityInputRange,
-            outputRange: [1, 1, 1, 0],
-          });
+            const opacity = scrollY.interpolate({
+              inputRange: opacityInputRange,
+              outputRange: [1, 1, 1, 0],
+            });
 
-          return (
-            <Pressable
-              onPress={() => {
-                navigation.navigate('scene', {
-                  sceneTitle: item.title,
-                  movieTitle: movieId,
-                });
-              }}>
-              <Animated.View
-                style={[
-                  styles.sceneContainer,
-                  { opacity, transform: [{ scale }] },
-                ]}>
-                <Image source={{ uri: uri }} style={styles.avatar} />
-                <View>
-                  <Text style={styles.sceneTitle}>{item.title}</Text>
-                  <Text style={styles.sceneLocation}>{item.location}</Text>
-                  <Text style={styles.sceneDate}>{item.date}</Text>
-                </View>
-              </Animated.View>
-            </Pressable>
-          );
-        }}
-      />
-      <CreateSceneModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        movieId={movieId}
-      />
-      <FloatingSingleButton openCreateNewSceneModal={openCreateNewSceneModal} />
-    </View>
-  );
+            return (
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('scene', {
+                    sceneTitle: item.title,
+                    movieTitle: movieId,
+                  });
+                }}>
+                <Animated.View
+                  style={[
+                    styles.sceneContainer,
+                    { opacity, transform: [{ scale }] },
+                  ]}>
+                  <Image source={{ uri: uri }} style={styles.avatar} />
+                  <View>
+                    <Text style={styles.sceneTitle}>{item.title}</Text>
+                    <Text style={styles.sceneLocation}>{item.location}</Text>
+                    <Text style={styles.sceneDate}>{item.date}</Text>
+                  </View>
+                </Animated.View>
+              </Pressable>
+            );
+          }}
+        />
+        <CreateSceneModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          movieId={movieId}
+        />
+        <FloatingSingleButton
+          openCreateNewSceneModal={openCreateNewSceneModal}
+        />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

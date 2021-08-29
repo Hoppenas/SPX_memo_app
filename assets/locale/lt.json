@@ -40,7 +40,8 @@
   "movieScreen": {
     "sceneTitle": "Scenos",
     "placeHolderScneName": "Scenos pavadinimas",
-    "buttonAddScene": "Pridėti sceną"
+    "buttonAddScene": "Pridėti sceną",
+    "noScenes": "no scene"
   },
   "errors": {
     "emailRequired": "Įveskite elektroninį paštą",
@@ -72,6 +73,7 @@
     "locationPlacehodler": "vieta",
     "datePlacehodler": "data",
     "buttonCreateScene": "Add scene",
-    "buttonClose": "close"
+    "buttonClose": "close",
+    "noActors": "šioje scenoje nėra aktorių"
   }
 }
