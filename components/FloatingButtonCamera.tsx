@@ -107,10 +107,7 @@ const FloatingButtonCamera: React.FC<TFloatingButtonCameraProps> = props => {
 
 const styles = StyleSheet.create({
   container: {
-    // height: '100%',
-    // width: '100%',
     alignItems: 'center',
-    // justifyContent: 'flex-end',
     position: 'absolute',
   },
   button: {
@@ -121,18 +118,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowRadius: 10,
-    shadowColor: '#F02A4B',
+    shadowColor: '#000',
     shadowOpacity: 0.3,
     shadowOffset: { width: 10, height: 10 },
     bottom: -300,
     // left: '45%',
-    elevation: 5,
+    elevation: 6,
     opacity: 0.8,
   },
   menu: {
     backgroundColor: '#FFF',
   },
   secondary: {
+    position: 'absolute',
     width: 48,
     height: 48,
     borderRadius: 48 / 2,

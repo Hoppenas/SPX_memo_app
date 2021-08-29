@@ -80,18 +80,16 @@ const ActorSceneScreen = ({ route }) => {
   if (!movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery) {
     return (
       <View style={styles.screen}>
-        <View style={styles.container}>
-          <View style={styles.shadowContainer}>
-            <View
-              style={{
-                width: ITEM_WIDTH,
-                height: ITEM_HEIGHT,
-                overflow: 'hidden',
-                alignItems: 'center',
-                borderRadius: 14,
-              }}>
-              <Text>{t('actors:noImages')}</Text>
-            </View>
+        <View style={styles.shadowContainer}>
+          <View
+            style={{
+              width: ITEM_WIDTH,
+              height: ITEM_HEIGHT,
+              overflow: 'hidden',
+              alignItems: 'center',
+              borderRadius: 14,
+            }}>
+            <Text>{t('actors:noImages')}</Text>
           </View>
         </View>
         <FloatingButtonCamera
@@ -188,7 +186,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    elevation: 10,
+    elevation: 5,
     padding: 12,
     backgroundColor: 'white',
   },
