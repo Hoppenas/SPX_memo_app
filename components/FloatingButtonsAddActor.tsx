@@ -95,7 +95,6 @@ const FloatingButtonAddActor: React.FC<FloatingButtonAddActorProps> = props => {
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      {/* <TouchableWithoutFeedback onPress={() => console.log('wtf')}> */}
       <TouchableWithoutFeedback onPress={toggleMenu}>
         <Animated.View style={[styles.button, styles.menu, rotation]}>
           <Entypo name="plus" size={40} color="blue" />
