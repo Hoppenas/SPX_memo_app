@@ -19,6 +19,12 @@ export const createSceneValidationSchema = yup.object({
   date: yup.string().required(() => i18n.t('errors:dateRequired')),
 });
 
+export const createMovieValidationSchema = yup.object({
+  name: yup.string().required(() => i18n.t('errors:nameRequired')),
+  director: yup.string().required(() => i18n.t('errors:directorRequired')),
+  date: yup.string().required(() => i18n.t('errors:dateRequired')),
+});
+
 export const loginValidationSchema = yup.object({
   email: yup
     .string()

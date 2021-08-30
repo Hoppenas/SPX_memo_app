@@ -44,7 +44,13 @@
     "buttonAddScene": "add scene",
     "deleteMovie": "delete",
     "cancelMovieDelete": "cancel",
-    "deleteMovieTitle": "Do you want to delete movie"
+    "deleteMovieTitle": "Do you want to delete movie",
+    "namePlacehodler": "name",
+    "locationPlacehodler": "location",
+    "datePlacehodler": "start date",
+    "buttonCreateScene": "add movie",
+    "buttonClose": "close",
+    "directorPlacehodler": "director"
   },
   "errors": {
     "emailRequired": "Pls enter email",
@@ -58,7 +64,8 @@
     "phoneRequired": "Pls enter phone",
     "phoneValid": "Pls enter correct phone number",
     "locationRequired": "Pls enter location",
-    "dateRequired": "Pls enter start date"
+    "dateRequired": "Pls enter start date",
+    "directorRequired": "Pls enter director"
   },
   "messages": {
     "successfullRegistration": "Registration successfull"

@@ -10,7 +10,10 @@ const MovieGridTile = props => {
     <Pressable
       style={styles.gridItem}
       onPress={() => {
-        navigation.navigate('movie', { movieId: movieId });
+        navigation.navigate('movie', {
+          movieId: movieId,
+          movieTitle: movieName,
+        });
       }}>
       <View style={{ flex: 2 }}>
         <Image

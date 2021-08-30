@@ -11,12 +11,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import database from '@react-native-firebase/database';
 
 import FloatingSingleButton from '../../components/floatingSingleButton';
 import CreateSceneModal from '../../components/CreateSceneModal';
 import DeleteButton from '../../components/DeleteButton';
-import DeleteMovieModal from '../../components/deleteMovieModal';
+import DeleteModal from '../../components/deleteMovieModal';
 import { actions } from '../../state/actions';
 
 const SPACING = 20;
@@ -26,7 +25,7 @@ const uri =
   'https://firebasestorage.googleapis.com/v0/b/fir-8824b.appspot.com/o/assets%2FprofilePic%2Fscene.jpg?alt=media&token=631e9c7a-e4a1-4fda-b394-822f08af0f81';
 
 const MovieScreen = ({ route }) => {
-  const { movieId } = route.params;
+  const { movieId, movieTitle } = route.params;
   const { movieData } = useSelector(state => state.app);
   const movie = movieData[movieId];
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,17 +43,9 @@ const MovieScreen = ({ route }) => {
     });
   }, [navigation]);
 
-  // const handleDelete = () => {
-  //   navigation.navigate('home');
-  //   setDeleteModalVisible(false);
-  //   // database().ref(`/Movies/${movieId}`).remove();
-  //   // return <></>;
-  // };
-
-  const handleDelete = useCallback(movieTitle => {
-    setDeleteModalVisible(false);
+  const handleDelete = useCallback(movieId => {
     navigation.navigate('home');
-    dispatch(actions.gallery.deleteMovie(movieTitle));
+    dispatch(actions.gallery.deleteMovie(movieId));
   }, []);
 
   const openCreateNewSceneModal = () => {
@@ -141,11 +132,12 @@ const MovieScreen = ({ route }) => {
             );
           }}
         />
-        <DeleteMovieModal
+        <DeleteModal
           modalVisible={deleteModalVisible}
           setModalVisible={setDeleteModalVisible}
-          movieTitle={movie.title}
+          movieTitle={movieTitle}
           handleDelete={handleDelete}
+          movieId={movieId}
         />
         <CreateSceneModal
           modalVisible={modalVisible}

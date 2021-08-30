@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Modal, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Modal, Text, TextInput } from 'react-native';
 import database from '@react-native-firebase/database';
 import { useTranslation } from 'react-i18next';
+import { Formik } from 'formik';
 
+import { createMovieValidationSchema } from '../utils/validations';
 import DefaultInput from './DefaultInput';
 import DefaultButton from './DefaultButton';
 
@@ -13,35 +15,34 @@ interface CreateMovieModalProps {
   movies: any;
 }
 
+interface IcreateMovie {
+  name: string;
+  director: string;
+  date: string;
+}
+
 const CreateMovieModal: React.FC<CreateMovieModalProps> = ({
   modalVisible,
   setModalVisible,
   movies,
   email,
 }) => {
-  const [movieName, setMovieName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [director, setDirector] = useState('');
-
   const { t } = useTranslation();
 
   const closeModal = () => {
-    setMovieName('');
     setModalVisible(false);
-    setStartDate('');
-    setDirector('');
   };
 
-  const createMovie = () => {
-    if (movies[movieName]) {
+  const createMovie = (values: IcreateMovie) => {
+    if (movies[values.name]) {
       console.log('movie exists');
     } else {
       const newReference = database().ref('/Movies').push();
       newReference.set({
         id: newReference.key,
-        title: movieName,
-        'start date': startDate,
-        director: director,
+        title: values.name,
+        'start date': values.date,
+        director: values.director,
         administrators: [email],
         scenes: [],
       });
@@ -60,31 +61,67 @@ const CreateMovieModal: React.FC<CreateMovieModalProps> = ({
       }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <DefaultInput
-            placeholder={t('homeScreen:enterNewMovieName')}
-            onChangeText={setMovieName}
-            value={movieName}
-          />
-          <DefaultInput
-            placeholder={t('homeScreen:enterStartDate')}
-            onChangeText={setStartDate}
-            value={startDate}
-          />
-          <DefaultInput
-            placeholder={t('homeScreen:enterDirector')}
-            onChangeText={setDirector}
-            value={director}
-          />
-          <View style={styles.buttonContainer}>
-            <DefaultButton
-              title={t('homeScreen:buttonCreateNewMovie')}
-              onPress={createMovie}
-            />
-            <DefaultButton
-              title={t('homeScreen:buttonCancelMovie')}
-              onPress={closeModal}
-            />
-          </View>
+          <Formik
+            initialValues={{ name: '', director: '', date: '' }}
+            onSubmit={values => createMovie(values)}
+            validationSchema={createMovieValidationSchema}>
+            {({
+              values,
+              handleChange,
+              errors,
+              setFieldTouched,
+              touched,
+              handleSubmit,
+            }) => (
+              <>
+                <TextInput
+                  onChangeText={handleChange('name')}
+                  value={values.name}
+                  placeholder={t('movieScreen:namePlacehodler')}
+                  onBlur={() => setFieldTouched('name')}
+                  autoCapitalize="none"
+                  keyboardType="default"
+                  style={styles.inputField}
+                />
+                {touched.name && errors.name && <Text>{errors.name}</Text>}
+
+                <TextInput
+                  onChangeText={handleChange('director')}
+                  value={values.director}
+                  placeholder={t('movieScreen:directorPlacehodler')}
+                  onBlur={() => setFieldTouched('director')}
+                  autoCapitalize="none"
+                  keyboardType="default"
+                  style={styles.inputField}
+                />
+                {touched.director && errors.director && (
+                  <Text>{errors.director}</Text>
+                )}
+
+                <TextInput
+                  onChangeText={handleChange('date')}
+                  value={values.date}
+                  placeholder={t('movieScreen:datePlacehodler')}
+                  onBlur={() => setFieldTouched('date')}
+                  autoCapitalize="none"
+                  keyboardType="number-pad"
+                  style={styles.inputField}
+                />
+                {touched.date && errors.date && <Text>{errors.date}</Text>}
+
+                <View style={styles.buttonContainer}>
+                  <DefaultButton
+                    title={t('movieScreen:buttonCreateScene')}
+                    onPress={handleSubmit}
+                  />
+                  <DefaultButton
+                    title={t('movieScreen:buttonClose')}
+                    onPress={closeModal}
+                  />
+                </View>
+              </>
+            )}
+          </Formik>
         </View>
       </View>
     </Modal>
@@ -122,6 +159,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+  },
+  inputField: {
+    marginTop: 20,
+    marginBottom: 5,
+    paddingLeft: 10,
+    height: 40,
+    borderRadius: 5,
+    width: '80%',
+    borderWidth: 1.5,
+    borderColor: 'blue',
   },
 });
 

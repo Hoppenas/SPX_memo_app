@@ -44,7 +44,13 @@
     "noScenes": "no scene",
     "deleteMovie": "ištrinti",
     "cancelMovieDelete": "atšaukti",
-    "deleteMovieTitle": "Ar nori ištrinti filmą"
+    "deleteMovieTitle": "Ar nori ištrinti filmą",
+    "namePlacehodler": "pavadinimas",
+    "locationPlacehodler": "vieta",
+    "datePlacehodler": "pradžios data",
+    "buttonCreateScene": "sukurti",
+    "buttonClose": "uždaryti",
+    "directorPlacehodler": "režisierius"
   },
   "errors": {
     "emailRequired": "Įveskite elektroninį paštą",
@@ -58,7 +64,8 @@
     "phoneRequired": "Įveskite telefono nr",
     "phoneValid": "Įvedėt neteisingą numerį",
     "locationRequired": "įveskite filmavimo vietą",
-    "dateRequired": "Įveskite pradžios datą"
+    "dateRequired": "Įveskite pradžios datą",
+    "directorRequired": "Prašom įvesti režisierių"
   },
   "messages": {
     "successfullRegistration": "Registracija sėkminga"

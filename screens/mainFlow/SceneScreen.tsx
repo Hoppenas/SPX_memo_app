@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import {
   ActivityIndicator,
   View,
   Text,
   StyleSheet,
   SafeAreaView,
-  Button,
   Image,
   StatusBar,
   Pressable,
   Animated,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import database from '@react-native-firebase/database';
+import { actions } from '../../state/actions';
 
 import FloatingButtonAddActor from '../../components/FloatingButtonsAddActor';
 import CreateActorModal from '../../components/CreateActorModal';
 import ChooseActorFromListModal from '../../components/ChooseActorFromListModal';
+import DeleteButton from '../../components/DeleteButton';
+import DeleteModal from '../../components/deleteMovieModal';
 
 const SPACING = 20;
 const AVATAR_SIZE = 70;
@@ -32,18 +34,30 @@ const SceneScreen = ({ route }) => {
   const { movieData } = useSelector(state => state.app);
   const { actorsData } = useSelector(state => state.actors);
   const sceneData = movieData[movieTitle][sceneTitle];
+
   const [modalVisible, setModalVisible] = useState(false);
   const [galleryModalVisible, setGalleryModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
   const navigation = useNavigation();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const scrollY = React.useRef(new Animated.Value(0)).current;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <DeleteButton setModalVisible={setDeleteModalVisible} />
+      ),
+    });
+  }, [navigation]);
 
   const handleCreateNewActor = () => {
     setModalVisible(true);
   };
 
   const handleAddActor = navigateToActorID => {
-    console.log(`navigate to actor id: ${navigateToActorID}`);
     const newReference = database().ref(
       `/Movies/${movieTitle}/scenes/${sceneTitle}/actors/${navigateToActorID}`,
     );
@@ -58,6 +72,12 @@ const SceneScreen = ({ route }) => {
       actorId: navigateToActorID,
     });
   };
+
+  const handleDelete = useCallback(movieId => {
+    // navigation.goBack();
+    // dispatch(actions.gallery.deleteMovie(movieId));
+    console.log('delete scene');
+  }, []);
 
   if (!movieData[movieTitle].scenes[sceneTitle].actors) {
     return (
@@ -160,6 +180,13 @@ const SceneScreen = ({ route }) => {
                   </Pressable>
                 );
               }}
+            />
+            <DeleteModal
+              modalVisible={deleteModalVisible}
+              setModalVisible={setDeleteModalVisible}
+              movieTitle={movieTitle}
+              handleDelete={handleDelete}
+              movieId={movieTitle}
             />
             <ChooseActorFromListModal
               modalVisible={galleryModalVisible}

@@ -49,15 +49,6 @@ function* handleDeleteMovie(action: IAction) {
     const { movieTitle } = action.payload;
     yield put(actions.ui.setLoading(true));
     yield call(api.deleteMovie, movieTitle);
-    // yield call(
-    //   api.createGalleryItemInDatabase,
-    //   url,
-    //   timeCreated,
-    //   uid,
-    //   movieTitle,
-    //   sceneTitle,
-    //   actorId,
-    // );
   } catch (err) {
     console.log('error', err);
   } finally {

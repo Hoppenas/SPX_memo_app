@@ -1,20 +1,21 @@
 import React from 'react';
 import { View, StyleSheet, Modal, Text, TextInput } from 'react-native';
-import database from '@react-native-firebase/database';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 import DefaultButton from '../components/DefaultButton';
 
-interface DeleteMovieModalProps {
+interface DeleteModalProps {
   modalVisible: boolean;
   setModalVisible: (event: unknown) => void;
   handleDelete: (event: unknown) => void;
   movieTitle: string;
+  movieId: string;
 }
 
-const DeleteMovieModal: React.FC<DeleteMovieModalProps> = props => {
-  const { modalVisible, setModalVisible, movieTitle, handleDelete } = props;
+const DeleteModal: React.FC<DeleteModalProps> = props => {
+  const { modalVisible, setModalVisible, movieTitle, handleDelete, movieId } =
+    props;
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -22,11 +23,11 @@ const DeleteMovieModal: React.FC<DeleteMovieModalProps> = props => {
     setModalVisible(false);
   };
 
-  //   const handleDelete = () => {
-  //     closeModal();
-  //     navigation.navigate('home');
-  //     database().ref(`/Movies/${movieId}`).remove();
-  //   };
+  const handleDeleteItem = () => {
+    setModalVisible(false);
+    handleDelete(movieId);
+    navigation.goBack();
+  };
 
   return (
     <Modal
@@ -43,7 +44,7 @@ const DeleteMovieModal: React.FC<DeleteMovieModalProps> = props => {
           <View style={styles.buttonContainer}>
             <DefaultButton
               title={t('movieScreen:deleteMovie')}
-              onPress={() => handleDelete(movieTitle)}
+              onPress={handleDeleteItem}
             />
             <DefaultButton
               title={t('movieScreen:cancelMovieDelete')}
@@ -96,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeleteMovieModal;
+export default DeleteModal;
