@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import {
   Image,
   View,
@@ -10,10 +10,14 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import database from '@react-native-firebase/database';
 
 import FloatingSingleButton from '../../components/floatingSingleButton';
 import CreateSceneModal from '../../components/CreateSceneModal';
+import DeleteButton from '../../components/DeleteButton';
+import DeleteMovieModal from '../../components/deleteMovieModal';
+import { actions } from '../../state/actions';
 
 const SPACING = 20;
 const AVATAR_SIZE = 70;
@@ -26,9 +30,32 @@ const MovieScreen = ({ route }) => {
   const { movieData } = useSelector(state => state.app);
   const movie = movieData[movieId];
   const [modalVisible, setModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <DeleteButton setModalVisible={setDeleteModalVisible} />
+      ),
+    });
+  }, [navigation]);
+
+  // const handleDelete = () => {
+  //   navigation.navigate('home');
+  //   setDeleteModalVisible(false);
+  //   // database().ref(`/Movies/${movieId}`).remove();
+  //   // return <></>;
+  // };
+
+  const handleDelete = useCallback(movieTitle => {
+    setDeleteModalVisible(false);
+    navigation.navigate('home');
+    dispatch(actions.gallery.deleteMovie(movieTitle));
+  }, []);
 
   const openCreateNewSceneModal = () => {
     setModalVisible(true);
@@ -36,7 +63,7 @@ const MovieScreen = ({ route }) => {
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  if (!movie.scenes) {
+  if (movie && !movie.scenes) {
     return (
       <View style={styles.screen}>
         <Text style={styles.sceneLocation}>{t('movieScreen:noScenes')}</Text>
@@ -113,6 +140,12 @@ const MovieScreen = ({ route }) => {
               </Pressable>
             );
           }}
+        />
+        <DeleteMovieModal
+          modalVisible={deleteModalVisible}
+          setModalVisible={setDeleteModalVisible}
+          movieTitle={movie.title}
+          handleDelete={handleDelete}
         />
         <CreateSceneModal
           modalVisible={modalVisible}

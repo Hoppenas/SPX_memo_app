@@ -75,6 +75,12 @@ const createGalleryItemInDatabase = async (
   });
 };
 
+const deleteMovie = async (movieTitle: string) => {
+  const db = database().ref(`/Movies/${movieTitle}`);
+  // Create gallery item
+  await db.remove();
+};
+
 export const api = {
   login,
   logout,
@@ -83,4 +89,5 @@ export const api = {
   uploadImageToStorage,
   createGalleryItemInDatabase,
   getActors,
+  deleteMovie,
 };

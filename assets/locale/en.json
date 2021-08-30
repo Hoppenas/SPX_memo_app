@@ -42,7 +42,9 @@
     "sceneTitle": "Scenes",
     "placeHolderScneName": "Scene name",
     "buttonAddScene": "add scene",
-    "noScenes": "no scene"
+    "deleteMovie": "delete",
+    "cancelMovieDelete": "cancel",
+    "deleteMovieTitle": "Do you want to delete movie"
   },
   "errors": {
     "emailRequired": "Pls enter email",

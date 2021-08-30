@@ -44,6 +44,27 @@ function* handleUploadImage(action: IAction) {
   }
 }
 
+function* handleDeleteMovie(action: IAction) {
+  try {
+    const { movieTitle } = action.payload;
+    yield put(actions.ui.setLoading(true));
+    yield call(api.deleteMovie, movieTitle);
+    // yield call(
+    //   api.createGalleryItemInDatabase,
+    //   url,
+    //   timeCreated,
+    //   uid,
+    //   movieTitle,
+    //   sceneTitle,
+    //   actorId,
+    // );
+  } catch (err) {
+    console.log('error', err);
+  } finally {
+    yield put(actions.ui.setLoading(false));
+  }
+}
+
 async function galleryEventChannel() {
   return eventChannel(emit => {
     const db = database().ref('gallery');
@@ -69,5 +90,6 @@ function* watchGallery() {
 
 export default function* gallerySagas() {
   yield takeLatest(constants.gallery.UPLOAD_IMAGE, handleUploadImage);
+  yield takeLatest(constants.gallery.DELETE_MOVIE, handleDeleteMovie);
   yield fork(watchGallery);
 }
