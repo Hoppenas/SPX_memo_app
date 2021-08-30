@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import DefaultButton from '../../components/DefaultButton';
 import MovieGridTile from '../../components/MovieGridTile';
 import ActorsGridTile from '../../components/ActorsGridTile';
 import CreateMovieModal from '../../components/CreateMovieModal';
@@ -27,10 +26,6 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <>
-        <DefaultButton
-          title={'print data'}
-          onPress={() => console.log(actorsData)}
-        />
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.moviesSection}>
             <Text style={styles.moviesTitle}>
@@ -94,7 +89,6 @@ const styles = StyleSheet.create({
   moviesSection: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: 20,
   },
   moviesTitle: {
     fontSize: 24,

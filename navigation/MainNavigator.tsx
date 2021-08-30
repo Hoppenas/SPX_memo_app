@@ -17,6 +17,7 @@ import ActorScreen from '../screens/mainFlow/ActorScreen';
 import ActorSceneScreen from '../screens/mainFlow/ActorSceneScreen';
 import LogoutButton from '../components/LogoutButton';
 import Loader from '../components/Loader';
+import HeaderTitle from '../components/HeaderTitle';
 
 const Stack = createStackNavigator();
 
@@ -65,13 +66,34 @@ const MainNavigator = () => {
             name="home"
             component={HomeScreen}
             options={{
+              title: '',
               headerRight: () => <LogoutButton />,
             }}
           />
-          <Stack.Screen name="movie" component={MovieScreen} />
-          <Stack.Screen name="scene" component={SceneScreen} />
+          <Stack.Screen
+            name="movie"
+            component={MovieScreen}
+            options={{
+              headerTitleStyle: { alignSelf: 'center', marginRight: 50 },
+              title: 'Scenes',
+            }}
+          />
+          <Stack.Screen
+            name="scene"
+            component={SceneScreen}
+            options={{
+              headerTitleStyle: { alignSelf: 'center', marginRight: 50 },
+              title: 'Actors',
+            }}
+          />
           <Stack.Screen name="actor" component={ActorScreen} />
-          <Stack.Screen name="actorScene" component={ActorSceneScreen} />
+          <Stack.Screen
+            name="actorScene"
+            component={ActorSceneScreen}
+            options={{
+              title: '',
+            }}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>
