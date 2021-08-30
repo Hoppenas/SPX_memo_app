@@ -76,5 +76,9 @@
     "buttonCreateScene": "Add scene",
     "buttonClose": "close",
     "noActors": "no actors in this scene"
+  },
+  "navigator": {
+    "sceneTitle": "Scenes",
+    "actorsTitle": "Actors"
   }
 }

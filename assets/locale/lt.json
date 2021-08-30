@@ -75,5 +75,9 @@
     "buttonCreateScene": "Add scene",
     "buttonClose": "close",
     "noActors": "šioje scenoje nėra aktorių"
+  },
+  "navigator": {
+    "sceneTitle": "Scenos",
+    "actorsTitle": "Aktoriai"
   }
 }

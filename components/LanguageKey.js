@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { locale } from '../utils/locale';
 
@@ -10,8 +10,17 @@ export default function LanguageSwitcher() {
     setCurrentLanguage(locale.language);
   };
   return (
-    <View onPress={switchLanguage}>
-      <Text>{currentLanguage === 'lt' ? 'EN' : '🇱🇹'}</Text>
-    </View>
+    <TouchableOpacity onPress={switchLanguage} style={styles.language}>
+      <Text style={styles.languageText}>{currentLanguage}</Text>
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  language: {
+    paddingLeft: 50,
+  },
+  languageText: {
+    fontSize: 18,
+  },
+});

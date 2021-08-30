@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { actions } from '../state/actions';
-import { ActivityIndicator } from 'react-native';
 
 import ForgotPasswordScreen from '../screens/loginFlow/ForgotPasswordScreen';
 import HomeScreen from '../screens/mainFlow/HomeScreen';
@@ -17,12 +17,12 @@ import ActorScreen from '../screens/mainFlow/ActorScreen';
 import ActorSceneScreen from '../screens/mainFlow/ActorSceneScreen';
 import LogoutButton from '../components/LogoutButton';
 import Loader from '../components/Loader';
-import HeaderTitle from '../components/HeaderTitle';
 
 const Stack = createStackNavigator();
 
 const MainNavigator = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { setLoading } = useSelector(state => state.ui);
   const { user } = useSelector(state => state.user);
@@ -75,7 +75,7 @@ const MainNavigator = () => {
             component={MovieScreen}
             options={{
               headerTitleStyle: { alignSelf: 'center', marginRight: 50 },
-              title: 'Scenes',
+              title: t('navigator:sceneTitle'),
             }}
           />
           <Stack.Screen
@@ -83,7 +83,7 @@ const MainNavigator = () => {
             component={SceneScreen}
             options={{
               headerTitleStyle: { alignSelf: 'center', marginRight: 50 },
-              title: 'Actors',
+              title: t('navigator:actorsTitle'),
             }}
           />
           <Stack.Screen name="actor" component={ActorScreen} />
