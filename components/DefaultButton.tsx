@@ -18,6 +18,7 @@ const DefaultButton: React.FC<DefaultButtonProps> = ({ title, onPress }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
+    marginTop: 15,
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 10,
