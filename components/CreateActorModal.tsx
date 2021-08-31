@@ -38,7 +38,7 @@ const CreateActorModal: React.FC<CreateActorModalProps> = props => {
       email: values.email,
       id: newReference.key,
       prifilePic:
-        'https://media.timeout.com/images/103481015/630/472/image.jpg',
+        'https://firebasestorage.googleapis.com/v0/b/fir-8824b.appspot.com/o/assets%2FprofilePic%2Fclown.jpg?alt=media&token=60f8a048-e475-48ee-93cc-710ef28f0508',
     });
     if (handleAddActor) {
       handleAddActor(newReference.key);

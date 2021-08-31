@@ -172,7 +172,10 @@ const SceneScreen = ({ route }) => {
                         styles.sceneContainer,
                         { opacity, transform: [{ scale }] },
                       ]}>
-                      <Image source={{ uri: uri }} style={styles.avatar} />
+                      <Image
+                        source={{ uri: item.prifilePic }}
+                        style={styles.avatar}
+                      />
                       <View>
                         <Text style={styles.sceneTitle}>{item.name}</Text>
                         <Text style={styles.sceneLocation}>{item.phone}</Text>
