@@ -35,14 +35,13 @@ const styles = StyleSheet.create({
     height: 130,
     width: 130,
     marginLeft: 20,
-    borderWidth: 0.5,
-    borderColor: '#dddddd',
   },
   gridImage: {
     flex: 1,
     width: null,
     height: null,
     resizeMode: 'cover',
+    borderRadius: 10,
   },
   gridText: {
     flex: 1,

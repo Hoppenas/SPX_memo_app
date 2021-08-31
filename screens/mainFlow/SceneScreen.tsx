@@ -219,7 +219,6 @@ const styles = StyleSheet.create({
   sceneTitle: {
     fontSize: 24,
     fontWeight: '700',
-    paddingHorizontal: 20,
   },
   modalView: {
     backgroundColor: 'white',

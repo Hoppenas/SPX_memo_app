@@ -85,10 +85,11 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    backgroundColor: '#FFF',
   },
   moviesSection: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
   },
   moviesTitle: {
     fontSize: 24,

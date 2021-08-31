@@ -22,8 +22,6 @@ const ActorsGridTile: React.FC<ActorsGridTileProps> = props => {
         style={{
           height: width / 2 - 45,
           width: width / 2 - 45,
-          borderWidth: 0.5,
-          borderColor: '#dddddd',
         }}>
         <View style={styles.imageContainer}>
           <Image
@@ -35,7 +33,7 @@ const ActorsGridTile: React.FC<ActorsGridTileProps> = props => {
         </View>
         <View style={styles.gridTextContainer}>
           <Text style={styles.gridTextMain}>{actordata.name}</Text>
-          <Text style={styles.gridTextSecond}>Lara croft, Tomb rider</Text>
+          {/* <Text style={styles.gridTextSecond}>Lara croft, Tomb rider</Text> */}
         </View>
       </View>
     </Pressable>
@@ -49,16 +47,17 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
     resizeMode: 'cover',
+    borderRadius: 10,
   },
   gridTextContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
     paddingLeft: 10,
   },
   gridTextMain: {
     fontSize: 14,
-    color: '#b63838',
+    color: 'black',
   },
   gridTextSecond: {
     fontSize: 12,
