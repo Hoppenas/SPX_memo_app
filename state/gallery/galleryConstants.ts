@@ -3,4 +3,5 @@ export const galleryConstants = {
   SET_GALLERY: 'gallery/SET_GALLERY',
   DELETE_MOVIE: 'gallery/DELETE_MOVIE',
   DELETE_SCENE: 'gallery/DELETE_SCENE',
+  DELETE_ACTOR_FROM_SCENES: 'gallery/DELETE_ACTOR_FROM_SCENES',
 };

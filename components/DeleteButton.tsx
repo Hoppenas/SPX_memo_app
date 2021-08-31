@@ -3,15 +3,11 @@ import { View, StyleSheet, Pressable } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch } from 'react-redux';
 
-import { actions } from '../state/actions';
-
 interface DeleteButtonProps {
   setModalVisible: (event: unknown) => void;
 }
 
 const DeleteButton: React.FC<DeleteButtonProps> = props => {
-  const dispatch = useDispatch();
-
   const handleDelete = () => {
     props.setModalVisible(true);
   };

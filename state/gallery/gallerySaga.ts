@@ -67,6 +67,18 @@ function* handleDeleteScene(action: IAction) {
   }
 }
 
+function* handleDeleteActorFromScene(action: IAction) {
+  try {
+    const { movieTitle, sceneTitle, actorId } = action.payload;
+    yield put(actions.ui.setLoading(true));
+    yield call(api.deleteActorFromScene, movieTitle, sceneTitle, actorId);
+  } catch (err) {
+    console.log('error', err);
+  } finally {
+    yield put(actions.ui.setLoading(false));
+  }
+}
+
 async function galleryEventChannel() {
   return eventChannel(emit => {
     const db = database().ref('gallery');
@@ -94,5 +106,9 @@ export default function* gallerySagas() {
   yield takeLatest(constants.gallery.UPLOAD_IMAGE, handleUploadImage);
   yield takeLatest(constants.gallery.DELETE_MOVIE, handleDeleteMovie);
   yield takeLatest(constants.gallery.DELETE_SCENE, handleDeleteScene);
+  yield takeLatest(
+    constants.gallery.DELETE_ACTOR_FROM_SCENES,
+    handleDeleteActorFromScene,
+  );
   yield fork(watchGallery);
 }

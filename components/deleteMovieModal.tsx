@@ -11,6 +11,7 @@ interface DeleteModalProps {
   handleDelete: (event: unknown) => void;
   movieTitle: string;
   movieId: string;
+  item: string;
 }
 
 const DeleteModal: React.FC<DeleteModalProps> = props => {

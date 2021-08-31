@@ -25,9 +25,19 @@ const deleteScene = (movieTitle: string, sceneTitle: string) => ({
   payload: { movieTitle, sceneTitle },
 });
 
+const deleteActorFromScene = (
+  movieTitle: string,
+  sceneTitle: string,
+  actorId: string,
+) => ({
+  type: constants.gallery.DELETE_ACTOR_FROM_SCENES,
+  payload: { movieTitle, sceneTitle, actorId },
+});
+
 export const galleryActions = {
   uploadImage,
   setGallery,
   deleteMovie,
   deleteScene,
+  deleteActorFromScene,
 };

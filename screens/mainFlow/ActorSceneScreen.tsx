@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -13,22 +13,35 @@ import {
   launchImageLibrary,
   ImageLibraryOptions,
 } from 'react-native-image-picker';
+import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../state/actions';
 import FloatingButtonCamera from '../../components/FloatingButtonCamera';
+import DeleteButton from '../../components/DeleteButton';
+import DeleteModal from '../../components/deleteMovieModal';
 
 const { width } = Dimensions.get('screen');
 const ITEM_WIDTH = width * 0.76;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
 
 const ActorSceneScreen = ({ route }) => {
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const { sceneTitle, movieTitle, actorId } = route.params;
   const { movieData } = useSelector(state => state.app);
   const { t } = useTranslation();
 
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <DeleteButton setModalVisible={setDeleteModalVisible} />
+      ),
+    });
+  }, [navigation]);
 
   const handleSubmitUpload = useCallback(
     (imageUri, movieTitle, sceneTitle, actorId) => {
@@ -72,6 +85,17 @@ const ActorSceneScreen = ({ route }) => {
     });
   };
 
+  const handleDelete = useCallback(movieId => {
+    navigation.navigate('scene', {
+      sceneTitle: sceneTitle,
+      movieTitle: movieTitle,
+    });
+    dispatch(
+      actions.gallery.deleteActorFromScene(movieId, sceneTitle, actorId),
+    );
+    console.log('delete actor');
+  }, []);
+
   if (
     movieData[movieTitle].scenes[sceneTitle].actors[actorId] === undefined ||
     !movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery
@@ -90,6 +114,13 @@ const ActorSceneScreen = ({ route }) => {
             <Text>{t('actors:noImages')}</Text>
           </View>
         </View>
+        <DeleteModal
+          modalVisible={deleteModalVisible}
+          setModalVisible={setDeleteModalVisible}
+          movieTitle={movieTitle}
+          handleDelete={handleDelete}
+          movieId={movieTitle}
+        />
         <FloatingButtonCamera
           handleLaunchCamera={handleLaunchCamera}
           handleSelectImageFromLibrary={handleSelectImageFromLibrary}
@@ -153,7 +184,13 @@ const ActorSceneScreen = ({ route }) => {
             );
           }}
         />
-
+        <DeleteModal
+          modalVisible={deleteModalVisible}
+          setModalVisible={setDeleteModalVisible}
+          movieTitle={movieTitle}
+          handleDelete={handleDelete}
+          movieId={movieTitle}
+        />
         <FloatingButtonCamera
           handleLaunchCamera={handleLaunchCamera}
           handleSelectImageFromLibrary={handleSelectImageFromLibrary}

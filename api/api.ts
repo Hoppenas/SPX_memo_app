@@ -85,6 +85,17 @@ const deleteScene = async (movieTitle: string, sceneTitle: string) => {
   await db.remove();
 };
 
+const deleteActorFromScene = async (
+  movieTitle: string,
+  sceneTitle: string,
+  actorId: string,
+) => {
+  const db = database().ref(
+    `/Movies/${movieTitle}/scenes/${sceneTitle}/actors/${actorId}`,
+  );
+  await db.remove();
+};
+
 export const api = {
   login,
   logout,
@@ -95,4 +106,5 @@ export const api = {
   getActors,
   deleteMovie,
   deleteScene,
+  deleteActorFromScene,
 };
