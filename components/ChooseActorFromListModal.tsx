@@ -45,9 +45,9 @@ const ChooseActorFromListModal: React.FC<ChooseActorFromListModalProps> =
     }
 
     const addActorToScene = (values: IaddActorToScene) => {
-      if (handleAddActor) {
-        handleAddActor(values.id);
-      }
+      handleAddActor(values.id);
+      // if (handleAddActor) {
+      // }
       closeModal(false);
     };
 

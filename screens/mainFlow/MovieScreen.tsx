@@ -58,6 +58,13 @@ const MovieScreen = ({ route }) => {
     return (
       <View style={styles.screen}>
         <Text style={styles.sceneLocation}>{t('movieScreen:noScenes')}</Text>
+        <DeleteModal
+          modalVisible={deleteModalVisible}
+          setModalVisible={setDeleteModalVisible}
+          movieTitle={movieTitle}
+          handleDelete={handleDelete}
+          movieId={movieId}
+        />
         <CreateSceneModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -153,7 +160,10 @@ const MovieScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#FFF' },
+  screen: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
   avatar: {
     width: AVATAR_SIZE,
     height: AVATAR_SIZE,

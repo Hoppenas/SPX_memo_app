@@ -18,9 +18,15 @@ export default function LanguageSwitcher() {
 
 const styles = StyleSheet.create({
   language: {
-    paddingLeft: 50,
+    // paddingLeft: 50,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 15,
+    left: 30,
   },
   languageText: {
     fontSize: 18,
+    // position: 'absolute',
+    // left: 165,
   },
 });

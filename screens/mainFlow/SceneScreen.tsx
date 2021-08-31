@@ -33,7 +33,6 @@ const SceneScreen = ({ route }) => {
   const { setLoading } = useSelector(state => state.ui);
   const { movieData } = useSelector(state => state.app);
   const { actorsData } = useSelector(state => state.actors);
-  const sceneData = movieData[movieTitle][sceneTitle];
 
   const [modalVisible, setModalVisible] = useState(false);
   const [galleryModalVisible, setGalleryModalVisible] = useState(false);
@@ -65,24 +64,27 @@ const SceneScreen = ({ route }) => {
       id: navigateToActorID,
       gallery: [],
     });
-
-    navigation.navigate('actorScene', {
-      sceneTitle: sceneTitle,
-      movieTitle: movieTitle,
-      actorId: navigateToActorID,
-    });
   };
 
   const handleDelete = useCallback(movieId => {
-    // navigation.goBack();
-    // dispatch(actions.gallery.deleteMovie(movieId));
-    console.log('delete scene');
+    navigation.navigate('scene', {
+      sceneTitle: sceneTitle,
+      movieTitle: movieTitle,
+    });
+    dispatch(actions.gallery.deleteScene(movieId, sceneTitle));
   }, []);
 
   if (!movieData[movieTitle].scenes[sceneTitle].actors) {
     return (
       <View style={styles.noImagesContainer}>
         <Text style={styles.sceneLocation}>{t('scenes:noActors')}</Text>
+        <DeleteModal
+          modalVisible={deleteModalVisible}
+          setModalVisible={setDeleteModalVisible}
+          movieTitle={movieTitle}
+          handleDelete={handleDelete}
+          movieId={movieTitle}
+        />
         <ChooseActorFromListModal
           modalVisible={galleryModalVisible}
           setModalVisible={setGalleryModalVisible}
@@ -246,13 +248,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     elevation: 4,
   },
-  sceneTitle: { fontSize: 22, fontWeight: '700' },
   sceneLocation: { fontSize: 18, opacity: 0.7 },
   sceneDate: { fontSize: 14, opacity: 0.8, color: '#0099cc' },
   noImagesContainer: {
     flex: 1,
     backgroundColor: 'rgba(255,255,255,1)',
-    marginHorizontal: SPACING / 2,
+    paddingHorizontal: SPACING / 2,
     justifyContent: 'space-between',
   },
 });

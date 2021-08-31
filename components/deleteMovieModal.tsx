@@ -26,7 +26,7 @@ const DeleteModal: React.FC<DeleteModalProps> = props => {
   const handleDeleteItem = () => {
     setModalVisible(false);
     handleDelete(movieId);
-    navigation.goBack();
+    // navigation.goBack();
   };
 
   return (

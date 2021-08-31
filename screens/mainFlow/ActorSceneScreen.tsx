@@ -2,12 +2,9 @@ import React, { useCallback } from 'react';
 import {
   Animated,
   Dimensions,
-  Image,
-  FlatList,
   Text,
   View,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,18 +16,15 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../state/actions';
-import Loader from '../../components/Loader';
 import FloatingButtonCamera from '../../components/FloatingButtonCamera';
 
-const { width, height } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 const ITEM_WIDTH = width * 0.76;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
 
 const ActorSceneScreen = ({ route }) => {
   const { sceneTitle, movieTitle, actorId } = route.params;
-  const { setLoading } = useSelector(state => state.ui);
   const { movieData } = useSelector(state => state.app);
-  const actor = movieData[movieTitle].scenes[sceneTitle].actors[actorId];
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -78,7 +72,10 @@ const ActorSceneScreen = ({ route }) => {
     });
   };
 
-  if (actor === undefined || !actor.gallery) {
+  if (
+    movieData[movieTitle].scenes[sceneTitle].actors[actorId] === undefined ||
+    !movieData[movieTitle].scenes[sceneTitle].actors[actorId].gallery
+  ) {
     return (
       <View style={styles.screen}>
         <View style={styles.shadowContainer}>

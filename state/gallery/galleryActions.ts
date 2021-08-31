@@ -20,8 +20,14 @@ const deleteMovie = (movieTitle: string) => ({
   payload: { movieTitle },
 });
 
+const deleteScene = (movieTitle: string, sceneTitle: string) => ({
+  type: constants.gallery.DELETE_SCENE,
+  payload: { movieTitle, sceneTitle },
+});
+
 export const galleryActions = {
   uploadImage,
   setGallery,
   deleteMovie,
+  deleteScene,
 };
