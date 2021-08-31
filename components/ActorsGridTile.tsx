@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface ActorsGridTileProps {
   width: number;
@@ -9,27 +10,35 @@ interface ActorsGridTileProps {
 
 const ActorsGridTile: React.FC<ActorsGridTileProps> = props => {
   const { width, actordata, actorId } = props;
+  const navigation = useNavigation();
   return (
-    <View
-      style={{
-        height: width / 2 - 45,
-        width: width / 2 - 45,
-        borderWidth: 0.5,
-        borderColor: '#dddddd',
+    <Pressable
+      onPress={() => {
+        navigation.navigate('actor', {
+          actorId: actorId,
+        });
       }}>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.gridImage}
-          source={{
-            uri: actordata.prifilePic,
-          }}
-        />
+      <View
+        style={{
+          height: width / 2 - 45,
+          width: width / 2 - 45,
+          borderWidth: 0.5,
+          borderColor: '#dddddd',
+        }}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.gridImage}
+            source={{
+              uri: actordata.prifilePic,
+            }}
+          />
+        </View>
+        <View style={styles.gridTextContainer}>
+          <Text style={styles.gridTextMain}>{actordata.name}</Text>
+          <Text style={styles.gridTextSecond}>Lara croft, Tomb rider</Text>
+        </View>
       </View>
-      <View style={styles.gridTextContainer}>
-        <Text style={styles.gridTextMain}>{actordata.name}</Text>
-        <Text style={styles.gridTextSecond}>Lara croft, Tomb rider</Text>
-      </View>
-    </View>
+    </Pressable>
   );
 };
 

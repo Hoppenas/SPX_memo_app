@@ -93,7 +93,6 @@ const ActorSceneScreen = ({ route }) => {
     dispatch(
       actions.gallery.deleteActorFromScene(movieId, sceneTitle, actorId),
     );
-    console.log('delete actor');
   }, []);
 
   if (

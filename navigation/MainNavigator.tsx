@@ -86,10 +86,16 @@ const MainNavigator = () => {
               title: t('navigator:actorsTitle'),
             }}
           />
-          <Stack.Screen name="actor" component={ActorScreen} />
           <Stack.Screen
             name="actorScene"
             component={ActorSceneScreen}
+            options={{
+              title: '',
+            }}
+          />
+          <Stack.Screen
+            name="actor"
+            component={ActorScreen}
             options={{
               title: '',
             }}

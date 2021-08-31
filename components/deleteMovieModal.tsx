@@ -18,7 +18,6 @@ const DeleteModal: React.FC<DeleteModalProps> = props => {
   const { modalVisible, setModalVisible, movieTitle, handleDelete, movieId } =
     props;
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
   const closeModal = () => {
     setModalVisible(false);

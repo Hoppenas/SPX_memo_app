@@ -76,7 +76,8 @@
     "phonePlacehodler": "tel nr",
     "buttonLogin": "Pridėti aktorių",
     "buttonClose": "Uždaryti",
-    "noImages": "nėra nuotraukų"
+    "noImages": "nėra nuotraukų",
+    "save": "išsaugoti"
   },
   "scenes": {
     "namePlacehodler": "cardas",
