@@ -44,6 +44,22 @@ function* handleUploadImage(action: IAction) {
   }
 }
 
+function* handleUpdateActorProfilePhoto(action: IAction) {
+  try {
+    const { imageUri, actorId } = action.payload;
+    const { task, url } = yield call(api.uploadImageToStorage, imageUri);
+    const timeCreated: string = Date.parse(
+      task.metadata.timeCreated,
+    ).toString();
+    const uid: string = yield select(state => state.user.user.uid);
+    yield call(api.updateActorProfilePhoto, url, actorId);
+  } catch (err) {
+    console.log('error', err);
+  } finally {
+    // yield put(actions.ui.setLoading(false));
+  }
+}
+
 function* handleDeleteMovie(action: IAction) {
   try {
     const { movieTitle } = action.payload;
@@ -109,6 +125,10 @@ export default function* gallerySagas() {
   yield takeLatest(
     constants.gallery.DELETE_ACTOR_FROM_SCENES,
     handleDeleteActorFromScene,
+  );
+  yield takeLatest(
+    constants.gallery.UPDATE_ACTOR_PROFILE_PHOTO,
+    handleUpdateActorProfilePhoto,
   );
   yield fork(watchGallery);
 }

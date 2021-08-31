@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -9,10 +9,16 @@ import {
   Text,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import {
+  launchCamera,
+  launchImageLibrary,
+  ImageLibraryOptions,
+} from 'react-native-image-picker';
+import { useSelector, useDispatch } from 'react-redux';
 
 import FloatingEditButton from '../../components/FloatingEditButton';
 import EditActorModal from '../../components/EditActorModal';
+import { actions } from '../../state/actions';
 
 const { width } = Dimensions.get('screen');
 const ITEM_WIDTH = width * 0.76;
@@ -24,6 +30,45 @@ const ActorScreen = ({ route }) => {
   const { setLoading } = useSelector(state => state.ui);
   const { actorsData } = useSelector(state => state.actors);
   const actor = actorsData[actorId];
+
+  const dispatch = useDispatch();
+
+  const handleSubmitUpload = useCallback((imageUri, actorId) => {
+    dispatch(actions.gallery.updateActorProfilePhoto(imageUri, actorId));
+  }, []);
+
+  const handleLaunchCamera = () => {
+    const options = {
+      mediaType: 'photo',
+      cameraType: 'front',
+    };
+    launchCamera(options, response => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else {
+        const selectedImage = response.assets[0];
+        const path = { uri: selectedImage.uri };
+        handleSubmitUpload(selectedImage.uri, actorId);
+      }
+    });
+  };
+
+  const handleSelectImageFromLibrary = () => {
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo',
+    };
+    launchImageLibrary(options, response => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else {
+        const selectedImage = response.assets[0];
+        const path = { uri: selectedImage.uri };
+        handleSubmitUpload(path.uri, actorId);
+      }
+    });
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -54,14 +99,15 @@ const ActorScreen = ({ route }) => {
             <Text style={styles.actorTitle}>{actor.name}</Text>
             <Text style={styles.actorPhone}>{actor.phone}</Text>
             <Text style={styles.actorEmail}>{actor.email}</Text>
+            <EditActorModal
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
+              actorId={actorId}
+            />
           </View>
-          <EditActorModal
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            actorId={actorId}
-          />
           <FloatingEditButton
-            openCreateNewSceneModal={() => setModalVisible(true)}
+            openEditActorModal={() => setModalVisible(true)}
+            handleChangePhoto={handleLaunchCamera}
           />
         </View>
       )}

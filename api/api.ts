@@ -62,6 +62,7 @@ const createGalleryItemInDatabase = async (
   movieTitle: string,
   sceneTitle: string,
   actorId: string,
+  path: string,
 ) => {
   const galleryItemId = uid + timeCreated;
   const gallery = database().ref(
@@ -72,6 +73,14 @@ const createGalleryItemInDatabase = async (
     imageUrl: imageUrl,
     timeCreated: timeCreated,
     uid: galleryItemId,
+  });
+};
+
+const updateActorProfilePhoto = async (imageUrl: string, actorId: string) => {
+  const gallery = database().ref(`actors/${actorId}`);
+  // Create gallery item
+  await gallery.update({
+    prifilePic: imageUrl,
   });
 };
 
@@ -107,4 +116,5 @@ export const api = {
   deleteMovie,
   deleteScene,
   deleteActorFromScene,
+  updateActorProfilePhoto,
 };
