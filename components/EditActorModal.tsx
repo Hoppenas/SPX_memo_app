@@ -35,13 +35,10 @@ const EditActorModal: React.FC<EditActorModalProps> = props => {
 
   const createActor = (values: IcreateActor) => {
     const newReference = database().ref(`/actors/${actorId}`);
-    newReference.set({
+    newReference.update({
       name: values.name,
       phone: values.phone,
       email: values.email,
-      id: newReference.key,
-      prifilePic:
-        'https://media.timeout.com/images/103481015/630/472/image.jpg',
     });
     closeModal(false);
   };
