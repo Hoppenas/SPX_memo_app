@@ -50,7 +50,8 @@
     "datePlacehodler": "start date",
     "buttonCreateScene": "add movie",
     "buttonClose": "close",
-    "directorPlacehodler": "director"
+    "directorPlacehodler": "director",
+    "noScenes": "no scenes"
   },
   "errors": {
     "emailRequired": "Pls enter email",

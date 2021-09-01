@@ -50,7 +50,8 @@
     "datePlacehodler": "pradžios data",
     "buttonCreateScene": "sukurti",
     "buttonClose": "uždaryti",
-    "directorPlacehodler": "režisierius"
+    "directorPlacehodler": "režisierius",
+    "noScenes": "scenų nėra"
   },
   "errors": {
     "emailRequired": "Įveskite elektroninį paštą",

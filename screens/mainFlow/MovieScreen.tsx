@@ -57,7 +57,7 @@ const MovieScreen = ({ route }) => {
   if (movie && !movie.scenes) {
     return (
       <View style={styles.screen}>
-        <Text style={styles.sceneLocation}>{t('movieScreen:noScenes')}</Text>
+        <Text style={styles.noScene}>{t('movieScreen:noScenes')}</Text>
         <DeleteModal
           modalVisible={deleteModalVisible}
           setModalVisible={setDeleteModalVisible}
@@ -186,6 +186,12 @@ const styles = StyleSheet.create({
   sceneTitle: { fontSize: 22, fontWeight: '700' },
   sceneLocation: { fontSize: 18, opacity: 0.7 },
   sceneDate: { fontSize: 14, opacity: 0.8, color: '#0099cc' },
+  noScene: {
+    fontSize: 18,
+    opacity: 0.7,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
 });
 
 export default MovieScreen;
