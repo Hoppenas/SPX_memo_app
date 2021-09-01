@@ -71,4 +71,5 @@ export const userActions = {
   setEmail,
   setMovies,
   setData,
+  register,
 };

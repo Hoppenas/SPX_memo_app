@@ -44,6 +44,7 @@ const SceneScreen = ({ route }) => {
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
+  console.log(sceneTitle);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -81,7 +82,7 @@ const SceneScreen = ({ route }) => {
         <DeleteModal
           modalVisible={deleteModalVisible}
           setModalVisible={setDeleteModalVisible}
-          movieTitle={movieTitle}
+          movieTitle={sceneTitle}
           handleDelete={handleDelete}
           movieId={movieTitle}
         />

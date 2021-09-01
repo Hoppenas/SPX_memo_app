@@ -44,7 +44,7 @@
     "noScenes": "no scene",
     "deleteMovie": "ištrinti",
     "cancelMovieDelete": "atšaukti",
-    "deleteMovieTitle": "Ar nori ištrinti",
+    "deleteMovieTitle": "Ar nori ištrinti?",
     "namePlacehodler": "pavadinimas",
     "locationPlacehodler": "vieta",
     "datePlacehodler": "pradžios data",
@@ -75,7 +75,7 @@
     "emailPlacehodler": "Elektroninis paštas",
     "namePlacehodler": "vardas",
     "phonePlacehodler": "tel nr",
-    "buttonLogin": "Pridėti aktorių",
+    "buttonLogin": "Pridėti",
     "buttonClose": "Uždaryti",
     "noImages": "nėra nuotraukų",
     "save": "išsaugoti"

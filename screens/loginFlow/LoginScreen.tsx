@@ -14,7 +14,6 @@ import WrapperWithBackground from '../../components/WrapperWithBackground';
 const LoginScreen: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   interface ILoginValues {
     email: string;
     password: string;

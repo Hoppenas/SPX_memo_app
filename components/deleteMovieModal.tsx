@@ -18,15 +18,16 @@ const DeleteModal: React.FC<DeleteModalProps> = props => {
   const { modalVisible, setModalVisible, movieTitle, handleDelete, movieId } =
     props;
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
   const closeModal = () => {
     setModalVisible(false);
   };
 
   const handleDeleteItem = () => {
+    navigation.goBack();
     setModalVisible(false);
     handleDelete(movieId);
-    // navigation.goBack();
   };
 
   return (
@@ -40,7 +41,7 @@ const DeleteModal: React.FC<DeleteModalProps> = props => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text>{t('movieScreen:deleteMovieTitle')}</Text>
-          <Text>{movieTitle}?</Text>
+          {/* <Text>{movieTitle}?</Text> */}
           <View style={styles.buttonContainer}>
             <DefaultButton
               title={t('movieScreen:deleteMovie')}

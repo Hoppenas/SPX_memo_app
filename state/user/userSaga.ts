@@ -41,22 +41,11 @@ function* logout() {
   }
 }
 
-function* handleRegistration(action: {
-  payload: {
-    email: string;
-    password: string;
-    passwordRepeat: string;
-  };
-  type: string;
-}) {
-  const { t } = useTranslation();
+function* handleRegistration(action: IAction) {
+  // const { t } = useTranslation();
   try {
     yield put(actions.ui.setLoading(true));
-    const response: IFirebaseAuth = yield call(
-      api.register,
-      action.payload.email,
-      action.payload.password,
-    );
+    yield call(api.register, action.payload.email, action.payload.password);
     yield put(actions.message.setNew(t('messages:successfullRegistration')));
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
@@ -66,7 +55,7 @@ function* handleRegistration(action: {
     }
   } finally {
     yield put(actions.ui.setLoading(false));
-    yield fork(watchUser);
+    // yield fork(watchUser);
   }
 }
 

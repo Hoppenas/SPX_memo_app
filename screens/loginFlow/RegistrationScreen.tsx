@@ -73,7 +73,7 @@ const RegistrationScreen = () => {
                 secureTextEntry
                 style={styles.textInput}
               />
-              {touched.password && errors.password && (
+              {touched.passwordRepeat && errors.passwordRepeat && (
                 <Text style={styles.errorText}>{errors.passwordRepeat}</Text>
               )}
 

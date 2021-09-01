@@ -45,6 +45,8 @@ const CreateMovieModal: React.FC<CreateMovieModalProps> = ({
         director: values.director,
         administrators: [email],
         scenes: [],
+        profilePic:
+          'https://firebasestorage.googleapis.com/v0/b/fir-8824b.appspot.com/o/assets%2FprofilePic%2Fscene.jpg?alt=media&token=631e9c7a-e4a1-4fda-b394-822f08af0f81',
       });
 
       closeModal();

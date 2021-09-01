@@ -79,7 +79,7 @@ const updateActorProfilePhoto = async (imageUrl: string, actorId: string) => {
   const gallery = database().ref(`actors/${actorId}`);
   // Create gallery item
   await gallery.update({
-    prfilePic: imageUrl,
+    prifilePic: imageUrl,
   });
 };
 

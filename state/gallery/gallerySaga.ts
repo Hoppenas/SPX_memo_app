@@ -1,8 +1,5 @@
 import { call, put, take, takeLatest, fork, select } from 'redux-saga/effects';
 import { eventChannel, EventChannel, END } from 'redux-saga';
-import i18n from 'i18next';
-import { firebase } from '@react-native-firebase/database';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
 import { api } from '../../api/api';
@@ -18,6 +15,7 @@ interface IAction {
     sceneTitle: string;
     actorId: string;
     movieId: string;
+    url: string;
   };
 }
 
@@ -41,13 +39,13 @@ function* handleUploadImage(action: IAction) {
   } catch (err) {
     console.log('error', err);
   } finally {
-    // yield put(actions.ui.setLoading(false));
+    yield put(actions.ui.setLoading(false));
   }
 }
 
 function* handleUpdateActorProfilePhoto(action: IAction) {
   try {
-    // yield put(actions.ui.setLoading(true));
+    yield put(actions.ui.setLoading(true));
     const { imageUri, actorId } = action.payload;
     const { task, url } = yield call(api.uploadImageToStorage, imageUri);
     const timeCreated: string = Date.parse(
@@ -58,20 +56,20 @@ function* handleUpdateActorProfilePhoto(action: IAction) {
   } catch (err) {
     console.log('error', err);
   } finally {
-    // yield put(actions.ui.setLoading(false));
+    yield put(actions.ui.setLoading(false));
   }
 }
 
 function* handleUpdateMovieProfilePhoto(action: IAction) {
   try {
-    // yield put(actions.ui.setLoading(true));
+    yield put(actions.ui.setLoading(true));
     const { imageUri, movieId } = action.payload;
     const { url } = yield call(api.uploadImageToStorage, imageUri);
     yield call(api.updateMovieProfilePhoto, url, movieId);
   } catch (err) {
     console.log('error', err);
   } finally {
-    // yield put(actions.ui.setLoading(false));
+    yield put(actions.ui.setLoading(false));
   }
 }
 
@@ -101,7 +99,7 @@ function* handleDeleteScene(action: IAction) {
 function* handleDeleteActorFromScene(action: IAction) {
   try {
     const { movieTitle, sceneTitle, actorId } = action.payload;
-    yield put(actions.ui.setLoading(true));
+    // yield put(actions.ui.setLoading(true));
     yield call(api.deleteActorFromScene, movieTitle, sceneTitle, actorId);
   } catch (err) {
     console.log('error', err);
