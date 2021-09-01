@@ -38,7 +38,7 @@ const HomeScreen = () => {
                 {Object.keys(movieData).map((movie, index) => (
                   <MovieGridTile
                     key={index}
-                    moviedata={movieData[movie]}
+                    movieData={movieData[movie]}
                     movieName={movieData[movie].title}
                     movieId={movie}
                   />

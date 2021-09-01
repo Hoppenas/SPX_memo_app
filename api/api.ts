@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import { firebase } from '@react-native-firebase/database';
 import database from '@react-native-firebase/database';
 import storage from '@react-native-firebase/storage';
 import { useDispatch } from 'react-redux';
@@ -80,7 +79,15 @@ const updateActorProfilePhoto = async (imageUrl: string, actorId: string) => {
   const gallery = database().ref(`actors/${actorId}`);
   // Create gallery item
   await gallery.update({
-    prifilePic: imageUrl,
+    prfilePic: imageUrl,
+  });
+};
+
+const updateMovieProfilePhoto = async (imageUrl: string, movieId: string) => {
+  const gallery = database().ref(`Movies/${movieId}`);
+  // Create gallery item
+  await gallery.update({
+    profilePic: imageUrl,
   });
 };
 
@@ -117,4 +124,5 @@ export const api = {
   deleteScene,
   deleteActorFromScene,
   updateActorProfilePhoto,
+  updateMovieProfilePhoto,
 };

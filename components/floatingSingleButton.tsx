@@ -6,13 +6,16 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
 
 interface TFloatingSingleButtonProps {
   openCreateNewSceneModal: (event: unknown) => void;
+  buttonTwoHandle: (event: unknown) => void;
 }
 
 const FloatingSingleButton: React.FC<TFloatingSingleButtonProps> = props => {
-  const { openCreateNewSceneModal } = props;
+  const { openCreateNewSceneModal, buttonTwoHandle } = props;
   const [open, setOpen] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -25,7 +28,30 @@ const FloatingSingleButton: React.FC<TFloatingSingleButtonProps> = props => {
     }).start();
 
     setOpen(!open);
-    openCreateNewSceneModal();
+  };
+
+  const pinStyle = {
+    transform: [
+      { scale: animation },
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -70],
+        }),
+      },
+    ],
+  };
+
+  const thumbStyle = {
+    transform: [
+      { scale: animation },
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -130],
+        }),
+      },
+    ],
   };
 
   const rotation = {
@@ -39,14 +65,51 @@ const FloatingSingleButton: React.FC<TFloatingSingleButtonProps> = props => {
     ],
   };
 
+  const opacity = animation.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0, 1],
+  });
+
+  const handleLowerButton = () => {
+    openCreateNewSceneModal();
+    toggleMenu();
+  };
+
+  const handleUpperButton = () => {
+    buttonTwoHandle();
+    toggleMenu();
+  };
+
   return (
     <View style={[styles.container, props.style]}>
+      <TouchableWithoutFeedback onPress={handleLowerButton}>
+        <Animated.View
+          style={[styles.button, styles.secondary, pinStyle, opacity]}>
+          <Foundation name="page-add" size={25} color="blue" />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={handleUpperButton}>
+        <Animated.View
+          style={[styles.button, styles.secondary, thumbStyle, opacity]}>
+          <MaterialIcons name="add-a-photo" size={25} color="blue" />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
       <TouchableWithoutFeedback onPress={toggleMenu}>
         <Animated.View style={[styles.button, styles.menu, rotation]}>
           <Entypo name="plus" size={40} color="blue" />
         </Animated.View>
       </TouchableWithoutFeedback>
     </View>
+
+    // <View style={[styles.container, props.style]}>
+    //   <TouchableWithoutFeedback onPress={toggleMenu}>
+    //     <Animated.View style={[styles.button, styles.menu, rotation]}>
+    //       <Entypo name="plus" size={40} color="blue" />
+    //     </Animated.View>
+    //   </TouchableWithoutFeedback>
+    // </View>
   );
 };
 
@@ -73,6 +136,13 @@ const styles = StyleSheet.create({
   },
   menu: {
     backgroundColor: '#FFF',
+  },
+  secondary: {
+    width: 48,
+    height: 48,
+    borderRadius: 48 / 2,
+    backgroundColor: '#FFF',
+    marginLeft: 6,
   },
 });
 

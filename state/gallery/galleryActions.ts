@@ -15,6 +15,11 @@ const updateActorProfilePhoto = (imageUri: string, actorId: string) => ({
   payload: { imageUri, actorId },
 });
 
+const uploadMovieProfilePic = (imageUri: string, movieId: string) => ({
+  type: constants.gallery.UPDATE_MOVIE_PROFILE_PHOTO,
+  payload: { imageUri, movieId },
+});
+
 const setGallery = (payload: any[]) => ({
   type: constants.gallery.SET_GALLERY,
   payload,
@@ -46,4 +51,5 @@ export const galleryActions = {
   deleteScene,
   deleteActorFromScene,
   updateActorProfilePhoto,
+  uploadMovieProfilePic,
 };

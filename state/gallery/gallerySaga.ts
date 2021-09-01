@@ -17,6 +17,7 @@ interface IAction {
     movieTitle: string;
     sceneTitle: string;
     actorId: string;
+    movieId: string;
   };
 }
 
@@ -46,6 +47,7 @@ function* handleUploadImage(action: IAction) {
 
 function* handleUpdateActorProfilePhoto(action: IAction) {
   try {
+    // yield put(actions.ui.setLoading(true));
     const { imageUri, actorId } = action.payload;
     const { task, url } = yield call(api.uploadImageToStorage, imageUri);
     const timeCreated: string = Date.parse(
@@ -53,6 +55,19 @@ function* handleUpdateActorProfilePhoto(action: IAction) {
     ).toString();
     const uid: string = yield select(state => state.user.user.uid);
     yield call(api.updateActorProfilePhoto, url, actorId);
+  } catch (err) {
+    console.log('error', err);
+  } finally {
+    // yield put(actions.ui.setLoading(false));
+  }
+}
+
+function* handleUpdateMovieProfilePhoto(action: IAction) {
+  try {
+    // yield put(actions.ui.setLoading(true));
+    const { imageUri, movieId } = action.payload;
+    const { url } = yield call(api.uploadImageToStorage, imageUri);
+    yield call(api.updateMovieProfilePhoto, url, movieId);
   } catch (err) {
     console.log('error', err);
   } finally {
@@ -129,6 +144,10 @@ export default function* gallerySagas() {
   yield takeLatest(
     constants.gallery.UPDATE_ACTOR_PROFILE_PHOTO,
     handleUpdateActorProfilePhoto,
+  );
+  yield takeLatest(
+    constants.gallery.UPDATE_MOVIE_PROFILE_PHOTO,
+    handleUpdateMovieProfilePhoto,
   );
   yield fork(watchGallery);
 }

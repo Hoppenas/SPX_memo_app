@@ -8,6 +8,11 @@ import {
   Pressable,
   Animated,
 } from 'react-native';
+import {
+  launchCamera,
+  launchImageLibrary,
+  ImageLibraryOptions,
+} from 'react-native-image-picker';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -43,6 +48,26 @@ const MovieScreen = ({ route }) => {
     });
   }, [navigation]);
 
+  const handleSubmitUpload = useCallback((imageUri, movieTitle) => {
+    dispatch(actions.gallery.uploadMovieProfilePic(imageUri, movieTitle));
+  }, []);
+
+  const handleLaunchCamera = () => {
+    const options = {
+      mediaType: 'photo',
+      cameraType: 'front',
+    };
+    launchCamera(options, response => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else {
+        const selectedImage = response.assets[0];
+        handleSubmitUpload(selectedImage.uri, movieId);
+      }
+    });
+  };
+
   const handleDelete = useCallback(movieId => {
     navigation.navigate('home');
     dispatch(actions.gallery.deleteMovie(movieId));
@@ -72,6 +97,7 @@ const MovieScreen = ({ route }) => {
         />
         <FloatingSingleButton
           openCreateNewSceneModal={openCreateNewSceneModal}
+          buttonTwoHandle={handleLaunchCamera}
         />
       </View>
     );
@@ -153,6 +179,7 @@ const MovieScreen = ({ route }) => {
         />
         <FloatingSingleButton
           openCreateNewSceneModal={openCreateNewSceneModal}
+          buttonTwoHandle={handleLaunchCamera}
         />
       </View>
     );
