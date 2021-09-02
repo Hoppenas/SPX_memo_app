@@ -46,8 +46,6 @@ const ChooseActorFromListModal: React.FC<ChooseActorFromListModalProps> =
 
     const addActorToScene = (values: IaddActorToScene) => {
       handleAddActor(values.id);
-      // if (handleAddActor) {
-      // }
       closeModal(false);
     };
 
@@ -106,7 +104,10 @@ const ChooseActorFromListModal: React.FC<ChooseActorFromListModalProps> =
                       styles.sceneContainer,
                       { opacity, transform: [{ scale }] },
                     ]}>
-                    <Image source={{ uri: uri }} style={styles.avatar} />
+                    <Image
+                      source={{ uri: item.prifilePic }}
+                      style={styles.avatar}
+                    />
                     <View>
                       <Text style={styles.sceneTitle}>{item.name}</Text>
                       <Text style={styles.sceneLocation}>{item.phone}</Text>
