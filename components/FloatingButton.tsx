@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 interface TFloatingButtonProps {
   openCreateMovieModal: () => void;
   openCreateActorModal: () => void;
+  style?: any;
 }
 
 const FloatingButton: React.FC<TFloatingButtonProps> = props => {

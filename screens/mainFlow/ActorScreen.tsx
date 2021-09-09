@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width,
-    // paddingTop: 20,
     alignItems: 'center',
   },
   shadowContainer: {

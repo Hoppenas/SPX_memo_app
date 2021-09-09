@@ -12,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 interface FloatingEditButtonProps {
   openEditActorModal: () => void;
   handleChangePhoto: () => void;
+  style?: any;
 }
 
 const FloatingEditButton: React.FC<FloatingEditButtonProps> = props => {
@@ -123,7 +124,6 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.3,
     shadowOffset: { width: 10, height: 10 },
-    // bottom: -640,
     elevation: 7,
     opacity: 0.8,
   },

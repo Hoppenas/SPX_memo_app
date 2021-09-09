@@ -33,7 +33,6 @@ const ActorsGridTile: React.FC<ActorsGridTileProps> = props => {
         </View>
         <View style={styles.gridTextContainer}>
           <Text style={styles.gridTextMain}>{actordata.name}</Text>
-          {/* <Text style={styles.gridTextSecond}>Lara croft, Tomb rider</Text> */}
         </View>
       </View>
     </Pressable>
@@ -52,7 +51,6 @@ const styles = StyleSheet.create({
   gridTextContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    // justifyContent: 'space-evenly',
     paddingLeft: 10,
   },
   gridTextMain: {

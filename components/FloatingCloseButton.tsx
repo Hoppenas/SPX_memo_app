@@ -9,6 +9,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 interface FloatingCloseButtonProps {
   setModalVisible: (event: unknown) => void;
+  style?: any;
 }
 
 const FloatingCloseButton: React.FC<FloatingCloseButtonProps> = props => {

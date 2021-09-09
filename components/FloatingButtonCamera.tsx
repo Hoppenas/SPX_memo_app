@@ -12,6 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 interface TFloatingButtonCameraProps {
   handleLaunchCamera: () => void;
   handleSelectImageFromLibrary: () => void;
+  style?: any;
 }
 
 const FloatingButtonCamera: React.FC<TFloatingButtonCameraProps> = props => {

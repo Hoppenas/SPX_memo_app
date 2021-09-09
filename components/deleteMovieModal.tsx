@@ -41,7 +41,6 @@ const DeleteModal: React.FC<DeleteModalProps> = props => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text>{t('movieScreen:deleteMovieTitle')}</Text>
-          {/* <Text>{movieTitle}?</Text> */}
           <View style={styles.buttonContainer}>
             <DefaultButton
               title={t('movieScreen:deleteMovie')}

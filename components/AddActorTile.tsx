@@ -11,14 +11,7 @@ const AddActorTile = props => {
         borderWidth: 0.5,
         borderColor: '#dddddd',
       }}>
-      <View style={styles.imageContainer}>
-        {/* <Image
-          style={styles.gridImage}
-          source={{
-            uri: 'https://media.timeout.com/images/103481015/630/472/image.jpg',
-          }}
-        /> */}
-      </View>
+      <View style={styles.imageContainer}></View>
       <View style={styles.gridTextContainer}>
         <Text style={styles.gridTextMain}>Add actor</Text>
       </View>

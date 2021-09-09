@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
 
 import { createMovieValidationSchema } from '../utils/validations';
-import DefaultInput from './DefaultInput';
 import DefaultButton from './DefaultButton';
 
 interface CreateMovieModalProps {

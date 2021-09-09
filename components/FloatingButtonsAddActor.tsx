@@ -11,6 +11,7 @@ import Feather from 'react-native-vector-icons/Feather';
 interface FloatingButtonAddActorProps {
   buttonOneHandle: () => void;
   buttonTwoHandle: () => void;
+  style?: any;
 }
 
 const FloatingButtonAddActor: React.FC<FloatingButtonAddActorProps> = props => {

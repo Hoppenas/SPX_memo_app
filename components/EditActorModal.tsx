@@ -40,7 +40,7 @@ const EditActorModal: React.FC<EditActorModalProps> = props => {
       phone: values.phone,
       email: values.email,
     });
-    closeModal(false);
+    closeModal();
   };
 
   return (

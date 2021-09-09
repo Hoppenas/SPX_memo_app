@@ -12,6 +12,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 interface TFloatingSingleButtonProps {
   openCreateNewSceneModal: () => void;
   buttonTwoHandle: () => void;
+  style?: any;
 }
 
 const FloatingSingleButton: React.FC<TFloatingSingleButtonProps> = props => {
