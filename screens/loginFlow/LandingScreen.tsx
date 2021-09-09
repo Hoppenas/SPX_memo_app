@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, ImageBackground } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-import theme from '../../styles/theme';
 import DefaultButton from '../../components/DefaultButton';
-// import landingBackgroundImg from '../../assets/pictures/pictures';
 import WrapperWithBackground from '../../components/WrapperWithBackground';
 
 const LandingScreen = props => {
@@ -14,10 +12,6 @@ const LandingScreen = props => {
 
   return (
     <View style={styles.screen}>
-      {/* <ImageBackground
-        source={landingBackgroundImg}
-        resizeMode="cover"
-        style={styles.image}> */}
       <WrapperWithBackground>
         <View style={styles.buttonContainer}>
           <DefaultButton
@@ -34,7 +28,6 @@ const LandingScreen = props => {
           />
         </View>
       </WrapperWithBackground>
-      {/* </ImageBackground> */}
     </View>
   );
 };

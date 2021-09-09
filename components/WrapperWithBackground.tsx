@@ -1,23 +1,25 @@
 import React from 'react';
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground } from 'react-native';
 import landingBackgroundImg from '../assets/pictures/pictures';
+import styled from 'styled-components/native';
 
-const WrapperWithBackground: React.FC = ({ children }) => {
+interface WrapperWithBackgroundProps {
+  children?: React.ReactNode;
+}
+
+const WrapperWithBackground: React.FC<WrapperWithBackgroundProps> = ({
+  children,
+}) => {
   return (
-    <ImageBackground
-      source={landingBackgroundImg}
-      resizeMode="cover"
-      style={styles.image}>
+    <BackgroundWrapper source={landingBackgroundImg} resizeMode="cover">
       {children}
-    </ImageBackground>
+    </BackgroundWrapper>
   );
 };
 
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+const BackgroundWrapper = styled(ImageBackground)`
+  flex: 1;
+  justify-content: center;
+`;
 
 export default WrapperWithBackground;
