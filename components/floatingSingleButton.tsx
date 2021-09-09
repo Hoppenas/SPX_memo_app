@@ -10,8 +10,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 
 interface TFloatingSingleButtonProps {
-  openCreateNewSceneModal: (event: unknown) => void;
-  buttonTwoHandle: (event: unknown) => void;
+  openCreateNewSceneModal: () => void;
+  buttonTwoHandle: () => void;
 }
 
 const FloatingSingleButton: React.FC<TFloatingSingleButtonProps> = props => {
@@ -102,14 +102,6 @@ const FloatingSingleButton: React.FC<TFloatingSingleButtonProps> = props => {
         </Animated.View>
       </TouchableWithoutFeedback>
     </View>
-
-    // <View style={[styles.container, props.style]}>
-    //   <TouchableWithoutFeedback onPress={toggleMenu}>
-    //     <Animated.View style={[styles.button, styles.menu, rotation]}>
-    //       <Entypo name="plus" size={40} color="blue" />
-    //     </Animated.View>
-    //   </TouchableWithoutFeedback>
-    // </View>
   );
 };
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components/native';
 
 import { actions } from '../state/actions';
 
@@ -14,17 +15,15 @@ const LogoutButton: React.FC = () => {
 
   return (
     <Pressable onPress={handleLogout}>
-      <View style={styles.container}>
+      <Container>
         <AntDesign name="logout" size={30} color="black" />
-      </View>
+      </Container>
     </Pressable>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    marginRight: 15,
-  },
-});
+const Container = styled(View)`
+  margin-right: 15px;
+`;
 
 export default LogoutButton;

@@ -10,8 +10,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 
 interface TFloatingButtonCameraProps {
-  handleLaunchCamera: (event: unknown) => void;
-  handleSelectImageFromLibrary: (event: unknown) => void;
+  handleLaunchCamera: () => void;
+  handleSelectImageFromLibrary: () => void;
 }
 
 const FloatingButtonCamera: React.FC<TFloatingButtonCameraProps> = props => {

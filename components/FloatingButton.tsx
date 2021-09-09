@@ -10,8 +10,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface TFloatingButtonProps {
-  openCreateMovieModal: (event: unknown) => void;
-  openCreateActorModal: (event: unknown) => void;
+  openCreateMovieModal: () => void;
+  openCreateActorModal: () => void;
 }
 
 const FloatingButton: React.FC<TFloatingButtonProps> = props => {

@@ -9,8 +9,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 
 interface FloatingButtonAddActorProps {
-  buttonOneHandle: (event: unknown) => void;
-  buttonTwoHandle: (event: unknown) => void;
+  buttonOneHandle: () => void;
+  buttonTwoHandle: () => void;
 }
 
 const FloatingButtonAddActor: React.FC<FloatingButtonAddActorProps> = props => {

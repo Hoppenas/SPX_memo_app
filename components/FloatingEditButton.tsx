@@ -10,8 +10,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface FloatingEditButtonProps {
-  openEditActorModal: (event: unknown) => void;
-  handleChangePhoto: (event: unknown) => void;
+  openEditActorModal: () => void;
+  handleChangePhoto: () => void;
 }
 
 const FloatingEditButton: React.FC<FloatingEditButtonProps> = props => {
@@ -28,7 +28,6 @@ const FloatingEditButton: React.FC<FloatingEditButtonProps> = props => {
     }).start();
 
     setOpen(!open);
-    // openEditActorModal();
   };
 
   const pinStyle = {
