@@ -1,53 +1,62 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components/native';
 
-const MovieGridTile = props => {
+interface MovieGridTileProps {
+  movieName: string;
+  movieId: string;
+  movieData: { profilePic: string };
+}
+
+const MovieGridTile: React.FC<MovieGridTileProps> = props => {
   const { movieName, movieId, movieData } = props;
   const navigation = useNavigation();
 
   return (
-    <Pressable
-      style={styles.gridItem}
+    <GridItem
       onPress={() => {
         navigation.navigate('movie', {
           movieId: movieId,
           movieTitle: movieName,
         });
       }}>
-      <View style={{ flex: 2 }}>
-        <Image
-          style={styles.gridImage}
+      <ImageContainer>
+        <GridImage
           source={{
             uri: movieData.profilePic,
           }}
         />
-      </View>
-      <View style={styles.gridText}>
+      </ImageContainer>
+      <GridText>
         <Text>{movieName}</Text>
-      </View>
-    </Pressable>
+      </GridText>
+    </GridItem>
   );
 };
 
-const styles = StyleSheet.create({
-  gridItem: {
-    height: 130,
-    width: 130,
-    marginLeft: 20,
-  },
-  gridImage: {
-    flex: 1,
-    width: null,
-    height: null,
-    resizeMode: 'cover',
-    borderRadius: 10,
-  },
-  gridText: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-});
+const GridItem = styled(Pressable)`
+  height: 130px;
+  width: 130px;
+  margin-left: 20px;
+`;
+
+const ImageContainer = styled(View)`
+  flex: 2;
+`;
+
+const GridImage = styled(Image)`
+  flex: 1;
+  width: null;
+  height: null;
+  resize-mode: cover;
+  border-radius: 10px;
+`;
+
+const GridText = styled(View)`
+  flex: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
 
 export default MovieGridTile;
